@@ -3,13 +3,15 @@ import { StyleSheet } from 'react-native'
 export default StyleSheet.create({
     categoryContainer: {
         width: 101,
-        // height: 135,
+        // width: 150,
         backgroundColor: "white",
         margin: 10,
     },
     container: {
-        width: 101,
-        height: 135,
+        // width: 101,
+        // height: 135,
+        width: 150,
+        height: 170,
         backgroundColor: "white",
         shadowColor: "#000",
         shadowOffset: {
@@ -23,19 +25,25 @@ export default StyleSheet.create({
         borderRadius: 10
     },
     imgStyle: {
-        height: 90,
-        width: 101,
+        // height: 90,
+        // width: 101,
+        height: 120,
+        width: 111,
+        alignSelf:"center"
         // borderTopRightRadius: 10,
         // borderTopLeftRadius: 10
     },
     categoryImageStyle: {
         width: 101,
         height: 101,
+        
     },  
     titleStyle: {
-        fontSize: 12,
+        fontSize: 16,
+        // fontSize: 12,
         fontFamily: "LexendDeca-Regular",
-        color: "#515C6F"
+        color: "#515C6F",
+        fontWeight:"bold"
     },
     priceStyle: {
         // color: "#515C6F",

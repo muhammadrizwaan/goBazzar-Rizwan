@@ -69,7 +69,7 @@ class Wishlist extends React.Component {
                                         style={stylesbtn.signInButton}
                                         onPress={() => navigation.navigate('My Profile')}
                                     >
-                                        <Text style={stylesbtn.signInButtonText}>Register</Text>
+                                        <Text style={stylesbtn.signInButtonText}>Login</Text>
                                     </Button>
                                 </View>
                     }

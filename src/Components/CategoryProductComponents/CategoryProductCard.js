@@ -80,6 +80,8 @@ export default ({
                                 hideOnPress: true,
                                 floating: true,
                                 style: {
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
                                     backgroundColor: "#E8E8E8",
                                     width: "90%",
                                     borderRadius: 30,

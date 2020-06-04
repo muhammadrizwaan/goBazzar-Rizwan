@@ -41,6 +41,7 @@ class StoreDetail extends React.Component {
             img: "",
             rating: 0,
         },
+        search: "",
         products: [],
         loading: false,
         products_loading: false
@@ -51,6 +52,9 @@ class StoreDetail extends React.Component {
         })
     }
     componentDidMount() {
+        if(this.state.search == ""){
+
+      
         this.setState({
             loading: true,
             products_loading: true
@@ -101,12 +105,96 @@ class StoreDetail extends React.Component {
                     BrandId: "",
                     StoreId: storeId,
                     FiltersortingId: "",
-                    Search: ""
+                    Search: this.state.search,
+                    pagenumber:"",
                 }
             })
             .then(res => {
-                if (res.data) {
-                    res.data.forEach(item => {
+                if (res.data.FilterProductList) {
+                    res.data.FilterProductList.forEach(item => {
+                        products.push({
+                            img: item.MainImage,
+                            post_title: item.ProductName,
+                            price: item.RegularPrice ? item.RegularPrice.toFixed(2) : 0,
+                            // catalogId: item.CatalogueCode,
+                            ID: item.ProductCode,
+                            // description: item.ProductDesc
+                        })
+                    })
+
+                    this.setState({
+                        products: products,
+                        products_loading: false
+                    })
+                }
+            })
+            .catch(err => {
+                this.setState({
+                    products_loading: false
+                })
+            })
+        }
+    }
+    handleProductList = (val) => {
+        let { search } = this.state;
+        search = val
+        // this.setState({
+        //     loading: true,
+        //     products_loading: true
+        // })
+        const { route } = this.props;
+
+        const storeId = route.params.id
+
+
+        // axios
+        //     .get(Apis.get_store_detail, {
+        //         params: {
+        //             storeId: storeId
+        //         }
+        //     })
+        //     .then(res => {
+        //         if (res.data) {
+
+        //             this.setState({
+        //                 store: {
+        //                     storeId: res.data.StoreId,
+        //                     storeName: res.data.StoreName,
+        //                     img: res.data.ImageURL,
+        //                     rating: res.data.RatingCount
+        //                 }
+        //             })
+        //         }
+        //         this.setState({
+        //             loading: false
+        //         })
+        //     })
+        //     .catch(err => {
+        //         this.setState({
+        //             loading: false
+        //         })
+        //     })
+
+        const products = []
+
+        // Get Products by store Id
+        axios
+            .get(Apis.filter_products, {
+                params: {
+                    MinPrice: 0,
+                    MaxPrice: "",
+                    CategoryId: "",
+                    CatalogId: "",
+                    BrandId: "",
+                    StoreId: storeId,
+                    FiltersortingId: "",
+                    Search: search,
+                    pagenumber:"",
+                }
+            })
+            .then(res => {
+                if (res.data.FilterProductList) {
+                    res.data.FilterProductList.forEach(item => {
                         products.push({
                             img: item.MainImage,
                             post_title: item.ProductName,
@@ -141,8 +229,13 @@ class StoreDetail extends React.Component {
             products_loading: false
         })
     }
+    handleTextChange = (val) => {
+        this.setState({
+            search: val
+        })
+    }
     render() {
-        const { activeTabKey, loading, store, products_loading, products } = this.state
+        const { activeTabKey, loading, store, products_loading, products, search } = this.state
         return (
             <Container>
                 <SafeAreaView />
@@ -162,6 +255,9 @@ class StoreDetail extends React.Component {
                                 activeTabKey={this.state.activeTabKey}
                                 changeTab={this.changeTab}
                                 store={store}
+                                search={search}
+                                handleTextChange={this.handleTextChange}
+                                handleProductList={this.handleProductList}
                             />
                     }
 

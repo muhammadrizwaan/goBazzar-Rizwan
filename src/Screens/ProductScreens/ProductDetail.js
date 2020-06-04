@@ -64,7 +64,6 @@ class ProductDetail extends React.PureComponent {
         const product_id = route.params.id
         this.setState({ loading: true });
 
-        // console.log(product_id);
         const related_products = [];
         if (product_id) {
             axios
@@ -105,7 +104,7 @@ class ProductDetail extends React.PureComponent {
                             otherImages.push(image.MoreURLs)
                         })
 
-                        
+
                         product.images = product.images.concat(otherImages)
                         // console.warn(product.images);
 
@@ -386,6 +385,8 @@ class ProductDetail extends React.PureComponent {
                 hideOnPress: true,
                 floating: true,
                 style: {
+                    justifyContent: 'center',
+                    alignItems: 'center',
                     backgroundColor: "#E8E8E8",
                     width: "90%",
                     borderRadius: 30,

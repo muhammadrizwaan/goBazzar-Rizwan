@@ -35,6 +35,7 @@ export default ({ products, }) => {
                 </View>
             )}
             renderItem={({ item }) => (
+                
                 <ProductFeedCard
                     product={item}
                     navigation={navigation}

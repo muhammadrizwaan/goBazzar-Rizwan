@@ -39,6 +39,19 @@ export const stopLaptopsLoading = () => ({
     type: "STOP_LAPTOPS_LOADING"
 })
 
+
+//new lines
+
+export const startMobilesLoading = () => ({
+    type: "START_MOBILES_LOADING"
+})
+
+export const stopMobilesLoading = () => ({
+    type: "STOP_MOBILES_LOADING"
+})
+
+// end lines
+
 export const startWatchesLoading = () => ({
     type: "START_WATCHES_LOADING"
 })

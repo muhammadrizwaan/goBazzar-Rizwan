@@ -12,6 +12,10 @@ import {
     stopTopSearchedProductsLoading,
     startLaptopsLoading,
     stopLaptopsLoading,
+    //new lines
+    startMobilesLoading,
+    stopMobilesLoading,
+
     startWatchesLoading,
     stopWatchesLoading,
     startTopCataloguesLoading,
@@ -34,6 +38,10 @@ export const setTopDeals = (products) => ({
 
 export const setLaptops = (products) => ({
     type: "SET_LAPTOPS",
+    products
+})
+export const setMobiles = (products) => ({
+    type: "SET_MOBILES",
     products
 })
 
@@ -100,17 +108,14 @@ export const fetchTopDeals = () => {
                             price: deal.Price ? deal.Price : "100"
                         })
                     })
-
                     dispatch(setTopDeals(top_deals))
 
                 }
-
                 dispatch(stopTopDealsLoading())
             })
             .catch(err => {
                 dispatch(stopTopDealsLoading())
             })
-
     }
 }
 
@@ -119,7 +124,7 @@ export const fetchRecommendedProducts = () => {
     return (dispatch, getState) => {
         const userId = getState().auth.user.userId
         if (userId) {
-
+            console.log('storeid', userId)
             dispatch(startRecommendedProductsLoading())
 
             const recommended_products = []
@@ -132,19 +137,25 @@ export const fetchRecommendedProducts = () => {
                 })
                 .then((res) => {
                     if (res.data) {
+                        console.log('resData', res.data)
                         res.data.forEach(deal => {
                             recommended_products.push({
                                 ID: deal.ProductId,
                                 post_title: deal.ProductName,
-                                img: deal.ProductImages.ImageURL ? deal.ProductImages.ImageURL : "https://www.apexrfc.com/web/sites/default/files/2020-03/product_image_not_available.png",
-                                price: deal.Price ? deal.Price : "100"
+                                img: deal.MainImage ? deal.MainImage : "https://www.apexrfc.com/web/sites/default/files/2020-03/product_image_not_available.png",
+                                // price: deal.Price ? deal.Price : "100"
+                                price: deal.OfferPrice ? deal.OfferPrice : deal.RegularPrice
                             })
+                            // recommended_products.push({
+                            //     ID: deal.ProductId,
+                            //     post_title: deal.ProductName,
+                            //     img: deal.ProductImages.ImageURL ? deal.ProductImages.ImageURL : "https://www.apexrfc.com/web/sites/default/files/2020-03/product_image_not_available.png",
+                            //     price: deal.Price ? deal.Price : "100"
+                            // })
                         })
-
                         dispatch(setRecommendedProducts(recommended_products))
 
                     }
-
                     dispatch(stopRecommendedProductsLoading())
                 })
                 .catch(err => {
@@ -160,11 +171,13 @@ export const fetchRecommendedProducts = () => {
 export const fetchLaptopsAndWatches = () => {
     return (dispatch, getState) => {
         dispatch(startLaptopsLoading());
+        dispatch(startMobilesLoading());
         dispatch(startWatchesLoading());
 
 
         const laptops = []
         const watches = []
+        const mobiles = []
 
         axios
             .get(Apis.get_laptops_and_watches)
@@ -183,6 +196,18 @@ export const fetchLaptopsAndWatches = () => {
 
                     dispatch(setLaptops(laptops))
 
+                    res.data.TopMobiles.forEach(deal => {
+                        mobiles.push({
+                            ID: deal.ProductCode,
+                            post_title: deal.ProductName,
+                            img: deal.MainImage ? deal.MainImage : "https://www.apexrfc.com/web/sites/default/files/2020-03/product_image_not_available.png",
+                            price: deal.RegularPrice ? deal.RegularPrice.toFixed(2) : "100",
+                            catalogId: deal.CatalogueCode,
+                        })
+                    })
+
+                    dispatch(setMobiles(mobiles))
+
                     res.data.TopWatches.forEach(deal => {
                         watches.push({
                             ID: deal.ProductCode,
@@ -200,10 +225,12 @@ export const fetchLaptopsAndWatches = () => {
                 }
 
                 dispatch(stopLaptopsLoading())
+                dispatch(stopMobilesLoading())
                 dispatch(stopWatchesLoading())
             })
             .catch(err => {
                 dispatch(stopLaptopsLoading());
+                dispatch(stopMobilesLoading())
                 dispatch(stopWatchesLoading())
             })
     }
@@ -288,7 +315,8 @@ export const fetchTopSearchedProducts = () => {
                             ID: deal.ProductId,
                             post_title: deal.ProductName,
                             img: deal.MainImage ? deal.MainImage : "https://www.apexrfc.com/web/sites/default/files/2020-03/product_image_not_available.png",
-                            price: deal.OfferPrice ? deal.OfferPrice : "100"
+                            // price: deal.OfferPrice ? deal.OfferPrice : "100"
+                            price: deal.OfferPrice ? deal.OfferPrice : deal.RegularPrice
                         })
                     })
 

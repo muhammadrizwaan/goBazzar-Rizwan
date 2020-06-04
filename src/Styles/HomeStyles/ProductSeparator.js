@@ -8,10 +8,11 @@ export default StyleSheet.create({
         
     },
     titleStyle: {
-        fontSize: 18,
+        // fontSize: 18,
+        fontSize: 20,
         color: "#515C6F",
         fontWeight: 'bold',
-        fontFamily: "LexendDeca-Regular"
+        fontFamily: "LexendDeca-Regular",
     },
     buttonStyle: {
         alignSelf: "center",

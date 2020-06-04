@@ -8,15 +8,16 @@ const initialState = {
     top_searched_products: [],
     top_catalogues: [],
     laptops: [],
-    watches: []
+    watches: [],
+    mobiles: []
 }
 
-async function saveLastViewedProduct (products) {
-    await AsyncStorage.setItem("lastviewed_products", JSON.stringify(products))    
+async function saveLastViewedProduct(products) {
+    await AsyncStorage.setItem("lastviewed_products", JSON.stringify(products))
 }
 
 export default (state = initialState, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case "SET_SUGGESTION_PRODUCTS":
             return {
                 ...state,
@@ -42,6 +43,11 @@ export default (state = initialState, action) => {
                 ...state,
                 laptops: action.products
             }
+        case "SET_MOBILES":
+            return {
+                ...state,
+                mobiles: action.products
+            }
         case "SET_WATCHES":
             return {
                 ...state,
@@ -59,7 +65,7 @@ export default (state = initialState, action) => {
             }
         case "ADD_LAST_VIEWED_PRODUCT":
             const last_viewed_products = state.last_viewed
-            if(last_viewed_products.length > 4) {
+            if (last_viewed_products.length > 4) {
                 last_viewed_products.pop()
             }
             const upd_products = last_viewed_products.filter(product => product.ID !== action.new_product.ID);

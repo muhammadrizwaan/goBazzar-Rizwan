@@ -44,7 +44,7 @@ class CategoryFilter extends React.Component {
                         </Button>
                     }
                 >
-                    <MenuItem
+                    {/* <MenuItem
                         style={{
                             backgroundColor: filtersortingId === 1 ? "#8EA625" : "white"
                         }}
@@ -107,7 +107,7 @@ class CategoryFilter extends React.Component {
                                 color: filtersortingId === 4 ? "white" : "black"
                             }}
                         >Sort by latest</Text>
-                    </MenuItem>
+                    </MenuItem> */}
                     <MenuItem
                         style={{
                             backgroundColor: filtersortingId === 5 ? "#8EA625" : "white"

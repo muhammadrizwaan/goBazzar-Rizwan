@@ -57,6 +57,7 @@ export const startSetCatalogCategories = (catalogId, categoryId = "", categoryNa
             })
             .then((res) => {
                 if (res.data) {
+                    console.log(res.data)
                     res.data.forEach(category => {
                         categories.push({
                             id: category.CategoryId,

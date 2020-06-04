@@ -62,7 +62,7 @@ class PostReviewForm extends React.Component {
             axios
                 .post("http://13.68.110.5:8090/api/Mobile/AddUserReview", {
                     ProductCode: product_id,
-                    Email: this.state.email.trim(),
+                    Email: this.props.email.trim(),
                     Name: this.state.name.trim(),
                     Rating: this.state.rating,
                     Description: this.state.review.trim(),
@@ -87,6 +87,8 @@ class PostReviewForm extends React.Component {
                         hideOnPress: true,
                         floating: true,
                         style: {
+                            justifyContent: 'center',
+                            alignItems: 'center',
                             backgroundColor: "#E8E8E8",
                             width: "90%",
                             borderRadius: 30,
@@ -157,6 +159,7 @@ class PostReviewForm extends React.Component {
                                     placeholderTextColor="#515C6F"
                                     style={styles.inputBox}
                                     value={email}
+                                    editable={false}
                                     autoFocus={false}
                                     autoCapitalize={"none"}
                                     onChangeText={val => this.onChangeText("email", val)}
@@ -224,7 +227,7 @@ class PostReviewForm extends React.Component {
                                         loading ?
                                             <Spinner color="white" size={20} />
                                             :
-                                            <Text style={styles.signInButtonText}>
+                                            <Text style={[styles.signInButtonText,{alignSelf:'center'}]}>
                                                 {isPosted ? "Review Posted" : "Post"}
                                             </Text>
                                     }
@@ -248,7 +251,7 @@ class PostReviewForm extends React.Component {
                                     style={stylesbtn.signInButton}
                                     onPress={() => navigation.navigate('My Profile')}
                                 >
-                                    <Text style={stylesbtn.signInButtonText}>Register</Text>
+                                    <Text style={stylesbtn.signInButtonText}>Login</Text>
                                 </Button>
                             </View>
                     }

@@ -86,7 +86,7 @@ class Home extends PureComponent {
                     <ProductHeadingSeparator
                         title="Top Deals"
                         buttonTitle="more"
-                        buttonAction={() => { }}
+                        buttonAction={() => { props.navigation.navigate("TopDealsScreen") }}
                     />
                     {props.top_deals_loading ?
                         <ProductLoader
@@ -131,11 +131,11 @@ class Home extends PureComponent {
 
 
 
-                    {/* <ProductHeadingSeparator
+                    <ProductHeadingSeparator
                         title="Mobiles"
                         buttonTitle="more"
                         buttonAction={() => {  }}
-                        // buttonAction={() => { props.navigation.navigate("LaptopsScreen") }}
+                        buttonAction={() => { props.navigation.navigate("MobileScreens") }}
                     />
                     {props.mobiles_loading ?
                         <ProductLoader
@@ -143,9 +143,9 @@ class Home extends PureComponent {
                         />
                         :
                         <ProductScroll
-                            products={props.laptops.slice(0, 4)}
+                            products={props.mobiles.slice(0, 4)}
                         />
-                    } */}
+                    }
 
 
 
@@ -180,6 +180,7 @@ class Home extends PureComponent {
                             />
                             :
                             <ProductScroll
+                            // products={props.top_deals_products}
                                 products={props.recommended_products}
                             />}
                     </View>}
@@ -208,8 +209,10 @@ const mapStateToProps = state => ({
     top_categories: state.all_catalogs.top_categories,
     laptops: state.homeProducts.laptops,
     watches: state.homeProducts.watches,
+    //new lines
     mobiles:state.homeProducts.mobiles,
     mobiles_loading:state.loader.mobiles_loading,
+
     laptops_loading: state.loader.laptops_loading,
     watches_loading: state.loader.watches_loading,
     top_catalogs_loading: state.loader.top_catalogs_loading,

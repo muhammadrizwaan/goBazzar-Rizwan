@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native"
 export default StyleSheet.create({
     container: {
         paddingVertical: 15,
-        paddingHorizontal: 15,
+        // paddingHorizontal: 15,
         backgroundColor: "white",
         borderRadius: 25,
         shadowColor: "#000",
@@ -28,6 +28,8 @@ export default StyleSheet.create({
         fontWeight: "bold"
     },
     product_name: {
+        marginBottom:5,
+        paddingHorizontal: 15,
         fontSize: 12,
         fontFamily: "LexendDeca-Regular",
         color: "#515C6F",

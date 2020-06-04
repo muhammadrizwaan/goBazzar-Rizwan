@@ -11,27 +11,28 @@ import SearchProductCard from "../../Components/SearchComponents/SearchProductCa
 import { connect } from "react-redux"
 import { useNavigation } from "@react-navigation/core"
 
-const LaptopsScreen = ({
-    laptops,
-    laptops_loading
+const TopDealsScreen = ({   
+    top_deals,
+    // top_deals_products,
+    top_deals_loading
 }) => {
     const navigation = useNavigation()
     return (
         <Container style={{ backgroundColor: "white" }}>
             <SafeAreaView />
-
+    
             <CategoryHeader
                 navigation={navigation}
-                heading={"Laptops"}
+                heading={"Top Deals"}
             />
-
+    
             <CategoryProductsLoader
-                loading={laptops_loading}
+                loading={top_deals_loading}
             />
-            {!laptops_loading && <FlatList
+            {!top_deals_loading && <FlatList
                 contentContainerStyle={{ alignItems: "center" }}
                 // numColumns={2}
-                data={laptops}
+                data={top_deals}
                 keyExtractor={item => item.ID}
                 renderItem={({ item }) => (
                     <SearchProductCard
@@ -59,8 +60,8 @@ const LaptopsScreen = ({
 }
 
 const mapStateToProps = state => ({
-    laptops: state.homeProducts.laptops,
-    laptops_loading: state.loader.laptops_loading,
+    top_deals_loading: state.loader.top_deals_loading,
+    top_deals: state.homeProducts.top_deals,
 })
 
-export default connect(mapStateToProps)(LaptopsScreen)
+export default connect(mapStateToProps)(TopDealsScreen)

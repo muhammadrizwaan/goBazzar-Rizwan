@@ -16,7 +16,8 @@ export default class extends PureComponent {
                     id: category.id
                 })}
             >
-                <View style={{ ...styles.container, height: 150 }}>
+                <View style={{ ...styles.container}}>
+                {/* <View style={{ ...styles.container, height: 150 }}> */}
                     <Image
                         source={{ uri: category.img }}
                         style={styles.imgStyle}
@@ -33,7 +34,7 @@ export default class extends PureComponent {
                         >
                             {category.name}
                         </Text>
-                        {/* <Text style={styles.priceStyle} numberOfLines={1}>{`${product.price}`}</Text> */}
+                       
                     </View>
                 </View>
             </TouchableOpacity>

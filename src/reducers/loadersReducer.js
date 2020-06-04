@@ -4,7 +4,9 @@ const initialState = {
     recommended_products_loading: false,
     top_searched_products_loading: true,
     laptops_loading: false,
+    //new lines
     mobiles_loading: false,
+
     watches_loading: false,
     top_catalogs_loading: false,
     lastviewed_products_loading: false
@@ -33,7 +35,7 @@ export default (state = initialState, action) => {
         case "STOP_LAPTOPS_LOADING":
             return { ...state, laptops_loading: false }
 
-
+        //new lines
         case "START_MOBILES_LOADING":
             return { ...state, mobiles_loading: true }
         case "STOP_MOBILES_LOADING":

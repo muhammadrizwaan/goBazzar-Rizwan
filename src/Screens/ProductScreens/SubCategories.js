@@ -73,7 +73,8 @@ class SubCategories extends React.Component {
                 if(res.data) {
                     res.data.forEach(product => {
                         products.push({
-                            ID: product.ProductId,
+                            // ID: product.ProductId,
+                            ID: product.ProductCode,
                             img:  product.MainImage,
                             // img: product.ImageURL ? product.ImageURL : "https://www.apexrfc.com/web/sites/default/files/2020-03/product_image_not_available.png",
                             post_title: product.ProductName,

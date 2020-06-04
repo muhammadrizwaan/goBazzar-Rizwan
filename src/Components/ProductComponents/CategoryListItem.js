@@ -24,8 +24,10 @@ export default ({category = {}}) => {
                         uri: category.imageURL
                     }}
                     style={{
-                        width: 25,
-                        height: 25
+                        // width: 25,
+                        // height: 25
+                        width: 30,
+                        height: 30
                     }}
                 />
             </Left>

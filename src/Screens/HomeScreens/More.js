@@ -70,7 +70,7 @@ const More = ({ navigation }) => (
                     <MenuButtonTemplate
                         text="Feedback"
                         indicatorNumber={""}
-                        onPress={() => { }}
+                        onPress={() => navigation.navigate("FeedbackScreen")}
                     />
 
                     <View style={styles.lineBreak} />

@@ -3,7 +3,7 @@ import { FlatList, View, Text, SafeAreaView } from 'react-native'
 import { Container, Content } from 'native-base'
 import CategoryHeader from '../../Components/CategoryProductComponents/CategoryHeader'
 import CategoryFilter from '../../Components/CategoryProductComponents/CategoryFilter'
-import products from '../../Samples/products'
+// import products from '../../Samples/products'
 import CategoryProductCard from '../../Components/CategoryProductComponents/CategoryProductCard'
 import CategoryProductsLoader from "../../Components/HomeComponents/ProductLoader"
 import axios from "axios"
@@ -31,7 +31,6 @@ class CategoryProducts extends React.Component {
 
         this.props.filterChangeCatalogId(catalogId, catalogName);
         this.props.startSetCatalogCategories(catalogId, id, heading);
-        // this.props.filterChangeCategoryId(id, heading)
 
         const products = [];
         axios

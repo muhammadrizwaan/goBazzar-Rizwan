@@ -12,7 +12,8 @@ export default () => (
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "white",
+        backgroundColor: "#0A3761",
+        // backgroundColor: "white",
         height: 73,
         alignItems: "center",
         justifyContent: "center"

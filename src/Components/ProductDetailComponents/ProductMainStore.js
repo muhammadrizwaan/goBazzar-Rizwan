@@ -36,13 +36,13 @@ export default ({
             <Body style={{ borderBottomWidth: 0 }}>
                 <View >
                     {/* <Text style={styles.product_name}>{store.name}</Text> */}
-                    <Text
+                    {store.offerPrice===1?<View></View>:<Text
                         style={{
                             ...styles.product_price,
                             textDecorationLine: store.offerPrice ? 'line-through' : "none",
                             color: store.offerPrice ? "#C9C9C9" : "#8EA625"
                         }}
-                    >{`AED ${store.regularPrice}`}</Text>
+                    >{`AED ${store.regularPrice}`}</Text>}
 
                     <Text
                         style={{
@@ -50,7 +50,7 @@ export default ({
                             display: store.offerPrice ? "flex" : "none"
                         }}
                     >
-                        {`AED ${store.offerPrice}`}
+                        {store.offerPrice===1?`AED ${store.regularPrice}`:`AED ${store.offerPrice}`}
                     </Text>
                     {/* <Text style={styles.product_name}>Free Shipping</Text> */}
                 </View>

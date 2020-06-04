@@ -53,6 +53,8 @@ class ProductTemplate extends React.Component {
                                 hideOnPress: true,
                                 floating: true,
                                 style: {
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
                                     backgroundColor: "#ff9800"
                                 }
                             });
@@ -65,7 +67,7 @@ class ProductTemplate extends React.Component {
                     alert(err);
                 })
 
-        } 
+        }
     }
     render() {
         const { navigation, wishlist } = this.props

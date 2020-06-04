@@ -11,6 +11,8 @@ import SubCategories from "../Screens/ProductScreens/SubCategories"
 import CategoryProducts from '../Screens/ProductScreens/CategoryProducts'
 import PostReview from "../Screens/ProductScreens/PostReview"
 import CompareScreen from "../Screens/MoreScreens/Compare"
+import FeedbackScreen from "../Screens/MoreScreens/Feedback"
+import FAQsScreen from "../Screens/MoreScreens/FAQs"
 import CompareProductsScreen from "../Screens/MoreScreens/CompareProductsScreen"
 import EditProfile from "../Screens/ProfileScreens/EditProfileScreen"
 import SignUpScreen from "../Screens/ProfileScreens/SignUpScreen"
@@ -21,6 +23,8 @@ import StoreDetail from "../Screens/MoreScreens/StoreDetail"
 import ResetPasswordScreen from "../Screens/ProfileScreens/ResetPasswordScreen"
 import WatchesScreen from "../Screens/ProductScreens/WatchesScreen"
 import LaptopsScreen from "../Screens/ProductScreens/LaptopScreen"
+import MobileScreens from "../Screens/ProductScreens/MobileScreens"
+import TopDealsScreen from "../Screens/ProductScreens/TopDealsScreen"
 
 export default ({ navigation, route }) => {
     navigation.setOptions({ tabBarVisible: route.state ? route.state.index > 0 ? false : true : null });
@@ -51,9 +55,25 @@ export default ({ navigation, route }) => {
                 name="LaptopsScreen"
                 component={LaptopsScreen}
             />
+            <Screen 
+                name="MobileScreens"
+                component={MobileScreens}
+            />
+            <Screen 
+                name="TopDealsScreen"
+                component={TopDealsScreen}
+            />
             <Screen
                 name="CompareScreen"
                 component={CompareScreen}
+            />
+            <Screen
+                name="FeedbackScreen"
+                component={FeedbackScreen}
+            />
+            <Screen
+                name="FAQsScreen"
+                component={FAQsScreen}
             />
             <Screen
                 name="SubCategories"

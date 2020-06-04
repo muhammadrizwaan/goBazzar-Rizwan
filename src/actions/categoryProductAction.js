@@ -48,12 +48,13 @@ export const applyFilters = () => {
                     BrandId: "",
                     StoreId: "",
                     FiltersortingId: filters.filtersortingId,
-                    Search: ""
+                    Search: "",
+                    pagenumber:"",
                 }
             }) 
             .then(res => {
-                if(res.data) {
-                    res.data.forEach(item => {
+                if(res.data.FilterProductList) {
+                    res.data.FilterProductList.forEach(item => {
                         products.push({
                             ID: item.ProductCode,
                             img: item.MainImage,

@@ -1,7 +1,7 @@
 import React from "react"
 import { View, Text, Image, TouchableOpacity } from "react-native"
 // import StoreHeader from "../CategoryProductComponents/CategoryHeader"
-import { Item, Left, Right, Body } from "native-base"
+import { Item, Left, Right, Body,Input, Button } from "native-base"
 
 import StarRating from "react-native-star-rating"
 
@@ -13,7 +13,12 @@ import IoniIcons from "react-native-vector-icons/Ionicons"
 
 import StoreSearch from "./StoreSearch"
 
-export default ({ navigation, activeTabKey, changeTab, store }) => (
+// import { Input, Button } from 'native-base'
+import Searchstyles from '../../Styles/HomeStyles/SearchBarStyles'
+// import IoniIcons from "react-native-vector-icons/Ionicons"
+// import { Item, ListItem, Right, Left, Body } from "native-base"
+
+export default ({ navigation, activeTabKey, changeTab, store,search,handleTextChange,handleProductList  }) => (
     <View style={styles.container}>
 
 
@@ -28,10 +33,62 @@ export default ({ navigation, activeTabKey, changeTab, store }) => (
         <Text style={styles.storeName}>{store.storeName}</Text>
 
 
+    {/* add new lines */}
+    <Item
+        style={{
+            ...Searchstyles.container,
+            borderRadius: 20,
+            marginLeft: 20,
+            marginRight: 20,
+            height: 40,
+            marginTop: 20
+        }}
+    >
+        <Button transparent onPress={() => navigation.goBack()}>
+            <IoniIcons
+                name="ios-search"
+                size={20}
+                style={{
+                    marginTop: 4,
+                    color: "black",
+                    opacity: 0.4,
+                }}
+            />
+        </Button>
+
+        <Input
+            placeholder="Search Products"
+            placeholderTextColor="#000000"
+            style={{
+                ...Searchstyles.inputStyle,
+                marginLeft: 5
+            }}
+            // autoFocus={true}
+            value={search}
+                onChangeText={(val) => {
+                    handleTextChange(val)
+                    handleProductList(val)
+                }}
+            returnKeyType="search"
+            // onSubmitEditing={handleOnSearch}
+            autoCapitalize={"none"}
+        // keyboardType="web-search"
+        />
+
+    </Item>
+
+
+
+
+
+
+
 
         {/* <View style={{ ...productStyles.toolsContainer, alignSelf: "center", marginVertical: 10 }}> */}
 
-            <StoreSearch />
+            {/* <StoreSearch /> */}
+
+
             {/* <StarRating
                 disabled={false}
                 maxStars={5}
