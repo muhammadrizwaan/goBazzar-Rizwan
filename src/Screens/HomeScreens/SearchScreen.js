@@ -26,6 +26,8 @@ import { removeProductFromUserWishlist, addProductToUserWishlist } from "../../a
 
 import { filterChangeCatalogId } from "../../actions/filterActions"
 
+import { setCategoryProducts } from "../../actions/categoryProductAction"
+
 
 class SearchScreen extends React.Component {
     state = {
@@ -46,13 +48,57 @@ class SearchScreen extends React.Component {
     }
 
     handleApplyFilter = () => {
-            let Search = this.state.search 
+        this.setState({ loading: true, isSearched: true });
+
+        const { filters } = this.props
+        let Search = this.state.search;
+
+        axios
+            .get(Apis.filter_products, {
+                params: {
+                    MinPrice: filters.MinPrice,
+                    MaxPrice: filters.MaxPrice,
+                    CategoryId: filters.CategoryId,
+                    CatalogId: filters.CatalogId,
+                    BrandId: "",
+                    StoreId: "",
+                    FiltersortingId: filters.filtersortingId,
+                    Search: Search,
+                    pagenumber: "",
+                }
+            })
+            .then(res => {
+                if (res.data.FilterProductList) {
+                    res.data.FilterProductList.forEach(item => {
+                        products.push({
+                            img: item.MainImage,
+                            post_title: item.ProductName,
+                            price: item.RegularPrice ? item.RegularPrice.toFixed(2) : 0,
+                            catalogId: item.CatalogueCode,
+                            ID: item.ProductCode,
+                            description: item.ProductDesc
+                        })
+                    })
+
+                    this.props.setCategoryProducts(products)
+                }
+                this.setState({
+                    loading: false
+                })
+            })
+            .catch(err => {
+                alert(err)
+                this.setState({
+                    loading: false
+                })
+            })
     }
 
     handleOnSearch = (val) => {
+
         let { search, catalogId } = this.state;
         const { filters, filtersortingId } = this.props;
-        search = val
+        Search = val
         if (search.trim() < 1) {
             Keyboard.dismiss()
         } else {
@@ -61,16 +107,22 @@ class SearchScreen extends React.Component {
             const products = [];
 
             axios
-                .get(Apis.search_product, {
+                .get(Apis.filter_products, {
                     params: {
-                        search: search,
-                        CatalogueCode: catalogId
+                        MinPrice: filters.MinPrice,
+                        MaxPrice: filters.MaxPrice,
+                        CategoryId: filters.CategoryId,
+                        CatalogId: filters.CatalogId,
+                        BrandId: "",
+                        StoreId: "",
+                        FiltersortingId: filters.filtersortingId,
+                        Search: Search,
+                        pagenumber: "",
                     }
                 })
-                .then((res) => {
-
-                    if (res.data) {
-                        res.data.forEach(item => {
+                .then(res => {
+                    if (res.data.FilterProductList) {
+                        res.data.FilterProductList.forEach(item => {
                             products.push({
                                 img: item.MainImage,
                                 post_title: item.ProductName,
@@ -81,11 +133,11 @@ class SearchScreen extends React.Component {
                             })
                         })
 
-                        this.setState({
-                            products: products
-                        })
+                        // this.setState({
+                        //     products: products
+                        // })
+                        this.props.setCategoryProducts(products)
                     }
-                    this.props.setCategoryProducts(products)
                     this.setState({
                         loading: false
                     })
@@ -118,11 +170,16 @@ class SearchScreen extends React.Component {
         )
     }
 
+
+
     render() {
-        const { route, category_product_loading, category_products, userId } = this.props
+        const { 
+            route, category_product_loading, category_products, userId,
+            products
+        } = this.props
         const { navigation } = this.props;
         const { filters, filtersortingId } = this.props;
-        const { loading, isSearched, search, products } = this.state;
+        const { loading, isSearched, search } = this.state;
 
         console.warn(this.props.filters.CatalogId);
         console.warn(this.props.filters.catalogImage)
@@ -137,14 +194,15 @@ class SearchScreen extends React.Component {
                         search={search}
                         handleTextChange={this.handleTextChange}
                         handleOnSearch={this.handleOnSearch}
-                        isCatalogSelected={this.state.isCatalogSelected}
+                        isCatalogSelected={this.props.filters.CatalogId ? true : false}
                         all_catalogs={this.props.all_catalogs}
                         catalogId={this.props.filters.CatalogId}
-                        catalogImage={this.props.filters.catalogImage ? "" : ""}
+                        catalogImage={this.props.filters.catalogImage}
                         handleSetSelectedCatalog={this.handleSetSelectedCatalog}
                     />
                     <CategoryFilter
                         navigation={navigation}
+                        handleApplyFilter={handleApplyFilter}
                     />
                     <View style={{ margin: 10, }}>
                         <Text>{category_products.length} results</Text>
@@ -177,12 +235,14 @@ const mapStateToProps = (state) => ({
     category_product_loading: state.categoryProducts.category_product_loading,
     category_products: state.categoryProducts.category_products,
     filters: state.productFilters,
+    products: state.categoryProducts.category_products
 })
 
 
 const mapDispatchToProps = (dispatch) => ({
-    setCategoryProducts: (products) => dispatch(setCategoryProducts(products)),
+    // setCategoryProducts: (products) => dispatch(setCategoryProducts(products)),
     filterChangeCatalogId: (catalogId, catalogName, catalogImage) => dispatch(filterChangeCatalogId(catalogId, catalogName, catalogImage)),
+    setCategoryProducts: (products) => dispatch(setCategoryProducts(products))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchScreen)
