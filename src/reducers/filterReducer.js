@@ -7,6 +7,7 @@ const initialState = {
     CatalogName: "",
     BrandId: "",
     StoreId: "",
+    catalogImage: "",
     filtersortingId: 1,
     catalog_categories: [],
     isCatalogCategoriesLoading: false
@@ -24,7 +25,8 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 CategoryId: action.categoryId,
-                CategoryName: action.categoryName
+                CategoryName: action.categoryName,
+                catalogImage: action.catalogImage
             }
         case "FILTER_CHANGE_CATALOG_ID":
             return {

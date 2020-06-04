@@ -27,9 +27,9 @@ class CategoryProducts extends React.Component {
     componentDidMount() {
         this.props.startCategoryProductLoading()
         const { route, userId } = this.props
-        const { id, catalogId, catalogName, heading } = route.params;
+        const { id, catalogId, catalogName, heading, catalogImage } = route.params;
 
-        this.props.filterChangeCatalogId(catalogId, catalogName);
+        this.props.filterChangeCatalogId(catalogId, catalogName, catalogImage);
         this.props.startSetCatalogCategories(catalogId, id, heading);
 
         const products = [];
@@ -181,7 +181,7 @@ const mapDispatchToProps = (dispatch) => ({
     stopCategoryProductLoading: () => dispatch(stopCategoryProductLoading()),
     setCategoryProducts: (products) => dispatch(setCategoryProducts(products)),
     clearCategoryProducts: () => dispatch(clearCategoryProducts()),
-    filterChangeCatalogId: (catalogId, catalogName) => dispatch(filterChangeCatalogId(catalogId, catalogName)),
+    filterChangeCatalogId: (catalogId, catalogName, catalogImage) => dispatch(filterChangeCatalogId(catalogId, catalogName, catalogImage)),
     filterChangeCategoryId: (categoryId, categoryName) => dispatch(filterChangeCategoryId(categoryId, categoryName)),
     startSetCatalogCategories: (catalogId, categoryId, categoryName) => dispatch(startSetCatalogCategories(catalogId, categoryId, categoryName)),
     clearProductFilters: () => dispatch(clearProductFilters()),

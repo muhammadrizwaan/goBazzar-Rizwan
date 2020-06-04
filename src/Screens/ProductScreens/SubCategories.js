@@ -102,7 +102,7 @@ class SubCategories extends React.Component {
     }
     render() {
         const { navigation, route } = this.props
-        const { heading, id } = route.params
+        const { heading, id, catalogImage } = route.params
         const {
             categories_loading,
             sub_categories,
@@ -163,7 +163,8 @@ class SubCategories extends React.Component {
                                         heading: category.text,
                                         id: category.id,
                                         catalogId: id,
-                                        catalogName: heading
+                                        catalogName: heading,
+                                        catalogImage: catalogImage
                                     })}
                                 />
                             ))

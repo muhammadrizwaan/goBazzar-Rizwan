@@ -24,6 +24,8 @@ import {
 
 import { removeProductFromUserWishlist, addProductToUserWishlist } from "../../actions/getWishlist"
 
+import { filterChangeCatalogId } from "../../actions/filterActions"
+
 
 class SearchScreen extends React.Component {
     state = {
@@ -98,12 +100,18 @@ class SearchScreen extends React.Component {
     }
 
     handleSetSelectedCatalog = (id, img, text) => {
-        this.setState({
-            catalogId: id,
-            catalogImage: img,
-            // catalogName:text,
-            isCatalogSelected: true
-        })
+        // this.setState({
+        //     catalogId: id,
+        //     catalogImage: img,
+        //     // catalogName:text,
+        //     isCatalogSelected: true
+        // })
+
+        this.props.filterChangeCatalogId(
+            id,
+            text,
+            img
+        )
     }
 
     render() {
@@ -124,8 +132,8 @@ class SearchScreen extends React.Component {
                         handleOnSearch={this.handleOnSearch}
                         isCatalogSelected={this.state.isCatalogSelected}
                         all_catalogs={this.props.all_catalogs}
-                        catalogId={this.state.catalogId}
-                        catalogImage={this.state.catalogImage}
+                        catalogId={this.props.filters.CatalogId}
+                        catalogImage={this.props.filters.catalogImage}
                         handleSetSelectedCatalog={this.handleSetSelectedCatalog}
                     />
                     <CategoryFilter
@@ -161,11 +169,13 @@ const mapStateToProps = (state) => ({
     all_catalogs: state.all_catalogs.catalogs,
     category_product_loading: state.categoryProducts.category_product_loading,
     category_products: state.categoryProducts.category_products,
+    filters: state.productFilters,
 })
 
 
 const mapDispatchToProps = (dispatch) => ({
     setCategoryProducts: (products) => dispatch(setCategoryProducts(products)),
+    filterChangeCatalogId: (catalogId, catalogName, catalogImage) => dispatch(filterChangeCatalogId(catalogId, catalogName, catalogImage)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchScreen)

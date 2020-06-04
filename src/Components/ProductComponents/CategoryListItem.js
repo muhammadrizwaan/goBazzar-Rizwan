@@ -15,7 +15,8 @@ export default ({category = {}}) => {
             icon
             onPress={() => navigation.navigate('SubCategories', {
                 heading: category.text,
-                id: category.id
+                id: category.id,
+                catalogImage: category.imageURL
             })}
         >
             <Left>

@@ -22,10 +22,11 @@ export const filterChangeCategoryId = (categoryId, categoryName) => ({
     categoryName
 })
 
-export const filterChangeCatalogId = (catalogId, catalogName) => ({
+export const filterChangeCatalogId = (catalogId, catalogName, catalogImage) => ({
     type: "FILTER_CHANGE_CATALOG_ID",
     catalogId,
-    catalogName
+    catalogName,
+    catalogImage
 })
 
 export const filterSetCatalogCategories = (categories) => ({
