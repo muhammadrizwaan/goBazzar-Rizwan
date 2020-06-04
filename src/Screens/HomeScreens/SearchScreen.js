@@ -106,7 +106,9 @@ class SearchScreen extends React.Component {
         //     // catalogName:text,
         //     isCatalogSelected: true
         // })
-
+        this.setState({
+            isCatalogSelected: true
+        })
         this.props.filterChangeCatalogId(
             id,
             text,
