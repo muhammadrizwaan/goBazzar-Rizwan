@@ -109,6 +109,8 @@ class SearchScreen extends React.Component {
         this.setState({
             isCatalogSelected: true
         })
+
+        console.warn(id, text, img)
         this.props.filterChangeCatalogId(
             id,
             text,
@@ -120,7 +122,10 @@ class SearchScreen extends React.Component {
         const { route, category_product_loading, category_products, userId } = this.props
         const { navigation } = this.props;
         const { filters, filtersortingId } = this.props;
-        const { loading, isSearched, search, products } = this.state
+        const { loading, isSearched, search, products } = this.state;
+
+        console.warn(this.props.filters.CatalogId);
+        console.warn(this.props.filters.catalogImage)
         return (
             <DismissKeyboardComponent>
                 <Container>

@@ -33,8 +33,8 @@ const MenuDrawer = (props) => {
         // console.warn(e[1])
     }
     const { filters } = props
-    const handleChangeCatalog = (catalogId, catalogName) => {
-        props.filterChangeCatalogId(catalogId, catalogName)
+    const handleChangeCatalog = (catalogId, catalogName, catalogImage) => {
+        props.filterChangeCatalogId(catalogId, catalogName, catalogImage)
         props.startSetCatalogCategories(catalogId)
     }
 
@@ -69,6 +69,7 @@ const MenuDrawer = (props) => {
                         all_catalogs={props.all_catalogs}
                         catalogId={filters.CatalogId}
                         catalogName={filters.CatalogName}
+                        catalogImage={filters.catalogImage}
                         handleChangeCatalog={handleChangeCatalog}
                     />
 
@@ -264,7 +265,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    filterChangeCatalogId: (catalogId, catalogName) => dispatch(filterChangeCatalogId(catalogId, catalogName)),
+    filterChangeCatalogId: (catalogId, catalogName, catalogImage) => dispatch(filterChangeCatalogId(catalogId, catalogName, catalogImage)),
     startSetCatalogCategories: (catalogId) => dispatch(startSetCatalogCategories(catalogId, "", "")),
     filterChangeCategoryId: (categoryId, categoryName) => dispatch(filterChangeCategoryId(categoryId, categoryName)),
     filterSetPrice: (minPrice, maxPrice) => dispatch(filterSetPrice(minPrice, maxPrice)),

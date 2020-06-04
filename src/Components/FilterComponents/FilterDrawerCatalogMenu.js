@@ -79,7 +79,7 @@ export default (props) => {
             {props.all_catalogs.map(catalog => (
                 <MenuItem
                     onPress={() => {
-                        handleChangeCatalog(catalog.id, catalog.text);
+                        handleChangeCatalog(catalog.id, catalog.text, catalog.imageURL);
                         hideMenu()
                     }}
                 >
