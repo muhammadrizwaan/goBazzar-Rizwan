@@ -97,7 +97,7 @@ export default ({
                         <ListItem
                             icon
                             onPress={() => {
-                                handleSetSelectedCatalog("", "")
+                                handleSetSelectedCatalog("", "", "")
                                 this.hideMenu()
                             }}
                             style={{
@@ -142,7 +142,7 @@ export default ({
                             <ListItem
                                 icon
                                 onPress={() => {
-                                    handleSetSelectedCatalog(catalog.id, catalog.imageURL)
+                                    handleSetSelectedCatalog(catalog.id, catalog.text, catalog.imageURL)
                                     this.hideMenu()
                                 }}
                                 style={{

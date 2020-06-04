@@ -99,7 +99,7 @@ class SearchScreen extends React.Component {
         }
     }
 
-    handleSetSelectedCatalog = (id, img, text) => {
+    handleSetSelectedCatalog = (id, text, img) => {
         // this.setState({
         //     catalogId: id,
         //     catalogImage: img,
@@ -140,7 +140,7 @@ class SearchScreen extends React.Component {
                         isCatalogSelected={this.state.isCatalogSelected}
                         all_catalogs={this.props.all_catalogs}
                         catalogId={this.props.filters.CatalogId}
-                        catalogImage={this.props.filters.catalogImage}
+                        catalogImage={this.props.filters.catalogImage ? "" : ""}
                         handleSetSelectedCatalog={this.handleSetSelectedCatalog}
                     />
                     <CategoryFilter

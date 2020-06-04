@@ -124,7 +124,7 @@ export const fetchRecommendedProducts = () => {
     return (dispatch, getState) => {
         const userId = getState().auth.user.userId
         if (userId) {
-            console.log('storeid', userId)
+
             dispatch(startRecommendedProductsLoading())
 
             const recommended_products = []
@@ -137,7 +137,6 @@ export const fetchRecommendedProducts = () => {
                 })
                 .then((res) => {
                     if (res.data) {
-                        console.log('resData', res.data)
                         res.data.forEach(deal => {
                             recommended_products.push({
                                 ID: deal.ProductId,
