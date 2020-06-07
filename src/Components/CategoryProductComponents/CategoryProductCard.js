@@ -15,8 +15,12 @@ import { useNavigation } from "@react-navigation/native"
 export default ({
     product,
     userId,
-    handleWishlistState
+    handleWishlistState,
+    handleModalState
 }) => {
+    state:{
+        ModalState:false
+    }
     const navigation = useNavigation()
     return (
         <Item
@@ -72,31 +76,36 @@ export default ({
                         if (userId.length > 0) {
                             handleWishlistState(product)
                         } else {
-                            showMessage({
-                                message: "You need to be login for adding product in wishlist",
-                                position: 'bottom',
-                                // icon: 'auto',
-                                autoHide: true,
-                                hideOnPress: true,
-                                floating: true,
-                                style: {
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    backgroundColor: "#E8E8E8",
-                                    width: "90%",
-                                    borderRadius: 30,
-                                    color: "black",
-                                    shadowColor: "#000",
-                                    shadowOffset: {
-                                        width: 0,
-                                        height: 2,
-                                    },
-                                    shadowOpacity: 0.25,
-                                    shadowRadius: 3.84,
-                                    elevation: 7,
-                                },
-                                color: "#000000",
-                            });
+                            handleModalState()
+                            // showMessage({
+                            //     message: "You need to be login for adding product in wishlist",
+                            //     position: 'bottom',
+                            //     // icon: 'auto',
+                            //     autoHide: true,
+                            //     hideOnPress: true,
+                            //     floating: true,
+                            //     duration:15000,
+                            //     titleStyle:{
+                            //         fontSize:10
+                            //     },
+                            //     style: {
+                            //         justifyContent: 'center',
+                            //         alignItems: 'center',
+                            //         backgroundColor: "#E8E8E8",
+                            //         width: "90%",
+                            //         borderRadius: 30,
+                            //         color: "black",
+                            //         shadowColor: "#000",
+                            //         shadowOffset: {
+                            //             width: 0,
+                            //             height: 2,
+                            //         },
+                            //         shadowOpacity: 0.25,
+                            //         shadowRadius: 3.84,
+                            //         elevation: 7,
+                            //     },
+                            //     color: "#000000",
+                            // });
                         }
                     }}
                 >

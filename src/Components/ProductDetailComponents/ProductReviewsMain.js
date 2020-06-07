@@ -12,6 +12,7 @@ export default ({ productRatings, averageRating }) => {
         <View
             style={{
                 ...styles.container,
+                padding:10,
 
             }}
         >

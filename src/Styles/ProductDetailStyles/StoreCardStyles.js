@@ -23,21 +23,25 @@ export default StyleSheet.create({
         // alignItems: "center"
     },
     storeNameText: {
-        fontSize: 12,
+        fontSize: 15,
+        // fontSize: 12,
         color: "#515C6F",
-        fontWeight: "bold"
+        fontWeight: "bold",
+        fontFamily: "LexendDeca-Regular",
     },
     product_name: {
         marginBottom:5,
-        paddingHorizontal: 15,
+        // paddingHorizontal: 15,
         fontSize: 12,
+        // fontSize: 15,
         fontFamily: "LexendDeca-Regular",
         color: "#515C6F",
     },
     product_price: {
         fontSize: 18,
         color: "#8EA625",
-        fontWeight: "bold"
+        fontWeight: "bold",
+        fontFamily: "LexendDeca-Regular",
     },
     shopButton: {
         backgroundColor: "#8EA625",

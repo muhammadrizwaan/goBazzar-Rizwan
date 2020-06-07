@@ -1,5 +1,5 @@
 import React from "react"
-import { View, Text } from "react-native" 
+import { View, Text } from "react-native"
 
 export default ({ additionalSpecifications, index }) => (
     <View
@@ -15,7 +15,6 @@ export default ({ additionalSpecifications, index }) => (
             additionalSpecifications.map(specs => (
                 <View
                     style={{
-
                         borderColor: "rgba(114, 124, 142, 0.3)",
                         borderBottomWidth: .5,
                         height: 100,

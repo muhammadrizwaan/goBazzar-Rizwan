@@ -86,6 +86,10 @@ class PostReviewForm extends React.Component {
                         autoHide: true,
                         hideOnPress: true,
                         floating: true,
+                        duration:15000,
+                        titleStyle:{
+                            fontSize:10
+                        },
                         style: {
                             justifyContent: 'center',
                             alignItems: 'center',
@@ -112,13 +116,42 @@ class PostReviewForm extends React.Component {
                     })
                     showMessage({
                         message: "Error Occured",
-                        type: "danger",
                         position: 'bottom',
                         // icon: 'auto',
                         autoHide: true,
                         hideOnPress: true,
                         floating: true,
+                        duration:15000,
+                        titleStyle:{
+                            fontSize:10
+                        },
+                        style: {
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            backgroundColor: "#E8E8E8",
+                            width: "90%",
+                            borderRadius: 30,
+                            color: "black",
+                            shadowColor: "#000",
+                            shadowOffset: {
+                                width: 0,
+                                height: 2,
+                            },
+                            shadowOpacity: 0.25,
+                            shadowRadius: 3.84,
+                            elevation: 7,
+                        },
+                        color: "#000000",
                     });
+                    // showMessage({
+                    //     message: "Error Occured",
+                    //     type: "danger",
+                    //     position: 'bottom',
+                    //     // icon: 'auto',
+                    //     autoHide: true,
+                    //     hideOnPress: true,
+                    //     floating: true,
+                    // });
                 })
         }
     }
@@ -237,11 +270,12 @@ class PostReviewForm extends React.Component {
                             :
                             <View style={{ marginTop: 20 }}>
                                 <Text
-                                    style={{
-                                        color: "black",
-                                        opacity: 0.4,
-                                        // textAlign: "center"
-                                    }}
+                                   style={{
+                                    fontSize: 15,
+                                    // color: "#515C6F",
+                                    color: "#999999",
+                                    fontFamily: "LexendDeca-Regular"
+                                }}
                                 >
                                     Login or Sign Up to Post a Review
                             </Text>

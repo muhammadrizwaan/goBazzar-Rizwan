@@ -31,7 +31,7 @@ export default ({ description, additionalValues = [] }) => {
         <View
             style={{
                 ...styles.container,
-
+                padding:10
             }}
         >
             <View style={styles.storeCardHeading}>

@@ -48,7 +48,7 @@ export const applyFilters = () => {
                     BrandId: "",
                     StoreId: "",
                     FiltersortingId: filters.filtersortingId,
-                    Search: "",
+                    Search: filters.Search,
                     pagenumber:"",
                 }
             }) 

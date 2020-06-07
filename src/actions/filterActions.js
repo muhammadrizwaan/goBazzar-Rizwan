@@ -16,6 +16,11 @@ export const filterSetPrice = (minPrice, maxPrice) => ({
     maxPrice
 })
 
+export const filterSetSearchText = (text) => ({
+    type: "FILTER_SET_TEXT",
+    text
+})
+
 export const filterChangeCategoryId = (categoryId, categoryName) => ({
     type: "FILTER_CHANGE_CATEGORY_ID",
     categoryId,

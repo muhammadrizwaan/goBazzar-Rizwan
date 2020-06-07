@@ -1,6 +1,6 @@
 import React from 'react'
-import { FlatList, View, Text, SafeAreaView } from 'react-native'
-import { Container, Content } from 'native-base'
+import { FlatList, View, Text, SafeAreaView, Modal } from 'react-native'
+import { Container, Content, Button } from 'native-base'
 import CategoryHeader from '../../Components/CategoryProductComponents/CategoryHeader'
 import CategoryFilter from '../../Components/CategoryProductComponents/CategoryFilter'
 // import products from '../../Samples/products'
@@ -15,7 +15,7 @@ import {
     setCategoryProducts, clearCategoryProducts,
     addAProductToWishlist, removeAProductFromWishlist
 } from "../../actions/categoryProductAction"
-
+import stylesbtn from '../../Styles/ProfileScreenStyles/NotLoggedInStyles'
 import { removeProductFromUserWishlist, addProductToUserWishlist } from "../../actions/getWishlist"
 
 import {
@@ -24,6 +24,9 @@ import {
 } from "../../actions/filterActions"
 
 class CategoryProducts extends React.Component {
+    state = {
+        ModalState: false,
+    }
     componentDidMount() {
         this.props.startCategoryProductLoading()
         const { route, userId } = this.props
@@ -67,6 +70,10 @@ class CategoryProducts extends React.Component {
     componentWillUnmount() {
         this.props.clearCategoryProducts();
         this.props.clearProductFilters()
+    }
+
+    handleModalState = () => {
+        this.setState({ ModalState: true })
     }
 
     handleWishlistState = (product) => {
@@ -127,12 +134,12 @@ class CategoryProducts extends React.Component {
         return (
             <Container style={{ backgroundColor: "white" }}>
                 <SafeAreaView />
-                
+
                 <CategoryHeader
                     navigation={navigation}
                     heading={heading}
                 />
-                <CategoryFilter 
+                <CategoryFilter
                     navigation={navigation}
                 />
                 <CategoryProductsLoader
@@ -148,6 +155,7 @@ class CategoryProducts extends React.Component {
                             product={item}
                             userId={userId}
                             handleWishlistState={this.handleWishlistState}
+                            handleModalState={this.handleModalState}
                         />
                     )}
                     ListEmptyComponent={() => (
@@ -155,8 +163,8 @@ class CategoryProducts extends React.Component {
                             {!category_product_loading && <Text
                                 style={{
                                     fontSize: 15,
-                                    color: "#515C6F",
-                                    fontWeight: 'bold',
+                                    // color: "#515C6F",
+                                    color: "#999999",
                                     fontFamily: "LexendDeca-Regular"
                                 }}
                             >
@@ -165,6 +173,36 @@ class CategoryProducts extends React.Component {
                         </View>
                     )}
                 />}
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={this.state.ModalState}
+                    onRequestClose={() => this.setState({ ModalState: false })}>
+
+                    <View style={stylesbtn.ModalOuterView}>
+                        <View style={{ marginTop: 10, marginHorizontal: 10 }}>
+                            <Text style={stylesbtn.ModalText}>
+                                Login or Sign Up to use Wishlist
+                            </Text>
+                            <Button
+                                transparent
+                                full
+                                style={stylesbtn.signInButton}
+                                onPress={() => this.props.navigation.navigate('My Profile')}
+                            >
+                                <Text style={stylesbtn.signInButtonText}>Login</Text>
+                            </Button>
+                            <Button
+                                transparent
+                                full
+                                style={stylesbtn.signInButton}
+                                onPress={() => this.setState({ ModalState: false })}
+                            >
+                                <Text style={stylesbtn.signInButtonText}>Cancel</Text>
+                            </Button>
+                        </View>
+                    </View>
+                </Modal>
             </Container>
         )
     }
@@ -180,11 +218,11 @@ const mapDispatchToProps = (dispatch) => ({
     startCategoryProductLoading: () => dispatch(startCategoryProductLoading()),
     stopCategoryProductLoading: () => dispatch(stopCategoryProductLoading()),
     setCategoryProducts: (products) => dispatch(setCategoryProducts(products)),
-    clearCategoryProducts: () => dispatch(clearCategoryProducts()),
     filterChangeCatalogId: (catalogId, catalogName, catalogImage) => dispatch(filterChangeCatalogId(catalogId, catalogName, catalogImage)),
     filterChangeCategoryId: (categoryId, categoryName) => dispatch(filterChangeCategoryId(categoryId, categoryName)),
     startSetCatalogCategories: (catalogId, categoryId, categoryName) => dispatch(startSetCatalogCategories(catalogId, categoryId, categoryName)),
     clearProductFilters: () => dispatch(clearProductFilters()),
+    clearCategoryProducts: () => dispatch(clearCategoryProducts()),
     removeAProductFromWishlist: (id) => dispatch(removeAProductFromWishlist(id)),
     removeProductFromUserWishlist: (id) => dispatch(removeProductFromUserWishlist(id)),
     addAProductToWishlist: (id) => dispatch(addAProductToWishlist(id)),

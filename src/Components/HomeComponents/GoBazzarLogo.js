@@ -12,17 +12,19 @@ export default () => (
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "#0A3761",
-        // backgroundColor: "white",
-        height: 73,
+        // backgroundColor: "#0A3761",
+        backgroundColor: "white",
+        height: 90,
         alignItems: "center",
         justifyContent: "center"
     },
     logoStyle: {
         // width: 103.2,
-        // height: 38.4
-        width: 173.2,
-        height: 58.4
+        // height: 38.4,
+        width: 192,
+        height: 72
+        // width: 127.3,
+        // height: 46.5
     }
 })
 

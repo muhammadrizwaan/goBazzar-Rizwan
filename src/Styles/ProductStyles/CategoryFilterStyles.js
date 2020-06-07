@@ -17,9 +17,10 @@ export default StyleSheet.create({
         marginLeft: "auto"
     },
     filterByText: {
-        fontSize: 12, 
+        fontSize: 14, 
         color: "#515C6F", 
         paddingRight: 1, 
         fontFamily: "LexendDeca-Regular", 
+        fontWeight: "bold" 
     }
 })

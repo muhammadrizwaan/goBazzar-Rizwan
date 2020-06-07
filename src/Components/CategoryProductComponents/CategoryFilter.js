@@ -143,14 +143,13 @@ class CategoryFilter extends React.Component {
                     </MenuItem>
                 </Menu>
 
-
                 <Button
                     transparent
                     style={styles.filterButtonStyle}
                     onPress={() => navigation.openDrawer()}
                 >
                     <Text style={styles.filterByText} uppercase={false}>Filter by</Text>
-                    <AntIcons name="filter" size={18} style={{ color: "#515C6F" }} />
+                    <AntIcons name="filter" size={22} style={{ color: "#515C6F" }} />
                 </Button>
             </View>
         )

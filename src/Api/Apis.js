@@ -2,6 +2,7 @@ export default  {
     register: "http://13.68.110.5:8090/api/Mobile/Register",
     login: "http://13.68.110.5:8090/api/Mobile/Login",
     reset_password: "http://13.68.110.5:8090/api/Mobile/ResetPassword",
+    forget_password: "http://13.68.110.5:8090/api/Mobile/ForgetPassword",
     get_all_catalogs: "http://13.68.110.5:8090/api/Mobile/GetAllCatalogues",
     get_top_categories: "http://13.68.110.5:8090/api/Mobile/GetTopCategories",
     categories_by_catalog_id: "http://13.68.110.5:8090/api/Mobile/GetAllCategoriesByCatalogId",

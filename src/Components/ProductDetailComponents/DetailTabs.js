@@ -90,7 +90,7 @@ export default class extends React.Component {
             >
                 <SafeAreaView />
                 <TouchableOpacity transparent onPress={() => navigation.goBack()} style={{ marginHorizontal: 10, width: 20 }}>
-                    <IoniIcons name="ios-arrow-back" size={25} style={{ color: "#8EA625" }} />
+                    <IoniIcons name="ios-arrow-back" size={25} style={{ color: "#727C8E" }} />
                 </TouchableOpacity>
                 <ScrollView
                     showsHorizontalScrollIndicator={false}

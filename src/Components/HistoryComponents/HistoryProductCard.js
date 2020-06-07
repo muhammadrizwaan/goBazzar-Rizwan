@@ -5,7 +5,6 @@ import { Item, Button, Icon } from "native-base"
 import styles from "../../Styles/ProductDetailStyles/ProductTabStyles"
 import { removeProductFromUserWishlist } from "../../actions/getWishlist"
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
-import { showMessage } from "react-native-flash-message"
 import axios from "axios";
 import Apis from "../../Api/Apis"
 

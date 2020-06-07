@@ -46,6 +46,10 @@ export default () => {
                 </Button> */}
 
 
+                    <Text style={styles.noAccountText}
+                        onPress={() => navigation.navigate('ForgetScreen')}>
+                        Forget Passwword?
+                    </Text>
 
                     <Text style={styles.noAccountText}>
                         Don't have an account?{" "}

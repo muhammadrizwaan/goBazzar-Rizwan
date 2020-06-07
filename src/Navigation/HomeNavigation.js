@@ -27,13 +27,13 @@ const HomeStack = () => (
                         return <Image source={require('../Assets/TabBarIcons/Active/products_active.png')} style={{ width: 46, height: 36 }} />
                     } else {
                         return <Image source={require('../Assets/TabBarIcons/InActive/products_inactive.png')} style={{ width: 46, height: 36 }} />
-                    } 
-                } else if(route.name === "Wishlist") {
+                    }
+                } else if (route.name === "Wishlist") {
                     if (focused) {
                         return <Image source={require('../Assets/TabBarIcons/Active/wishlist_active.png')} style={{ width: 40, height: 35.25 }} />
                     } else {
                         return <Image source={require('../Assets/TabBarIcons/InActive/wishlist_inactive.png')} style={{ width: 40, height: 35.25 }} />
-                    } 
+                    }
                 } else if (route.name === 'My Profile') {
                     if (focused) {
                         return <Image source={require('../Assets/TabBarIcons/Active/my_profile_active.png')} style={{ width: 50, height: 37 }} />
@@ -42,9 +42,12 @@ const HomeStack = () => (
                     }
                 } else if (route.name === 'More') {
                     if (focused) {
-                        return <Image source={require('../Assets/TabBarIcons/Active/more_active.png')} style={{ width: 25, height: 33.5 }} />
+                        //     return <Image source={require('../Assets/TabBarIcons/Active/more_active.png')} style={{ width: 25, height: 33.5 }} />
+                        // } else {
+                        //     return <Image source={require('../Assets/TabBarIcons/InActive/more_inactive.png')} style={{ width: 25, height: 33.5 }} />
+                        return <Image source={require('../Assets/TabBarIcons/Active/more_active.png')} style={{ width: 30, height: 39 }} />
                     } else {
-                        return <Image source={require('../Assets/TabBarIcons/InActive/more_inactive.png')} style={{ width: 25, height: 33.5 }} />
+                        return <Image source={require('../Assets/TabBarIcons/InActive/more_inactive.png')} style={{ width: 30, height: 39}} />
                     }
                 }
             },

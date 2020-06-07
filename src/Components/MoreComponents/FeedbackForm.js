@@ -4,16 +4,17 @@ import { View, Text, TextInput, Keyboard } from "react-native"
 import { Button, Spinner } from "native-base"
 
 import styles from '../../Styles/ProfileScreenStyles/NotLoggedInStyles'
-import resetPassValidation from "../../Validation/resetPassValidation"
+import validateFeedback from "../../Validation/validateFeedback"
 
 import { connect } from "react-redux";
 import { updateUserProfile } from "../../actions/authActions"
 import { showMessage } from "react-native-flash-message"
 import axios from "axios"
+import stylesbtn from '../../Styles/ProfileScreenStyles/NotLoggedInStyles'
 
 import Apis from "../../Api/Apis"
 
-class ResetPassForm extends React.Component {
+class FeedbackForm extends React.Component {
     constructor(props) {
         super(props)
 
@@ -22,8 +23,8 @@ class ResetPassForm extends React.Component {
             loading: false,
             errors: {},
             isUpdated: false,
-            old_password: "",
-            new_password: ""
+            name: "",
+            message: ""
         }
     }
     onChangeText = (key, val) => {
@@ -33,10 +34,11 @@ class ResetPassForm extends React.Component {
     }
     onSubmit = () => {
         Keyboard.dismiss()
-        const { errors, isValid } = resetPassValidation(
-            this.state.email.trim(),
-            this.state.old_password,
-            this.state.new_password
+        const { errors, isValid } = validateFeedback(
+            this.props.email.trim(),
+            // this.state.email.trim(),
+            this.state.name.trim(),
+            this.state.message.trim()
         );
 
         if (!isValid) {
@@ -49,30 +51,35 @@ class ResetPassForm extends React.Component {
                 loading: true
             })
 
-            // 
+
+
             axios
-                .post(Apis.reset_user_password, {
-                    UserId: this.props.user.userId,
-                    OldPassword: this.state.old_password,
-                    Email: this.state.email.trim(),
-                    NewPassword: this.state.new_password
+                .post("http://13.68.110.5:8090/api/mobile/SaveEnquiry", {
+                    Name: this.state.name.trim(),
+                    Email: this.props.email.trim(),
+                    Message: this.state.message.trim(),
                 })
                 .then(res => {
                     this.setState({
                         loading: false,
                         isUpdated: true,
-                        old_password: "",
-                        new_password: ""
+                        email: "",
+                        name: "",
+                        message: "",
                     })
 
 
                     showMessage({
-                        message: "Password Updated",
+                        message: "Feedback Sent",
                         position: 'bottom',
                         // icon: 'auto',
                         autoHide: true,
                         hideOnPress: true,
                         floating: true,
+                        duration:15000,
+                        titleStyle: {
+                            fontSize:10
+                        },
                         style: {
                             justifyContent: 'center',
                             alignItems: 'center',
@@ -97,7 +104,8 @@ class ResetPassForm extends React.Component {
                     this.setState({
                         errors: {
                             email: "* Invalid Credentials",
-                            old_password: "* Invalid Credentials"
+                            name: "* Invalid Credentials",
+                            message: "* Invalid Credentials"
                         },
                         loading: false
                     })
@@ -106,82 +114,108 @@ class ResetPassForm extends React.Component {
     }
     render() {
         const { errors, loading, isUpdated } = this.state
+        const { navigation, userId, email } = this.props
         return (
             <View style={{ marginVertical: 25 }}>
 
-                <TextInput
-                    placeholder="Old Password"
-                    placeholderTextColor="#515C6F"
-                    style={styles.inputBox}
-                    value={this.state.old_password}
-                    onChangeText={val => this.onChangeText("old_password", val)}
-                    secureTextEntry={true}
-                />
-                {errors.old_password &&
-                    <Text
-                        style={styles.errorStyle}
-                    >
-                        {errors.old_password}
+                {userId.length > 0 ?
+                    <View>
+                        <TextInput
+                            placeholder="Name"
+                            placeholderTextColor="#515C6F"
+                            style={styles.inputBox}
+                            value={this.state.name}
+                            onChangeText={val => this.onChangeText("name", val)}
+                        // secureTextEntry={true}
+                        />
+                        {errors.name &&
+                            <Text
+                                style={styles.errorStyle}
+                            >
+                                {errors.name}
+                            </Text>
+                        }
+
+                        <TextInput
+                            placeholder="Email"
+                            placeholderTextColor="#515C6F"
+                            style={styles.inputBox}
+                            value={email}
+                            editable={false}
+                            autoFocus={false}
+                            autoCapitalize={"none"}
+                            onChangeText={val => this.onChangeText("email", val)}
+                        />
+                        {errors.email &&
+                            <Text
+                                style={styles.errorStyle}
+                            >
+                                {errors.email}
+                            </Text>
+                        }
+
+
+                        <TextInput
+                            placeholder="Message"
+                            placeholderTextColor="#515C6F"
+                            style={styles.inputBox}
+                            value={this.state.message}
+                            onChangeText={val => this.onChangeText("message", val)}
+                        // secureTextEntry={true}
+                        />
+                        {errors.message &&
+                            <Text
+                                style={styles.errorStyle}
+                            >
+                                {errors.message}
+                            </Text>
+                        }
+
+                        <Button
+                            transparent
+                            full
+                            style={styles.signInButton}
+                            onPress={this.onSubmit}
+                        >
+                            {loading ?
+                                <Spinner color="white" size={20} />
+                                :
+                                <Text style={styles.signInButtonText}>
+                                    {isUpdated ? "Updated" : "Save"}
+                                </Text>
+                            }
+                        </Button>
+                    </View>
+                    :
+                    <View style={{ marginTop: 20 }}>
+                        <Text
+                            style={{
+                                fontSize: 15,
+                                // color: "#515C6F",
+                                color: "#999999",
+                                fontFamily: "LexendDeca-Regular"
+                            }}
+                        >
+                            Login or Sign Up to Post a Feedback
                     </Text>
-                }
-
-                <TextInput
-                    placeholder="Email"
-                    placeholderTextColor="#515C6F"
-                    style={styles.inputBox}
-                    value={this.state.email}
-                    editable={false}
-                    autoFocus={false}
-                    autoCapitalize={"none"}
-                    onChangeText={val => this.onChangeText("email", val)}
-                />
-                {errors.email &&
-                    <Text
-                        style={styles.errorStyle}
-                    >
-                        {errors.email}
-                    </Text>
-                }
-
-
-                <TextInput
-                    placeholder="New Password"
-                    placeholderTextColor="#515C6F"
-                    style={styles.inputBox}
-                    value={this.state.new_password}
-                    onChangeText={val => this.onChangeText("new_password", val)}
-                    secureTextEntry={true}
-                />
-                {errors.new_password &&
-                    <Text
-                        style={styles.errorStyle}
-                    >
-                        {errors.new_password}
-                    </Text>
-                }
-
-                <Button
-                    transparent
-                    full
-                    style={styles.signInButton}
-                    onPress={this.onSubmit}
-                >
-                    {loading ?
-                        <Spinner color="white" size={20} />
-                        :
-                        <Text style={styles.signInButtonText}>
-                            {isUpdated ? "Updated" : "Save"}
-                        </Text>
-                    }
-                </Button>
+                        <Button
+                            transparent
+                            full
+                            style={stylesbtn.signInButton}
+                            onPress={() => navigation.navigate('My Profile')}
+                        >
+                            <Text style={stylesbtn.signInButtonText}>Login</Text>
+                        </Button>
+                    </View>}
             </View>
         )
     }
 }
 
 const mapStateToProps = state => ({
-    user: state.auth.user
+    userId: state.auth.user.userId,
+    email: state.auth.user.email,
 })
 
 
-export default connect(mapStateToProps)(ResetPassForm)
+export default connect(mapStateToProps)(FeedbackForm)

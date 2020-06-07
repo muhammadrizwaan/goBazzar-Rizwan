@@ -45,8 +45,8 @@ const TopDealsScreen = ({
                         {!category_product_loading && <Text
                             style={{
                                 fontSize: 15,
-                                color: "#515C6F",
-                                fontWeight: 'bold',
+                                // color: "#515C6F",
+                                color: "#999999",
                                 fontFamily: "LexendDeca-Regular"
                             }}
                         >

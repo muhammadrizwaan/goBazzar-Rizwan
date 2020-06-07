@@ -28,9 +28,6 @@ class CompareProductsScreen extends React.Component {
 
         const ids = route.params.ids;
 
-
-        console.log(ids)
-
         axios
             .get(Apis.get_compare_products, {
                 params: {
@@ -38,14 +35,12 @@ class CompareProductsScreen extends React.Component {
                 }
             })
             .then(res => {
-                console.log(res)
                 if (res.data) {
-                    console.log(res.data)
+                    this.setState({
+                        loading: false,
+                        compare_products: res.data
+                    })
                 }
-                this.setState({
-                    loading: false,
-                    compare_products: res.data
-                })
             })
             .catch(err => {
                 this.setState({
@@ -64,10 +59,10 @@ class CompareProductsScreen extends React.Component {
                     navigation={navigation}
                     heading="Compare"
                 />
-                <CompareLoader 
+                <CompareLoader
                     loading={loading}
                 />
-                <Content>
+                <Content contentContainerStyle={{ justifyContent: 'center', alignItems: 'center' }}>
                     <Content horizontal={true}>
                         <View
                             style={{
@@ -84,6 +79,7 @@ class CompareProductsScreen extends React.Component {
                                             key={item.ProductCode}
                                             style={{
                                                 width: 150,
+                                                // marginHorizontal:5
                                             }}
                                         >
                                             <ProductCompareHeader

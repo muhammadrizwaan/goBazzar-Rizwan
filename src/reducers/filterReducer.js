@@ -10,7 +10,8 @@ const initialState = {
     catalogImage: "",
     filtersortingId: 1,
     catalog_categories: [],
-    isCatalogCategoriesLoading: false
+    isCatalogCategoriesLoading: false,
+    Search: ""
 }
 
 export default (state = initialState, action) => {
@@ -26,13 +27,14 @@ export default (state = initialState, action) => {
                 ...state,
                 CategoryId: action.categoryId,
                 CategoryName: action.categoryName,
-                catalogImage: action.catalogImage
+                
             }
         case "FILTER_CHANGE_CATALOG_ID":
             return {
                 ...state,
                 CatalogId: action.catalogId,
-                CatalogName: action.catalogName
+                CatalogName: action.catalogName,
+                catalogImage: action.catalogImage
             }
         case "FILTER_SET_CATALOG_CATEGORIES":
             return {
@@ -53,6 +55,11 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 filtersortingId: action.filtersortingId
+            }
+        case "FILTER_SET_TEXT":
+            return {
+                ...state,
+                Search: action.text
             }
         case "CLEAR_PRODUCT_FILTERS":
             return initialState

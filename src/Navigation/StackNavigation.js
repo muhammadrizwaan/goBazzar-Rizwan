@@ -16,6 +16,7 @@ import FAQsScreen from "../Screens/MoreScreens/FAQs"
 import CompareProductsScreen from "../Screens/MoreScreens/CompareProductsScreen"
 import EditProfile from "../Screens/ProfileScreens/EditProfileScreen"
 import SignUpScreen from "../Screens/ProfileScreens/SignUpScreen"
+import ForgetScreen from "../Screens/ProfileScreens/ForgetScreen"
 import Reviews from "../Screens/ProfileScreens/Reviews"
 import History from "../Screens/ProfileScreens/History"
 import Stores from "../Screens/MoreScreens/Stores"
@@ -94,6 +95,10 @@ export default ({ navigation, route }) => {
             <Screen
                 name="SignUpScreen"
                 component={SignUpScreen}
+            />
+            <Screen
+                name="ForgetScreen"
+                component={ForgetScreen}
             />
             <Screen
                 name="EditProfile"

@@ -15,7 +15,7 @@ export default ({
             // resizeMode:"contain"
             height: 90
         }}>
-            <Text numberOfLines={1} style={styles.product_name}>{store.post_title}</Text>
+            <Text numberOfLines={1} style={[styles.product_name,{paddingHorizontal:15}]}>{store.post_title}</Text>
             <ListItem
                 icon
             // style={{

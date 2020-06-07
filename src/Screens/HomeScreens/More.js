@@ -64,7 +64,7 @@ const More = ({ navigation }) => (
                     <MenuButtonTemplate
                         text="How GoBazzar works? (FAQs)"
                         indicatorNumber={""}
-                        onPress={() => { }}
+                        onPress={() => navigation.navigate("FAQsScreen")}
                     />
 
                     <MenuButtonTemplate

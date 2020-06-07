@@ -4,7 +4,7 @@ import { View, Text, TextInput, Keyboard } from "react-native"
 import { Button, Spinner } from "native-base"
 
 import styles from '../../Styles/ProfileScreenStyles/NotLoggedInStyles'
-import resetPassValidation from "../../Validation/resetPassValidation"
+import forgetPassValidation from "../../Validation/forgetPassValidation"
 
 import { connect } from "react-redux";
 import { updateUserProfile } from "../../actions/authActions"
@@ -13,17 +13,15 @@ import axios from "axios"
 
 import Apis from "../../Api/Apis"
 
-class ResetPassForm extends React.Component {
+class ForgetPasswordForm extends React.Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            email: props.user ? props.user.email : "",
+            email:"",
             loading: false,
             errors: {},
             isUpdated: false,
-            old_password: "",
-            new_password: ""
         }
     }
     onChangeText = (key, val) => {
@@ -33,10 +31,8 @@ class ResetPassForm extends React.Component {
     }
     onSubmit = () => {
         Keyboard.dismiss()
-        const { errors, isValid } = resetPassValidation(
+        const { errors, isValid } = forgetPassValidation(
             this.state.email.trim(),
-            this.state.old_password,
-            this.state.new_password
         );
 
         if (!isValid) {
@@ -51,23 +47,19 @@ class ResetPassForm extends React.Component {
 
             // 
             axios
-                .post(Apis.reset_user_password, {
-                    UserId: this.props.user.userId,
-                    OldPassword: this.state.old_password,
-                    Email: this.state.email.trim(),
-                    NewPassword: this.state.new_password
+                .post(Apis.forget_password, {
+                    Email: this.state.email.trim()
                 })
                 .then(res => {
                     this.setState({
                         loading: false,
                         isUpdated: true,
-                        old_password: "",
-                        new_password: ""
+                        email:''
                     })
 
 
                     showMessage({
-                        message: "Password Updated",
+                        message: "Please check your email",
                         position: 'bottom',
                         // icon: 'auto',
                         autoHide: true,
@@ -98,10 +90,10 @@ class ResetPassForm extends React.Component {
                     // this.props.updateUserProfile(user)
                 })
                 .catch(err => {
+                    console.log('error',err)
                     this.setState({
                         errors: {
                             email: "* Invalid Credentials",
-                            old_password: "* Invalid Credentials"
                         },
                         loading: false
                     })
@@ -114,27 +106,11 @@ class ResetPassForm extends React.Component {
             <View style={{ marginVertical: 25 }}>
 
                 <TextInput
-                    placeholder="Old Password"
-                    placeholderTextColor="#515C6F"
-                    style={styles.inputBox}
-                    value={this.state.old_password}
-                    onChangeText={val => this.onChangeText("old_password", val)}
-                    secureTextEntry={true}
-                />
-                {errors.old_password &&
-                    <Text
-                        style={styles.errorStyle}
-                    >
-                        {errors.old_password}
-                    </Text>
-                }
-
-                <TextInput
                     placeholder="Email"
                     placeholderTextColor="#515C6F"
                     style={styles.inputBox}
                     value={this.state.email}
-                    editable={false}
+                    // editable={false}
                     autoFocus={false}
                     autoCapitalize={"none"}
                     onChangeText={val => this.onChangeText("email", val)}
@@ -144,23 +120,6 @@ class ResetPassForm extends React.Component {
                         style={styles.errorStyle}
                     >
                         {errors.email}
-                    </Text>
-                }
-
-
-                <TextInput
-                    placeholder="New Password"
-                    placeholderTextColor="#515C6F"
-                    style={styles.inputBox}
-                    value={this.state.new_password}
-                    onChangeText={val => this.onChangeText("new_password", val)}
-                    secureTextEntry={true}
-                />
-                {errors.new_password &&
-                    <Text
-                        style={styles.errorStyle}
-                    >
-                        {errors.new_password}
                     </Text>
                 }
 
@@ -183,9 +142,5 @@ class ResetPassForm extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({
-    user: state.auth.user
-})
 
-
-export default connect(mapStateToProps)(ResetPassForm)
+export default ForgetPasswordForm

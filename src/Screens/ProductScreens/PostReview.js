@@ -38,7 +38,8 @@ class PostReview extends Component {
                         <Text
                             style={{
                                 fontSize: 20,
-                                fontFamily: "Poppins-Bold",
+                                // fontFamily: "Poppins-Bold",
+                                fontFamily: "LexendDeca-Regular",
                                 fontWeight: "bold",
                                 color: "#8EA625",
                                 marginLeft: 20

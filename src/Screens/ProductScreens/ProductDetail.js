@@ -1,7 +1,7 @@
 import React from "react"
-import { View, Text, SafeAreaView } from "react-native"
+import { View, Text, SafeAreaView, Modal } from "react-native"
 
-import { Container, Content } from "native-base"
+import { Container, Content, Button } from "native-base"
 
 import { addProductToCompare } from "../../actions/compareActions"
 
@@ -12,7 +12,7 @@ import ProductDetailReviews from "../../Components/ProductDetailComponents/Produ
 
 import DetailTabs from "../../Components/ProductDetailComponents/DetailTabs"
 import ProductTab from "../../Components/ProductDetailComponents/ProductTab"
-
+import stylesbtn from '../../Styles/ProfileScreenStyles/NotLoggedInStyles'
 import NearByLocations from "../../Components/ProductDetailComponents/NearByLocations"
 import PriceInsights from "../../Components/ProductDetailComponents/PriceInsights"
 import ProductHeadingSeparator from '../../Components/HomeComponents/ProductsHeadingSpearator'
@@ -39,6 +39,7 @@ import { showMessage } from "react-native-flash-message"
 
 class ProductDetail extends React.PureComponent {
     state = {
+        ModalState: false,
         activeTabKey: product_tabs[0].key,
         loading: false,
         product_detail: {
@@ -74,9 +75,7 @@ class ProductDetail extends React.PureComponent {
                     }
                 })
                 .then(res => {
-                    // console.warn(res)
                     if (res.data) {
-                        // console.warn("res",res.data.Product)
                         const product = {
                             id: product_id,
                             name: res.data.Product.ProductName,
@@ -106,7 +105,6 @@ class ProductDetail extends React.PureComponent {
 
 
                         product.images = product.images.concat(otherImages)
-                        // console.warn(product.images);
 
                         this.props.addLastViewedProduct({
                             ID: product_id,
@@ -142,7 +140,6 @@ class ProductDetail extends React.PureComponent {
                     this.setState({ loading: false })
                 })
                 .catch(err => {
-                    console.warn(err)
                     this.setState({ loading: false })
                 })
         }
@@ -377,36 +374,42 @@ class ProductDetail extends React.PureComponent {
                 })
 
         } else {
-            showMessage({
-                message: "You need to be login for adding product in wishlist",
-                position: 'bottom',
-                // icon: 'auto',
-                autoHide: true,
-                hideOnPress: true,
-                floating: true,
-                style: {
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    backgroundColor: "#E8E8E8",
-                    width: "90%",
-                    borderRadius: 30,
-                    color: "black",
-                    shadowColor: "#000",
-                    shadowOffset: {
-                        width: 0,
-                        height: 2,
-                    },
-                    shadowOpacity: 0.25,
-                    shadowRadius: 3.84,
-                    elevation: 7,
-                },
-                color: "#000000",
-            });
+            this.setState({
+                ModalState: true
+            })
+            // showMessage({
+            //     message: "You need to be login for adding product in wishlist",
+            //     position: 'bottom',
+            //     // icon: 'auto',
+            //     autoHide: true,
+            //     hideOnPress: true,
+            //     floating: true,
+            //     duration:15000,
+            //     titleStyle:{
+            //         fontSize:10
+            //     },
+            //     style: {
+            //         justifyContent: 'center',
+            //         alignItems: 'center',
+            //         backgroundColor: "#E8E8E8",
+            //         width: "90%",
+            //         borderRadius: 30,
+            //         color: "black",
+            //         shadowColor: "#000",
+            //         shadowOffset: {
+            //             width: 0,
+            //             height: 2,
+            //         },
+            //         shadowOpacity: 0.25,
+            //         shadowRadius: 3.84,
+            //         elevation: 7,
+            //     },
+            //     color: "#000000",
+            // });
         }
     }
 
     onOpen = (index) => {
-        console.warn(index)
         this.setState({ isVisibleImage: true, activeIndex: index })
     }
     onClose = () => {
@@ -414,9 +417,6 @@ class ProductDetail extends React.PureComponent {
     }
     render() {
         const { activeTabKey, product_detail, loading, reviews } = this.state;
-
-        // console.warn(reviews);
-        // console.warn("length",product_detail.name.length)
         return (
             <Container>
                 <Spinner
@@ -515,6 +515,37 @@ class ProductDetail extends React.PureComponent {
                     images={product_detail.images.map(image => ({ url: image }))}
                     index={this.state.activeIndex}
                 />
+
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={this.state.ModalState}
+                    onRequestClose={() => this.setState({ ModalState: false })}>
+
+                    <View style={stylesbtn.ModalOuterView}>
+                        <View style={{ marginTop: 10, marginHorizontal: 10 }}>
+                            <Text style={stylesbtn.ModalText}>
+                                Login or Sign Up to use Wishlist
+                            </Text>
+                            <Button
+                                transparent
+                                full
+                                style={stylesbtn.signInButton}
+                                onPress={() => this.props.navigation.navigate('My Profile')}
+                            >
+                                <Text style={stylesbtn.signInButtonText}>Login</Text>
+                            </Button>
+                            <Button
+                                transparent
+                                full
+                                style={stylesbtn.signInButton}
+                                onPress={() => this.setState({ ModalState: false })}
+                            >
+                                <Text style={stylesbtn.signInButtonText}>Cancel</Text>
+                            </Button>
+                        </View>
+                    </View>
+                </Modal>
             </Container>
         )
     }

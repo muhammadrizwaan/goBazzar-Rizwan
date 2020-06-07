@@ -27,6 +27,10 @@ class Compare extends React.Component {
                 autoHide: true,
                 hideOnPress: true,
                 floating: true,
+                duration:15000,
+                titleStyle: {
+                    fontSize:10
+                },
                 style: {
                     justifyContent: 'center',
                     alignItems: 'center',
@@ -49,9 +53,6 @@ class Compare extends React.Component {
             products.forEach(product => {
                 ids = `${ids}${product.ID},`
             })
-
-            console.warn(ids)
-
             this.props.navigation.navigate("CompareProductsScreen", {
                 ids: ids.trim()
             })
@@ -90,10 +91,14 @@ class Compare extends React.Component {
                                     :
                                     <Text
                                         style={{
-                                            alignSelf: "center",
-                                            fontSize: 12,
-                                            fontFamily: "LexendDeca-Regular",
-                                            color: "#515C6F"
+                                            // alignSelf: "center",
+                                            // fontSize: 12,
+                                            // fontFamily: "LexendDeca-Regular",
+                                            // color: "#515C6F"
+                                            fontSize: 15,
+                                            // color: "#515C6F",
+                                            color: "#999999",
+                                            fontFamily: "LexendDeca-Regular"
                                         }}
                                     >
                                         Please add products to compare

@@ -22,12 +22,12 @@ export default ({ products }) => {
             ListEmptyComponent={() => (
                 <View style={{ marginLeft: 25, marginRight: 25 }}>
                     <Text
-                        style={{
-                            fontSize: 15,
-                            // color: "#515C6F",
-                            color: "#999999",
-                            fontFamily: "LexendDeca-Regular"
-                        }}
+                       style={{
+                        fontSize: 15,
+                        // color: "#515C6F",
+                        color: "#999999",
+                        fontFamily: "LexendDeca-Regular"
+                    }}
                     >
                         No Products
                     </Text>

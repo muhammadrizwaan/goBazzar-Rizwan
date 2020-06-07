@@ -46,7 +46,7 @@ export default (state = initialState, action) => {
                     old_products.forEach(product => {
                         if (product.ID === action.product.ID) {
                             isError = true
-                            message = "The product is already added to the compare list."
+                            message = "This product is already added to the compare list."
                         }
                     });
 
@@ -92,6 +92,10 @@ export default (state = initialState, action) => {
                 autoHide: true,
                 hideOnPress: true,
                 floating: true,
+                duration:15000,
+                titleStyle:{
+                    fontSize:10
+                },
                 style: {
                     justifyContent: 'center',
                     alignItems: 'center',
@@ -142,10 +146,15 @@ export default (state = initialState, action) => {
 
             showMessage({
                 message: "Product removed",
-                position: 'center',
+                position: 'bottom',
                 // icon: 'auto',
+                autoHide: true,
                 hideOnPress: true,
                 floating: true,
+                duration:15000,
+                titleStyle:{
+                    fontSize:10
+                },
                 style: {
                     justifyContent: 'center',
                     alignItems: 'center',

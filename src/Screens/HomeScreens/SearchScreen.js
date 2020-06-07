@@ -10,6 +10,7 @@ import DismissKeyboardComponent from "../../Components/GeneralComponents/Dismiss
 import axios from "axios"
 import Apis from "../../Api/Apis"
 import { connect } from "react-redux"
+import {filterSetSearchText} from  "../../actions/filterActions"
 
 
 // filter new lines
@@ -24,9 +25,9 @@ import {
 
 import { removeProductFromUserWishlist, addProductToUserWishlist } from "../../actions/getWishlist"
 
-import { filterChangeCatalogId } from "../../actions/filterActions"
+import { filterChangeCatalogId ,startSetCatalogCategories,clearProductFilters} from "../../actions/filterActions"
 
-import { setCategoryProducts } from "../../actions/categoryProductAction"
+// import { setCategoryProducts } from "../../actions/categoryProductAction"
 
 
 class SearchScreen extends React.Component {
@@ -47,58 +48,59 @@ class SearchScreen extends React.Component {
         })
     }
 
-    handleApplyFilter = () => {
-        this.setState({ loading: true, isSearched: true });
+    // handleApplyFilter = () => {
+    //     this.setState({ loading: true, isSearched: true });
 
-        const { filters } = this.props
-        let Search = this.state.search;
+    //     const { filters } = this.props
+    //     let Search = this.state.search;
 
-        axios
-            .get(Apis.filter_products, {
-                params: {
-                    MinPrice: filters.MinPrice,
-                    MaxPrice: filters.MaxPrice,
-                    CategoryId: filters.CategoryId,
-                    CatalogId: filters.CatalogId,
-                    BrandId: "",
-                    StoreId: "",
-                    FiltersortingId: filters.filtersortingId,
-                    Search: Search,
-                    pagenumber: "",
-                }
-            })
-            .then(res => {
-                if (res.data.FilterProductList) {
-                    res.data.FilterProductList.forEach(item => {
-                        products.push({
-                            img: item.MainImage,
-                            post_title: item.ProductName,
-                            price: item.RegularPrice ? item.RegularPrice.toFixed(2) : 0,
-                            catalogId: item.CatalogueCode,
-                            ID: item.ProductCode,
-                            description: item.ProductDesc
-                        })
-                    })
+    //     axios
+    //         .get(Apis.filter_products, {
+    //             params: {
+    //                 MinPrice: filters.MinPrice,
+    //                 MaxPrice: filters.MaxPrice,
+    //                 CategoryId: filters.CategoryId,
+    //                 CatalogId: filters.CatalogId,
+    //                 BrandId: "",
+    //                 StoreId: "",
+    //                 FiltersortingId: filters.filtersortingId,
+    //                 Search: Search,
+    //                 pagenumber: "",
+    //             }
+    //         })
+    //         .then(res => {
+    //             if (res.data.FilterProductList) {
+    //                 res.data.FilterProductList.forEach(item => {
+    //                     products.push({
+    //                         img: item.MainImage,
+    //                         post_title: item.ProductName,
+    //                         price: item.RegularPrice ? item.RegularPrice.toFixed(2) : 0,
+    //                         catalogId: item.CatalogueCode,
+    //                         ID: item.ProductCode,
+    //                         description: item.ProductDesc
+    //                     })
+    //                 })
 
-                    this.props.setCategoryProducts(products)
-                }
-                this.setState({
-                    loading: false
-                })
-            })
-            .catch(err => {
-                alert(err)
-                this.setState({
-                    loading: false
-                })
-            })
-    }
+    //                 this.props.setCategoryProducts(products)
+    //             }
+    //             this.setState({
+    //                 loading: false
+    //             })
+    //         })
+    //         .catch(err => {
+    //             alert(err)
+    //             this.setState({
+    //                 loading: false
+    //             })
+    //         })
+    // }
 
     handleOnSearch = (val) => {
 
         let { search, catalogId } = this.state;
         const { filters, filtersortingId } = this.props;
-        Search = val
+        search = val;
+        this.props.filterSetSearchText(search)
         if (search.trim() < 1) {
             Keyboard.dismiss()
         } else {
@@ -116,7 +118,7 @@ class SearchScreen extends React.Component {
                         BrandId: "",
                         StoreId: "",
                         FiltersortingId: filters.filtersortingId,
-                        Search: Search,
+                        Search: search,
                         pagenumber: "",
                     }
                 })
@@ -162,15 +164,21 @@ class SearchScreen extends React.Component {
             isCatalogSelected: true
         })
 
-        console.warn(id, text, img)
+        // console.warn(id, text, img)
         this.props.filterChangeCatalogId(
             id,
             text,
             img
         )
+        this.props.startCategoryProductLoading()
+        this.props.startSetCatalogCategories(id, "", text);
+        this.props.stopCategoryProductLoading()
     }
 
-
+    componentWillUnmount() {
+        this.props.clearCategoryProducts();
+        this.props.clearProductFilters()
+    }
 
     render() {
         const { 
@@ -194,7 +202,7 @@ class SearchScreen extends React.Component {
                         search={search}
                         handleTextChange={this.handleTextChange}
                         handleOnSearch={this.handleOnSearch}
-                        isCatalogSelected={this.props.filters.CatalogId ? true : false}
+                        isCatalogSelected={this.props.filters.CatalogId.length > 0 ? true : false}
                         all_catalogs={this.props.all_catalogs}
                         catalogId={this.props.filters.CatalogId}
                         catalogImage={this.props.filters.catalogImage}
@@ -202,10 +210,10 @@ class SearchScreen extends React.Component {
                     />
                     <CategoryFilter
                         navigation={navigation}
-                        handleApplyFilter={handleApplyFilter}
+                        // handleApplyFilter={handleApplyFilter}
                     />
                     <View style={{ margin: 10, }}>
-                        <Text>{category_products.length} results</Text>
+                        <Text>{products.length} Results</Text>
                     </View>
 
 
@@ -240,9 +248,15 @@ const mapStateToProps = (state) => ({
 
 
 const mapDispatchToProps = (dispatch) => ({
+    startCategoryProductLoading: () => dispatch(startCategoryProductLoading()),
+    stopCategoryProductLoading: () => dispatch(stopCategoryProductLoading()),
+    startSetCatalogCategories: (catalogId, categoryId, categoryName) => dispatch(startSetCatalogCategories(catalogId, categoryId, categoryName)),
     // setCategoryProducts: (products) => dispatch(setCategoryProducts(products)),
     filterChangeCatalogId: (catalogId, catalogName, catalogImage) => dispatch(filterChangeCatalogId(catalogId, catalogName, catalogImage)),
-    setCategoryProducts: (products) => dispatch(setCategoryProducts(products))
+    setCategoryProducts: (products) => dispatch(setCategoryProducts(products)),
+    filterSetSearchText: (text) => dispatch(filterSetSearchText(text)),
+    clearProductFilters: () => dispatch(clearProductFilters()),
+    clearCategoryProducts: () => dispatch(clearCategoryProducts()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchScreen)

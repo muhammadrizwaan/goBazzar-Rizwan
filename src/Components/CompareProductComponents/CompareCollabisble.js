@@ -53,7 +53,8 @@ class CompareCollabisble extends React.Component {
                         <Text 
                             style={{
                                 fontSize: 12,
-                                fontFamily: "Poppins-Bold",
+                                fontFamily: "LexendDeca-Regular",
+                                // fontFamily: "Poppins-Bold",
                                 fontWeight: "bold",
                                 color: "white"
                             }}

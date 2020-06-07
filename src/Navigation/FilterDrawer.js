@@ -33,13 +33,16 @@ const MenuDrawer = (props) => {
         // console.warn(e[1])
     }
     const { filters } = props
+
     const handleChangeCatalog = (catalogId, catalogName, catalogImage) => {
+        console.log(catalogId, catalogName, catalogImage)
         props.filterChangeCatalogId(catalogId, catalogName, catalogImage)
         props.startSetCatalogCategories(catalogId)
     }
 
     const handleChangeCategory = (categoryId, categoryName) => {
         props.filterChangeCategoryId(categoryId, categoryName)
+    
     }
     return (
         <View style={styles.menuDrawer}>

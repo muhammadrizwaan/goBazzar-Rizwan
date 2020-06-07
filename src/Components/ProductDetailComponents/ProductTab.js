@@ -161,7 +161,6 @@ export default ({
 
             {
                 stores.map(store => (
-                    console.log('store map', store.name),
                     <StoreCard
                         key={store.id}
                         store={store}

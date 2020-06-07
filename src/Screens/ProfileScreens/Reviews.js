@@ -78,7 +78,15 @@ class Reviews extends React.Component {
                             :
                             reviews.length < 1 ?
                                 <View>
-                                    <Text>No Reviews</Text>
+                                    <Text 
+                                    style={{
+                                        alignSelf:'center',
+                                        fontSize: 15,
+                                        color: "#515C6F",
+                                        // fontWeight: 'bold',
+                                        fontFamily: "LexendDeca-Regular"
+                                    }}
+                                    >No Reviews</Text>
                                 </View>
                                 :
                                 reviews.map((item) => (

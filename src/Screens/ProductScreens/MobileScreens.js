@@ -11,7 +11,7 @@ import SearchProductCard from "../../Components/SearchComponents/SearchProductCa
 import { connect } from "react-redux"
 import { useNavigation } from "@react-navigation/core"
 
-const MobilesScreens = ({   
+const MobilesScreens = ({
     mobiles,
     mobiles_loading
 }) => {
@@ -19,12 +19,12 @@ const MobilesScreens = ({
     return (
         <Container style={{ backgroundColor: "white" }}>
             <SafeAreaView />
-    
+
             <CategoryHeader
                 navigation={navigation}
                 heading={"Mobiles"}
             />
-    
+
             <CategoryProductsLoader
                 loading={mobiles_loading}
             />
@@ -44,8 +44,8 @@ const MobilesScreens = ({
                         {!category_product_loading && <Text
                             style={{
                                 fontSize: 15,
-                                color: "#515C6F",
-                                fontWeight: 'bold',
+                                // color: "#515C6F",
+                                color: "#999999",
                                 fontFamily: "LexendDeca-Regular"
                             }}
                         >

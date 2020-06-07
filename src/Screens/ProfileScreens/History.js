@@ -85,7 +85,13 @@ class History extends React.Component {
                             />
                         ))
                         :
-                        <Text style={{alignSelf: "center"}}>No Products</Text>
+                        <Text style={{
+                            fontSize: 15,
+                            alignSelf:'center',
+                            // color: "#515C6F",
+                            color: "#999999",
+                            fontFamily: "LexendDeca-Regular"
+                        }}>No Products</Text>
                     }
                 </Content>
             </Container>

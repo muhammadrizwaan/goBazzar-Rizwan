@@ -1,6 +1,7 @@
 import React from "react"
 import { Button } from "native-base"
-import { View, Text, Image } from "react-native"
+import { View, Text, Image, Linking } from "react-native"
+import styles from "../../Styles/ProductDetailStyles/StoreCardStyles"
 
 export default ({ item }) => (
     <View
@@ -9,7 +10,7 @@ export default ({ item }) => (
             borderWidth: 1,
             borderColor: "rgba(114, 124, 142, 0.3)",
             padding: 5,
-            height: 250
+            height: 260
         }}
     >
         <Image
@@ -22,6 +23,7 @@ export default ({ item }) => (
             }}
         />
 
+
         <Text
             numberOfLines={3}
             style={{
@@ -33,30 +35,50 @@ export default ({ item }) => (
         >
             {item.ProductName}
         </Text>
+        <View style={{ flexDirection: 'row' }}>
+            <Image
+                resizeMode="contain"
+                source={{ uri: item.MainImage }}
+                // source={{ uri: item.ImagePath }}
+                style={{ width: 50, height: 50, }}
+            />
+            <View>
+                {item.OfferPrice===0 ?<View></View>:<Text
+                    style={{
+                        // ...styles.product_price,
+                        fontFamily: "LexendDeca-Regular",
+                        fontSize: 10,
+                        textDecorationLine: item.OfferPrice ? 'line-through' : "none",
+                        color: item.OfferPrice ? "#C9C9C9" : "#8EA625"
+                    }}
+                >{`AED ${item.RegularPrice}`}</Text>}
 
-        <Text
-            numberOfLines={3}
-            style={{
-                color: "#8daf00",
-                fontFamily: "LexendDeca-Regular",
-                fontSize: 10,
-            }}
-        >
-            {`AED ${item.RegularPrice}`}
-        </Text>
-
+                <Text
+                    numberOfLines={2}
+                    style={{
+                        // display: item.OfferPrice ? "flex" : "none",
+                        color: "#8daf00",
+                        fontFamily: "LexendDeca-Regular",
+                        fontSize: 10,
+                    }}
+                >{item.OfferPrice===0?`AED ${item.RegularPrice}`:`AED ${item.OfferPrice}`}
+                    {/* {`AED ${item.OfferPrice}`} */}
+                </Text>
+            </View>
+        </View>
         <Button
-            full 
-            transparent 
+            full
+            transparent
             style={{
                 width: 100,
                 height: 30,
                 borderRadius: 30,
                 backgroundColor: "#8daf00",
-                alignItems:"center",
+                alignItems: "center",
                 marginTop: 10,
                 alignSelf: "center"
             }}
+            onPress={() => Linking.openURL(item.URL)}
         >
             <Text
                 style={{

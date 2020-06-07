@@ -5,7 +5,7 @@ import { Button, Spinner } from "native-base"
 
 import styles from '../../Styles/ProfileScreenStyles/NotLoggedInStyles'
 import editProfileValidation from "../../Validation/editProfileValidation"
-
+import { showMessage, hideMessage } from "react-native-flash-message";
 import { connect } from "react-redux";
 import { updateUserProfile } from "../../actions/authActions"
 
@@ -62,13 +62,79 @@ class EditProfileForm extends React.Component {
                         loading: false,
                         isUpdated: true
                     })
-
                     this.props.updateUserProfile(user)
+                    showMessage({
+                        message: "Profile Updated",
+                        position: 'bottom',
+                        // icon: 'auto',
+                        autoHide: true,
+                        hideOnPress: true,
+                        floating: true,
+                        duration:15000,
+                        titleStyle:{
+                            fontSize:10
+                        },
+                        style: {
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            backgroundColor: "#E8E8E8",
+                            width: "90%",
+                            borderRadius: 30,
+                            color: "black",
+                            shadowColor: "#000",
+                            shadowOffset: {
+                                width: 0,
+                                height: 2,
+                            },
+                            shadowOpacity: 0.25,
+                            shadowRadius: 3.84,
+                            elevation: 7,
+                        },
+                        color: "#000000",
+                    });
                 })
                 .catch(err => {
                     this.setState({
                         loading: false
                     })
+                    showMessage({
+                        message: "Error Occured",
+                        position: 'bottom',
+                        // icon: 'auto',
+                        autoHide: true,
+                        hideOnPress: true,
+                        floating: true,
+                        duration:15000,
+                        titleStyle:{
+                            fontSize:10
+                        },
+                        style: {
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            backgroundColor: "#E8E8E8",
+                            width: "90%",
+                            borderRadius: 30,
+                            color: "black",
+                            shadowColor: "#000",
+                            shadowOffset: {
+                                width: 0,
+                                height: 2,
+                            },
+                            shadowOpacity: 0.25,
+                            shadowRadius: 3.84,
+                            elevation: 7,
+                        },
+                        color: "#000000",
+                    });
+                    // showMessage({
+                    //     message: "Error Occured",
+                    //     type: "danger",
+                    //     position: 'bottom',
+                    //     // icon: 'auto',
+                    //     autoHide: true,
+                    //     hideOnPress: true,
+                    //     floating: true,
+                    // });
                 })
         }
     }

@@ -25,7 +25,6 @@ export default class extends React.Component {
             .get(Apis.get_store_list)
             .then(res => {
                 if (res.data) {
-                    console.log('store res',res.data)
                     res.data.StoreModel.forEach(item => {
                         stores.push({
                             storeId: item.StoreId,
@@ -83,7 +82,13 @@ export default class extends React.Component {
                                 />
                             ))
                             :
-                            <Text>No Stores Found</Text>
+                            <Text style={{
+                                alignSelf:'center',
+                                fontSize: 15,
+                                // color: "#515C6F",
+                                color: "#999999",
+                                fontFamily: "LexendDeca-Regular"
+                            }}>No Stores Found</Text>
                     }
                 </Content>
             </Container>
