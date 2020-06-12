@@ -29,10 +29,11 @@ export const removeAProductFromWishlist = (productId) => ({
     productId
 })
 
+
+
 export const applyFilters = () => {
     return (dispatch, getState) => {
         const filters = getState().productFilters
-        // console.warn(filters)
 
         dispatch(startCategoryProductLoading());
 
@@ -49,6 +50,7 @@ export const applyFilters = () => {
                     StoreId: "",
                     FiltersortingId: filters.filtersortingId,
                     Search: filters.Search,
+                    // pagenumber:filters.PageNumber,
                     pagenumber:"",
                 }
             }) 
@@ -64,7 +66,7 @@ export const applyFilters = () => {
                             price: item.RegularPrice ? item.RegularPrice.toFixed(2) : 0
                         })
                     })
-
+                    
                     dispatch(setCategoryProducts(products))
                 }
                 dispatch(stopCategoryProductLoading())

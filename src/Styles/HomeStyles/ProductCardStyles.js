@@ -39,7 +39,7 @@ export default StyleSheet.create({
         
     },  
     titleStyle: {
-        fontSize: 16,
+        fontSize: 15,
         // fontSize: 12,
         fontFamily: "LexendDeca-Regular",
         color: "#515C6F",

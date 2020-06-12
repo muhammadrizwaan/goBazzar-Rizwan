@@ -8,10 +8,8 @@ export default StyleSheet.create({
         
     },
     titleStyle: {
-        // fontSize: 18,
         fontSize: 20,
         color: "#8ea725",
-        // color: "#515C6F",
         fontWeight: 'bold',
         fontFamily: "LexendDeca-Regular",
     },

@@ -45,9 +45,9 @@ const HomeStack = () => (
                         //     return <Image source={require('../Assets/TabBarIcons/Active/more_active.png')} style={{ width: 25, height: 33.5 }} />
                         // } else {
                         //     return <Image source={require('../Assets/TabBarIcons/InActive/more_inactive.png')} style={{ width: 25, height: 33.5 }} />
-                        return <Image source={require('../Assets/TabBarIcons/Active/more_active.png')} style={{ width: 30, height: 39 }} />
+                        return <Image source={require('../Assets/TabBarIcons/Active/more_active.png')} style={{ width: 28, height: 36 }} />
                     } else {
-                        return <Image source={require('../Assets/TabBarIcons/InActive/more_inactive.png')} style={{ width: 30, height: 39}} />
+                        return <Image source={require('../Assets/TabBarIcons/InActive/more_inactive.png')} style={{ width: 28, height: 36}} />
                     }
                 }
             },

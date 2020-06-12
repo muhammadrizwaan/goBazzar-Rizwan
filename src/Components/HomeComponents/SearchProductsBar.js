@@ -51,6 +51,10 @@ export default ({
                 value={search}
                 onChangeText={(val) => {
                     handleTextChange(val)
+                    // handleOnSearch(val)
+                }}
+                onSubmitEditing={(val) => {
+                    // handleTextChange(val)
                     handleOnSearch(val)
                 }}
                 returnKeyType="search"

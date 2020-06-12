@@ -21,120 +21,161 @@ export default ({ description, additionalValues = [] }) => {
             descriptionReadMore: !state.descriptionReadMore
         })
     }
-    return (
-        <Content 
-            contentContainerStyle={{ 
-                paddingBottom: 10, 
-                paddingTop: Platform.OS === "ios" ? 65 : 80 
-            }}
-        >
-        <View
-            style={{
-                ...styles.container,
-                padding:10
-            }}
-        >
-            <View style={styles.storeCardHeading}>
-                <View style={{ width: "100%", justifyContent: "space-around" }}>
-                    <Text
-                        style={{
-                            ...styles.storeNameText,
-                            fontWeight: "bold"
-                        }}
-                    >
-                        Description
-                    </Text>
-
-                    <Text
-                        numberOfLines={state.descriptionReadMore ? 100 : 3}
-                        style={{
-                            ...styles.product_name,
-                            marginTop: 10
-                        }}
-                    >
-                        {description ? description : "No description"}
-                    </Text>
-                    {description && <TouchableOpacity
-                        onPress={handleDescriptionReadMore}
-                    >
+    SplitDescription = (description) => {
+        let arr = []
+        console.log('desp', description)
+        if (description) {
+            arr = description.split("| ")
+            if (state.descriptionReadMore) {
+                return (
+                    arr.map((item) => (
                         <Text
                             style={{
-                                fontSize: 12,
-                                fontFamily: "LexendDeca-Regular",
-                                color: "#8EA625",
-                                // marginLeft: 5
+                                paddingVertical: 0,
+                                ...styles.product_name,
+                            }}>{item ? item : "No description"}</Text>
+                    ))
+                )
+            }
+            else {
+                return (
+                    <Text
+                        style={{
+                            ...styles.product_name,
+                        }}>{arr[0] ? arr[0] : "No description"}</Text>
+                )
+            }
+        }
+        else {
+            return (
+                <Text
+                    // numberOfLines={state.descriptionReadMore ? 100 : 3}
+                    style={{
+                        ...styles.product_name,
+                        marginTop: 10
+                    }}
+                >
+                    {description ? description : "No description"}
+                </Text>
+            )
+        }
+    }
+
+    return (
+        <Content
+            contentContainerStyle={{
+                paddingBottom: 10,
+                paddingTop: Platform.OS === "ios" ? 65 : 80
+            }}
+        >
+            <View
+                style={{
+                    ...styles.container,
+                    padding: 10
+                }}
+            >
+                <View style={styles.storeCardHeading}>
+                    <View style={{ width: "100%", justifyContent: "space-around" }}>
+                        <Text
+                            style={{
+                                ...styles.storeNameText,
+                                fontWeight: "bold"
                             }}
                         >
-                            {state.descriptionReadMore ? "See less" : "Read More"}
-                        </Text>
-                    </TouchableOpacity>}
-                </View>
-                {/* <Image
+                            Description
+                    </Text>
+                        {SplitDescription(description)}
+
+                        {/* <Text
+                            numberOfLines={state.descriptionReadMore ? 100 : 3}
+                            style={{
+                                ...styles.product_name,
+                                marginTop: 10
+                            }}
+                        >
+                            {description ? description : "No description"}
+                        </Text> */}
+                        {description && <TouchableOpacity
+                            onPress={handleDescriptionReadMore}
+                        >
+                            <Text
+                                style={{
+                                    fontSize: 12,
+                                    fontFamily: "LexendDeca-Regular",
+                                    color: "#8EA625",
+                                    // marginLeft: 5
+                                }}
+                            >
+                                {state.descriptionReadMore ? "See less" : "Read More"}
+                            </Text>
+                        </TouchableOpacity>}
+                    </View>
+                    {/* <Image
                     source={{ uri: store.store_img }}
                     style={{ width: 50, height: 50, marginLeft: "auto" }}
                 /> */}
-            </View>
+                </View>
 
-            <View style={{ ...styles.storeCardHeading, marginTop: 15 }}>
-                <View style={{ width: "100%", justifyContent: "space-around" }}>
-                    <Text style={{
-                        ...styles.storeNameText,
-                        fontWeight: "bold",
-                        marginBottom: 10
-                    }}>
-                        Full Specifications
+                <View style={{ ...styles.storeCardHeading, marginTop: 15 }}>
+                    <View style={{ width: "100%", justifyContent: "space-around" }}>
+                        <Text style={{
+                            ...styles.storeNameText,
+                            fontWeight: "bold",
+                            marginBottom: 10
+                        }}>
+                            Full Specifications
                     </Text>
 
 
-                    <Text
-                        numberOfLines={state.fullSpecsReadMore ? 100 : 3}
-                        style={{
-                            // display: "flex",
-                            // flexDirection: "column"
-                        }}
-                    >
-                        {
-                            additionalValues &&
-                            additionalValues.length > 0
-                            ?
-                            additionalValues.map(item => (
-                                <Text
-                                    numberOfLines={1}
-                                    style={{
-                                        ...styles.product_name,
-                                    }}
-                                >
-                                    {item.name}: {item.value} {'\n'}
-                                </Text>
-
-                            ))
-                            :
-                            <Text
-                                style={{
-                                    ...styles.product_name,
-                                    marginTop: 10
-                                }}
-                            >No Specifications</Text>
-                        }
-                    </Text>
-                    {additionalValues && <TouchableOpacity
-                        onPress={handleFullSpecsReadMore}
-                    >
                         <Text
+                            numberOfLines={state.fullSpecsReadMore ? 100 : 3}
                             style={{
-                                fontSize: 12,
-                                fontFamily: "LexendDeca-Regular",
-                                color: "#8EA625",
-                                // marginLeft: 5
+                                // display: "flex",
+                                // flexDirection: "column"
                             }}
                         >
-                            {state.fullSpecsReadMore ? "See less" : "Read More"}
-                        </Text>
-                    </TouchableOpacity>}
-                </View>
-            </View>
+                            {
+                                additionalValues &&
+                                    additionalValues.length > 0
+                                    ?
+                                    additionalValues.map(item => (
+                                        <Text
+                                            numberOfLines={1}
+                                            style={{
+                                                ...styles.product_name,
+                                            }}
+                                        >
+                                            {item.name}: {item.value} {'\n'}
+                                        </Text>
 
-            {/* <View style={{ ...styles.storeCardHeading, marginTop: 15 }}>
+                                    ))
+                                    :
+                                    <Text
+                                        style={{
+                                            ...styles.product_name,
+                                            marginTop: 10
+                                        }}
+                                    >No Specifications</Text>
+                            }
+                        </Text>
+                        {additionalValues && <TouchableOpacity
+                            onPress={handleFullSpecsReadMore}
+                        >
+                            <Text
+                                style={{
+                                    fontSize: 12,
+                                    fontFamily: "LexendDeca-Regular",
+                                    color: "#8EA625",
+                                    // marginLeft: 5
+                                }}
+                            >
+                                {state.fullSpecsReadMore ? "See less" : "Read More"}
+                            </Text>
+                        </TouchableOpacity>}
+                    </View>
+                </View>
+
+                {/* <View style={{ ...styles.storeCardHeading, marginTop: 15 }}>
                 <View style={{ width: "40%", justifyContent: "space-around" }}>
                     <Text style={styles.product_name}>{store.currency}</Text>
                     <Text
@@ -153,7 +194,7 @@ export default ({ description, additionalValues = [] }) => {
                     <Text style={styles.shopText}>Go to Shop</Text>
                 </TouchableOpacity>
             </View> */}
-        </View>
+            </View>
         </Content>
     )
 }

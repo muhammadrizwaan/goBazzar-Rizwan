@@ -31,9 +31,7 @@ class ForgetPasswordForm extends React.Component {
     }
     onSubmit = () => {
         Keyboard.dismiss()
-        const { errors, isValid } = forgetPassValidation(
-            this.state.email.trim(),
-        );
+        const { errors, isValid } = forgetPassValidation(this.state.email.trim());
 
         if (!isValid) {
             this.setState({
@@ -90,7 +88,6 @@ class ForgetPasswordForm extends React.Component {
                     // this.props.updateUserProfile(user)
                 })
                 .catch(err => {
-                    console.log('error',err)
                     this.setState({
                         errors: {
                             email: "* Invalid Credentials",

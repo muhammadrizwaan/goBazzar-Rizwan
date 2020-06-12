@@ -13,53 +13,68 @@ import { connect } from "react-redux"
 
 import { onRegisterUser } from "../../actions/authActions"
 
+class SignInForm extends React.Component {
+    // const SignInForm = ({ onRegisterUser, navigation }) => {
+    // const [state, setState] = useState({
+    constructor(props) {
+        super(props)
 
-const SignInForm = ({ onRegisterUser, navigation }) => {
-    const [state, setState] = useState({
-        email: "",
-        password: "",
-        loading: false,
-        errors: {},
-        isErrorOccured: false
-    })
+        this.state = {
+            email: "",
+            password: "",
+            loading: false,
+            errors: {},
+            isErrorOccured: false,
+            // ProductDetailID:this.props.navigation.state.params.id
+        }
+    }
+    componentDidMount(){
+        // const { route, userId } = this.props
+        // const ProductDetailID = route.params.id
+    }
     onChangeText = (key, val) => {
-        if (state.isErrorOccured) {
-            const { isValid, errors } = signInValidation(state.email.trim(), state.password)
-            if(isValid) {
-                setState(state => ({
-                    ...state,
+        if (this.state.isErrorOccured) {
+            const user = {
+                email: this.state.email.trim(),
+                firstName: this.state.firstName.trim(),
+                lastName: this.state.lastName.trim()
+            }
+            const { isValid, errors } = signInValidation(this.state.email.trim(), this.state.password)
+            if (isValid) {
+                this.setState({
+                    // ...state,
                     [key]: val,
                     errors: {},
-                }))
+                })
             } else {
-                setState(state => ({
-                    ...state,
+                this.setState({
+                    // ...state,
                     [key]: val,
                     errors: errors,
-                }))
+                })
             }
-           
+
         } else {
-            setState({
-                ...state,
+            this.setState({
+                // ...state,
                 [key]: val
             })
         }
     }
 
     handleSignIn = () => {
-        const { isValid, errors } = signInValidation(state.email.trim(), state.password)
+        const { isValid, errors } = signInValidation(this.state.email.trim(), this.state.password)
         if (isValid) {
-            setState({
-                ...state,
+            this.setState({
+                // ...state,
                 errors: {},
                 loading: true
             })
 
             axios
                 .post(Apis.login, {
-                    Email: state.email.trim(),
-                    Password: state.password
+                    Email: this.state.email.trim(),
+                    Password: this.state.password
                 })
                 .then((res) => {
                     console.warn(res)
@@ -76,30 +91,37 @@ const SignInForm = ({ onRegisterUser, navigation }) => {
                             review: [],
                             scans: []
                         }
-                        onRegisterUser(user)
+                        this.props.onRegisterUser(user)
                     }
 
-                    setState({
-                        ...state,
+                    this.setState({
+                        // ...state,
                         loading: false
                     })
-
-                    navigation.navigate("Home")
+                    // if (this.state.ProductDetailID) {
+                    //     this.props.navigation.navigate("ProductDetail", {
+                    //         id: this.state.ProductDetailID
+                    //     })
+                    // }
+                    // else {
+                        // this.props.navigation.navigate("Home")
+                    // }
+                    this.props.navigation.goBack()
+                    // 
                 })
                 .catch(err => {
-                    console.warn(err)
-                    setState({
-                        ...state,
+                    this.setState({
+                        // ...state,
                         loading: false,
                         errors: {
-                            email: "* Invalid Credentials",
-                            password: "* Invalid Credentials"
+                            email: "* InvalidCredentials",
+                            password: "* InvalidCredentials"
                         }
                     })
                 })
         } else {
-            setState({
-                ...state,
+            this.setState({
+                // ...state,
                 errors: errors,
                 isErrorOccured: true
             })
@@ -107,8 +129,8 @@ const SignInForm = ({ onRegisterUser, navigation }) => {
     }
 
     handleRemoveValidation = (key) => {
-        setState({
-            ...state,
+        this.setState({
+            // ...state,
             errors: {
                 ...state.errors,
                 [key]: null
@@ -116,59 +138,61 @@ const SignInForm = ({ onRegisterUser, navigation }) => {
         })
     }
 
-    const { errors } = state
-    return (
-        <View style={{ marginVertical: 25 }}>
-            <Spinner
-                visible={state.loading}
-                textContent={""}
-            />
+    render() {
+        const { errors } = this.state
+        return (
+            <View style={{ marginVertical: 25 }}>
+                <Spinner
+                    visible={this.state.loading}
+                    textContent={""}
+                />
 
-            <TextInput
-                placeholder="Email"
-                placeholderTextColor="#515C6F"
-                style={styles.inputBox}
-                value={state.email}
-                autoFocus={false}
-                autoCapitalize={"none"}
-                onChangeText={val => onChangeText("email", val)}
-                onFocus={() => handleRemoveValidation("password")}
-            />
-            {errors.email &&
-                <Text
-                    style={styles.errorStyle}
+                <TextInput
+                    placeholder="Email"
+                    placeholderTextColor="#515C6F"
+                    style={styles.inputBox}
+                    value={this.state.email}
+                    // autoFocus={false}
+                    autoCapitalize={"none"}
+                    onChangeText={val => this.onChangeText("email", val)}
+                // onFocus={() => handleRemoveValidation("password")}
+                />
+                {errors.email &&
+                    <Text
+                        style={styles.errorStyle}
+                    >
+                        {errors.email}
+                    </Text>
+                }
+
+                <TextInput
+                    placeholder="Password"
+                    placeholderTextColor="#515C6F"
+                    style={styles.inputBox}
+                    value={this.state.password}
+                    onChangeText={val => this.onChangeText("password", val)}
+                    secureTextEntry={true}
+                // onFocus={() => handleRemoveValidation("email")}
+                />
+                {errors.password &&
+                    <Text
+                        style={styles.errorStyle}
+                    >
+                        {errors.password}
+                    </Text>
+                }
+
+                <Button
+                    transparent
+                    full
+                    style={styles.signInButton}
+                    onPress={this.handleSignIn}
                 >
-                    {errors.email}
-                </Text>
-            }
-
-            <TextInput
-                placeholder="Password"
-                placeholderTextColor="#515C6F"
-                style={styles.inputBox}
-                value={state.password}
-                onChangeText={val => onChangeText("password", val)}
-                secureTextEntry={true}
-                onFocus={() => handleRemoveValidation("email")}
-            />
-            {errors.password &&
-                <Text
-                    style={styles.errorStyle}
-                >
-                    {errors.password}
-                </Text>
-            }
-
-            <Button
-                transparent
-                full
-                style={styles.signInButton}
-                onPress={() => handleSignIn()}
-            >
-                <Text style={styles.signInButtonText}>Sign In</Text>
-            </Button>
-        </View>
-    )
+                    <Text style={styles.signInButtonText}>Sign In</Text>
+                </Button>
+            </View>
+        )
+    }
 }
 
 const mapDispatchToProps = dispatch => ({

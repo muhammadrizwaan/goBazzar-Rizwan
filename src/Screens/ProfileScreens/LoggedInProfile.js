@@ -18,7 +18,8 @@ const LoggedInProfile =  ({ navigation, onLogout, user }) => (
         <Content style={{padding:25}}>
             <Text style={styles.nameText}>{user.firstName} {user.lastName}</Text>
             <TouchableOpacity onPress={() => navigation.navigate("EditProfile")}>
-                <Text style={styles.editText}>Edit Profile</Text>
+                {/* <Text style={styles.editText}>Edit Profile</Text> */}
+                <Text style={styles.menuText}>Edit Profile</Text>
             </TouchableOpacity>
 
             <View style={styles.lineBreak} />

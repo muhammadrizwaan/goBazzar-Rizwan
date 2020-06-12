@@ -26,6 +26,7 @@ import WatchesScreen from "../Screens/ProductScreens/WatchesScreen"
 import LaptopsScreen from "../Screens/ProductScreens/LaptopScreen"
 import MobileScreens from "../Screens/ProductScreens/MobileScreens"
 import TopDealsScreen from "../Screens/ProductScreens/TopDealsScreen"
+import HistoryScreen from "../Screens/ProductScreens/HistoryScreen"
 
 export default ({ navigation, route }) => {
     navigation.setOptions({ tabBarVisible: route.state ? route.state.index > 0 ? false : true : null });
@@ -51,6 +52,10 @@ export default ({ navigation, route }) => {
             <Screen 
                 name="WatchesScreen"
                 component={WatchesScreen}
+            />
+            <Screen 
+                name="HistoryScreen"
+                component={HistoryScreen}
             />
             <Screen 
                 name="LaptopsScreen"

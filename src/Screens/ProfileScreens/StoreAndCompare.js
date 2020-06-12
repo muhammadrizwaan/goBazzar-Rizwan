@@ -10,7 +10,7 @@ export default ({
 }) => (
     <Item icon style={{ marginLeft: 0, borderBottomWidth: 0, marginVertical: 10 }} onPress={onPress} noBorder>
         <Left style={{flex: 1}}>
-            <Text style={styles.storeAndCompare}>{text}</Text>
+            <Text style={styles.menuText}>{text}</Text>
         </Left>
         {/* <Body /> */}
         {indicatorNumber.length > 0 && <Right style={{ paddingRight: 0 }}>

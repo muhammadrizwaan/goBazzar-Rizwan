@@ -44,7 +44,8 @@ class StoreDetail extends React.Component {
         search: "",
         products: [],
         loading: false,
-        products_loading: false
+        products_loading: false,
+        PageNumber:0
     }
     changeTab = (key) => {
         this.setState({
@@ -52,92 +53,92 @@ class StoreDetail extends React.Component {
         })
     }
     componentDidMount() {
-        if(this.state.search == ""){
-
-      
-        this.setState({
-            loading: true,
-            products_loading: true
-        })
-        const { route } = this.props;
-
-        const storeId = route.params.id
+        if (this.state.search == "") {
 
 
-        axios
-            .get(Apis.get_store_detail, {
-                params: {
-                    storeId: storeId
-                }
+            this.setState({
+                loading: true,
+                products_loading: true
             })
-            .then(res => {
-                if (res.data) {
+            const { route } = this.props;
 
-                    this.setState({
-                        store: {
-                            storeId: res.data.StoreId,
-                            storeName: res.data.StoreName,
-                            img: res.data.ImageURL,
-                            rating: res.data.RatingCount
-                        }
-                    })
-                }
-                this.setState({
-                    loading: false
+            const storeId = route.params.id
+
+
+            axios
+                .get(Apis.get_store_detail, {
+                    params: {
+                        storeId: storeId
+                    }
                 })
-            })
-            .catch(err => {
-                this.setState({
-                    loading: false
-                })
-            })
+                .then(res => {
+                    if (res.data) {
 
-        const products = []
-
-        // Get Products by store Id
-        axios
-            .get(Apis.filter_products, {
-                params: {
-                    MinPrice: 0,
-                    MaxPrice: "",
-                    CategoryId: "",
-                    CatalogId: "",
-                    BrandId: "",
-                    StoreId: storeId,
-                    FiltersortingId: "",
-                    Search: this.state.search,
-                    pagenumber:"",
-                }
-            })
-            .then(res => {
-                if (res.data.FilterProductList) {
-                    res.data.FilterProductList.forEach(item => {
-                        products.push({
-                            img: item.MainImage,
-                            post_title: item.ProductName,
-                            price: item.RegularPrice ? item.RegularPrice.toFixed(2) : 0,
-                            // catalogId: item.CatalogueCode,
-                            ID: item.ProductCode,
-                            // description: item.ProductDesc
+                        this.setState({
+                            store: {
+                                storeId: res.data.StoreId,
+                                storeName: res.data.StoreName,
+                                img: res.data.ImageURL,
+                                rating: res.data.RatingCount
+                            }
                         })
-                    })
-
+                    }
                     this.setState({
-                        products: products,
+                        loading: false
+                    })
+                })
+                .catch(err => {
+                    this.setState({
+                        loading: false
+                    })
+                })
+
+            const products = []
+
+            // Get Products by store Id
+            axios
+                .get(Apis.filter_products, {
+                    params: {
+                        MinPrice: 0,
+                        MaxPrice: "",
+                        CategoryId: "",
+                        CatalogId: "",
+                        BrandId: "",
+                        StoreId: storeId,
+                        FiltersortingId: "",
+                        Search: this.state.search,
+                        pagenumber: "",
+                    }
+                })
+                .then(res => {
+                    if (res.data.FilterProductList) {
+                        res.data.FilterProductList.forEach(item => {
+                            products.push({
+                                img: item.MainImage,
+                                post_title: item.ProductName,
+                                price: item.RegularPrice ? item.RegularPrice.toFixed(2) : 0,
+                                // catalogId: item.CatalogueCode,
+                                ID: item.ProductCode,
+                                // description: item.ProductDesc
+                            })
+                        })
+
+                        this.setState({
+                            products: products,
+                            products_loading: false
+                        })
+                    }
+                })
+                .catch(err => {
+                    this.setState({
                         products_loading: false
                     })
-                }
-            })
-            .catch(err => {
-                this.setState({
-                    products_loading: false
                 })
-            })
         }
     }
-    handleProductList = (val) => {
+    handleProductList = () => {
         let { search } = this.state;
-        search = val
+        // search = val
         // this.setState({
         //     loading: true,
         //     products_loading: true
@@ -189,7 +190,7 @@ class StoreDetail extends React.Component {
                     StoreId: storeId,
                     FiltersortingId: "",
                     Search: search,
-                    pagenumber:"",
+                    pagenumber: "",
                 }
             })
             .then(res => {
@@ -234,6 +235,13 @@ class StoreDetail extends React.Component {
             search: val
         })
     }
+    fetchMore = () => {
+        this.setState({
+            PageNumber: this.state.PageNumber + 1
+        }, () => {
+            this.handleOnSearch()
+        })
+    }
     render() {
         const { activeTabKey, loading, store, products_loading, products, search } = this.state
         return (
@@ -269,6 +277,7 @@ class StoreDetail extends React.Component {
                             :
                             <View style={{ marginTop: 20 }}>
                                 <SearchProducts
+                                    fetchMore={this.fetchMore}
                                     products={products}
                                     navigation={this.props.navigation}
                                 />

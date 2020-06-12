@@ -17,6 +17,47 @@ export default StyleSheet.create({
         shadowRadius: 3.84,
         elevation: 7,
     },
+    HistoryText:{
+        fontSize: 11,
+        fontFamily: "LexendDeca-Regular",
+        color: '#515C6F',
+
+        marginTop: 10, 
+        marginHorizontal: 10
+    },
+    HistoryInnerText:{
+        fontSize: 11,
+        fontFamily: "LexendDeca-Regular",
+        color: '#515C6F',
+
+        // marginTop: 10, 
+        marginHorizontal: 20
+    },
+    HistoryOuterView: {
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 7,
+        height: 190,
+        backgroundColor: "#F5F5F5",
+        marginTop: 10, 
+        borderRadius: 5, 
+        marginHorizontal: 10,
+    },
+    HorizontalLine:{
+        borderBottomWidth: 1,
+        borderBottomColor: "rgba(0, 0, 0, 0.1)",
+        paddingHorizontal: 5
+    },
+    iconStyle: {
+        width: 14,
+        height: 14,
+        alignSelf:'center'
+    },
     productTitle: {
         fontSize: 15,
         color: "#000000",

@@ -1,3 +1,5 @@
+
+
 import React, { useState } from "react"
 import { View, Text, TextInput, ImageBackground } from "react-native"
 
@@ -11,54 +13,60 @@ import Apis from "../../Api/Apis"
 
 import { onRegisterUser } from "../../actions/authActions"
 import Spinner from 'react-native-loading-spinner-overlay';
-
+import SignUpHeader from "../../Components/CategoryProductComponents/CategoryHeader"
 import { connect } from "react-redux"
 
-const SignUpForm = ({ onRegisterUser, navigation }) => {
-    const [state, setState] = useState({
-        firstName: "",
-        lastName: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-        loading: false,
-        errors: {},
-        isErrorOccured: false
-    })
+class SignUpForm extends React.Component {
+    // const SignUpForm = ({ onRegisterUser, navigation }) => {
+    // const [state, setState] = useState({
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            firstName: "",
+            lastName: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+            loading: false,
+            errors: {},
+            isErrorOccured: false
+        }
+    }
     onChangeText = (key, val) => {
-        
+
         // setState(state => ({
         //     ...state,
-           
+
         // }))
 
 
 
-        if (state.isErrorOccured) {
+        if (this.state.isErrorOccured) {
             const user = {
-                email: state.email.trim(),
-                firstName: state.firstName.trim(),
-                lastName: state.lastName.trim()
+                email: this.state.email.trim(),
+                firstName: this.state.firstName.trim(),
+                lastName: this.state.lastName.trim()
             }
 
-            const { isValid, errors } = signUpValidation(user, state.password, state.confirmPassword)
+            const { isValid, errors } = signUpValidation(user, this.state.password, this.state.confirmPassword)
 
-            if(isValid) {
-                setState({
-                    ...state,
+            if (isValid) {
+                this.setState({
+                    // ...state,
                     errors: {},
                     [key]: val
                 })
             } else {
-                setState({
-                    ...state,
+                this.setState({
+                    // ...state,
                     errors: errors,
                     [key]: val
                 })
             }
         } else {
-            setState({
-                ...state,
+            this.setState({
+                // ...state,
                 [key]: val
             })
         }
@@ -66,15 +74,15 @@ const SignUpForm = ({ onRegisterUser, navigation }) => {
 
     handleSignUp = () => {
         const user = {
-            email: state.email.trim(),
-            firstName: state.firstName.trim(),
-            lastName: state.lastName.trim()
+            email: this.state.email.trim(),
+            firstName: this.state.firstName.trim(),
+            lastName: this.state.lastName.trim()
         }
 
-        const { isValid, errors } = signUpValidation(user, state.password, state.confirmPassword)
+        const { isValid, errors } = signUpValidation(user, this.state.password, this.state.confirmPassword)
         if (isValid) {
-            setState({
-                ...state,
+            this.setState({
+                // ...state,
                 errors: {},
                 loading: true,
                 isErrorOccured: true
@@ -82,15 +90,15 @@ const SignUpForm = ({ onRegisterUser, navigation }) => {
 
             axios
                 .post(Apis.register, {
-                    FirstName: state.firstName.trim(),
-                    LastName: state.lastName.trim(),
-                    Email: state.email.trim(),
-                    Password: state.password
+                    FirstName: this.state.firstName.trim(),
+                    LastName: this.state.lastName.trim(),
+                    Email: this.state.email.trim(),
+                    Password: this.state.password
                 })
                 .then(res => {
 
                     if (!res.data.code && res.data) {
-                        onRegisterUser({
+                        this.props.onRegisterUser({
                             userId: res.data.UserId.toString(),
                             firstName: res.data.FirstName,
                             lastName: res.data.LastName,
@@ -103,18 +111,17 @@ const SignUpForm = ({ onRegisterUser, navigation }) => {
                             scanse: []
                         })
 
-                        navigation.goBack()
-                        navigation.navigate("Home")
+                        this.props.navigation.navigate("Home")
                     }
 
-                    setState({
-                        ...state,
+                    this.setState({
+                        // ...state,
                         loading: false
                     })
                 })
                 .catch(err => {
-                    setState({
-                        ...state,
+                    this.setState({
+                        // ...state,
                         loading: false,
                         errors: {
                             email: "* Please Enter Unique Email"
@@ -122,8 +129,8 @@ const SignUpForm = ({ onRegisterUser, navigation }) => {
                     })
                 })
         } else {
-            setState({
-                ...state,
+            this.setState({
+                // ...state,
                 errors: errors,
                 isErrorOccured: true
             })
@@ -131,8 +138,8 @@ const SignUpForm = ({ onRegisterUser, navigation }) => {
     }
 
     handleRemoveValidation = (key) => {
-        setState({
-            ...state,
+        this.setState({
+            // ...state,
             errors: {
                 ...state.errors,
                 [key]: null
@@ -140,114 +147,125 @@ const SignUpForm = ({ onRegisterUser, navigation }) => {
         })
     }
 
-    const { errors } = state
-    return (
-        <Container style={{ flex: 1 }}>
-            <ImageBackground
-                source={require("../../Assets/BackgroundPicture/bg.png")}
-                style={{ flex: 1 }}
-            >
-            <Spinner
-                visible={state.loading}
-                textContent={""}
-            />
+    render() {
+        const { errors } = this.state
 
-            <TextInput
-                placeholder="First Name"
-                placeholderTextColor="#515C6F"
-                style={styles.inputBox}
-                value={state.firstName}
-                autoFocus={false}
-                autoCapitalize={"none"}
-                onChangeText={val => onChangeText("firstName", val)}
-                // onFocus={() => handleRemoveValidation("password")}
-            />
-            {errors.firstName &&
-                <Text
-                    style={styles.errorStyle}
+
+
+        return (
+            <Container style={{ flex: 1, }}>
+                <ImageBackground
+                    source={require("../../Assets/BackgroundPicture/bg.png")}
+                    style={{ flex: 1 }}
                 >
-                    {errors.firstName}
-                </Text>
-            }
+                    <SignUpHeader
+                        navigation={this.props.navigation}
+                        heading={"Sign Up"}
+                    />
+                    <View style={{ margin: 25 }}>
+                        <Spinner
+                            visible={this.state.loading}
+                            textContent={""}
+                        />
 
-            <TextInput
-                placeholder="Last Name"
-                placeholderTextColor="#515C6F"
-                style={styles.inputBox}
-                value={state.lastName}
-                autoFocus={false}
-                autoCapitalize={"none"}
-                onChangeText={val => onChangeText("lastName", val)}
-                // onFocus={() => handleRemoveValidation("firstName")}
-            />
-            {errors.lastName &&
-                <Text
-                    style={styles.errorStyle}
-                >
-                    {errors.lastName}
-                </Text>
-            }
+                        <TextInput
+                            placeholder="First Name"
+                            placeholderTextColor="#515C6F"
+                            style={styles.inputBox}
+                            value={this.state.firstName}
+                            autoFocus={false}
+                            autoCapitalize={"none"}
+                            onChangeText={val => this.onChangeText("firstName", val)}
+                        // onFocus={() => handleRemoveValidation("password")}
+                        />
+                        {errors.firstName &&
+                            <Text
+                                style={styles.errorStyle}
+                            >
+                                {errors.firstName}
+                            </Text>
+                        }
 
-            <TextInput
-                placeholder="Email"
-                placeholderTextColor="#515C6F"
-                style={styles.inputBox}
-                value={state.email}
-                autoFocus={false}
-                autoCapitalize={"none"}
-                onChangeText={val => onChangeText("email", val)}
-            />
-            {errors.email &&
-                <Text
-                    style={styles.errorStyle}
-                >
-                    {errors.email}
-                </Text>
-            }
+                        <TextInput
+                            placeholder="Last Name"
+                            placeholderTextColor="#515C6F"
+                            style={styles.inputBox}
+                            value={this.state.lastName}
+                            autoFocus={false}
+                            autoCapitalize={"none"}
+                            onChangeText={val => this.onChangeText("lastName", val)}
+                        // onFocus={() => handleRemoveValidation("firstName")}
+                        />
+                        {errors.lastName &&
+                            <Text
+                                style={styles.errorStyle}
+                            >
+                                {errors.lastName}
+                            </Text>
+                        }
 
-            <TextInput
-                placeholder="Password"
-                placeholderTextColor="#515C6F"
-                style={styles.inputBox}
-                value={state.password}
-                onChangeText={val => onChangeText("password", val)}
-                secureTextEntry={true}
-            />
-            {errors.password &&
-                <Text
-                    style={styles.errorStyle}
-                >
-                    {errors.password}
-                </Text>
-            }
+                        <TextInput
+                            placeholder="Email"
+                            placeholderTextColor="#515C6F"
+                            style={styles.inputBox}
+                            value={this.state.email}
+                            autoFocus={false}
+                            autoCapitalize={"none"}
+                            onChangeText={val => this.onChangeText("email", val)}
+                        />
+                        {errors.email &&
+                            <Text
+                                style={styles.errorStyle}
+                            >
+                                {errors.email}
+                            </Text>
+                        }
 
-            <TextInput
-                placeholder="Re-enter Password"
-                placeholderTextColor="#515C6F"
-                style={styles.inputBox}
-                value={state.confirmPassword}
-                onChangeText={val => onChangeText("confirmPassword", val)}
-                secureTextEntry={true}
-            />
-            {errors.confirmPassword &&
-                <Text
-                    style={styles.errorStyle}
-                >
-                    {errors.confirmPassword}
-                </Text>
-            }
+                        <TextInput
+                            placeholder="Password"
+                            placeholderTextColor="#515C6F"
+                            style={styles.inputBox}
+                            value={this.state.password}
+                            onChangeText={val => this.onChangeText("password", val)}
+                            secureTextEntry={true}
+                        />
+                        {errors.password &&
+                            <Text
+                                style={styles.errorStyle}
+                            >
+                                {errors.password}
+                            </Text>
+                        }
 
-            <Button
-                transparent
-                full
-                style={styles.signInButton}
-                onPress={() => handleSignUp()}
-            >
-                <Text style={styles.signInButtonText}>Sign Up</Text>
-            </Button>
-            </ImageBackground>
+                        <TextInput
+                            placeholder="Re-enter Password"
+                            placeholderTextColor="#515C6F"
+                            style={styles.inputBox}
+                            value={this.state.confirmPassword}
+                            onChangeText={val => this.onChangeText("confirmPassword", val)}
+                            secureTextEntry={true}
+                        />
+                        {errors.confirmPassword &&
+                            <Text
+                                style={styles.errorStyle}
+                            >
+                                {errors.confirmPassword}
+                            </Text>
+                        }
+
+                        <Button
+                            transparent
+                            full
+                            style={styles.signInButton}
+                            onPress={this.handleSignUp}
+                        >
+                            <Text style={styles.signInButtonText}>Sign Up</Text>
+                        </Button>
+                    </View>
+                </ImageBackground>
             </Container>
-    )
+        )
+    }
 }
 
 const mapDispatchToProps = dispatch => ({

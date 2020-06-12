@@ -32,10 +32,15 @@ export default StyleSheet.create({
         marginBottom: 10
     },
     menuText: {
-        fontSize: 12,
+        fontSize: 15,
+        // fontSize: 12,
+        fontFamily: "LexendDeca-Regular",
         color: "#515C6F",
-        fontFamily: "LexendDeca-Regular"
-        // fontFamily: "Poppins-Regular"
+        fontWeight:"bold"
+
+        // fontSize: 12,
+        // color: "#515C6F",
+        // fontFamily: "LexendDeca-Regular"
     },
     storeAndCompare: {
         fontSize: 12,

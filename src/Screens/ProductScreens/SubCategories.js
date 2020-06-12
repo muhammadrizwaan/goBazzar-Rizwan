@@ -78,7 +78,7 @@ class SubCategories extends React.Component {
                             img:  product.MainImage,
                             // img: product.ImageURL ? product.ImageURL : "https://www.apexrfc.com/web/sites/default/files/2020-03/product_image_not_available.png",
                             post_title: product.ProductName,
-                            price: product.RegularPrice ? product.RegularPrice.toFixed(2) : "100"
+                            price: product.RegularPrice ? product.RegularPrice.toFixed(2) : "0"
                         })
                     })
 

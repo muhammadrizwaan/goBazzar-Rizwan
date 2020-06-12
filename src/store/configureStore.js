@@ -9,6 +9,7 @@ import categoryProductsReducer from "../reducers/categoryProductsReducer"
 import filterReducer from "../reducers/filterReducer"
 import wishlistReducer from "../reducers/wishlistReducer"
 import compareReducer from "../reducers/compareReducer"
+import Pagenumber from '../reducers/PagenumberReducer';
 
 const initialState = {}
 
@@ -22,7 +23,8 @@ export default () => {
             categoryProducts: categoryProductsReducer,
             productFilters: filterReducer,
             userWishlist: wishlistReducer,
-            compareProducts: compareReducer
+            compareProducts: compareReducer,
+            // Pagenumber: Pagenumber
         }),
         initialState,
         applyMiddleware(thunk)

@@ -1,11 +1,12 @@
 const initialState = {
     category_product_loading: false,
-    category_products: []
+    category_products: [],
 }
 
 export default (state = initialState, action) => {
     switch (action.type) {
         case "ADD_CATEGORY_PRODUCTS_TYPE":
+            
             return {
                 ...state,
                 category_products: action.products

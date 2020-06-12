@@ -2,6 +2,13 @@ import axios from "axios"
 
 import Apis from "../Api/Apis"
 
+export const setPageNumber = () => ({
+    type: "SET_PAGENUMBER",
+})
+export const resetPageNumber = () => ({
+    type: "RESET_PAGENUMBER"
+})
+
 export const startCatalogCategoriesLoading = () => ({
     type: "FILTER_START_CATALOG_CATEGORIES_LOADING"
 })
@@ -49,10 +56,11 @@ export const clearProductFilters = () => ({
 })
 
 
+
 export const startSetCatalogCategories = (catalogId, categoryId = "", categoryName = "") => {
     return (dispatch, getState) => {
         dispatch(startCatalogCategoriesLoading());
-
+        // dispatch(resetPageNumber());
         // Fetch Categories By Catalog Id
         const categories = []
         axios

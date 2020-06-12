@@ -14,7 +14,13 @@ export default ({
             </Button>
         </Left>
         <Body>
-            <Text style={{ fontSize: 18, color: "#727C8E", fontWeight: "bold" }}>
+            <Text style={{ 
+                fontSize: 20,
+                color: "#8ea725",
+                fontWeight: 'bold',
+                fontFamily: "LexendDeca-Regular",
+                // fontSize: 18, color: "#727C8E", fontWeight: "bold" 
+                }}>
                 {heading}
             </Text>
         </Body>

@@ -87,8 +87,8 @@ class ProductDetail extends React.PureComponent {
                             stores: [],
                             totalRatingCount: res.data.Product.RatingValue,
                             isAddedToWishlist: res.data.Product.IsWishlist !== 0 ? true : false,
-                            regularPrice: res.data.Product.RegularPrice ? res.data.Product.RegularPrice.toFixed(2) : 1,
-                            offerPrice: res.data.Product.OfferPrice ? res.data.Product.OfferPrice.toFixed(2) : 1,
+                            regularPrice: res.data.Product.RegularPrice ? res.data.Product.RegularPrice.toFixed(2) : 0,
+                            offerPrice: res.data.Product.OfferPrice ? res.data.Product.OfferPrice.toFixed(2) : 0,
                             categoryCode: res.data.Product.CategoryCode,
                             categoryName: res.data.Product.CategoryName,
                             additionalValues: JSON.parse(res.data.Product.AdditionalProperty),
@@ -525,24 +525,28 @@ class ProductDetail extends React.PureComponent {
                     <View style={stylesbtn.ModalOuterView}>
                         <View style={{ marginTop: 10, marginHorizontal: 10 }}>
                             <Text style={stylesbtn.ModalText}>
-                                Login or Sign Up to use Wishlist
+                                {/* Login or Sign Up to use Wishlist */}
+                                Please login/signup to add items to your wishlist
                             </Text>
-                            <Button
-                                transparent
-                                full
-                                style={stylesbtn.signInButton}
-                                onPress={() => this.props.navigation.navigate('My Profile')}
-                            >
-                                <Text style={stylesbtn.signInButtonText}>Login</Text>
-                            </Button>
-                            <Button
-                                transparent
-                                full
-                                style={stylesbtn.signInButton}
-                                onPress={() => this.setState({ ModalState: false })}
-                            >
-                                <Text style={stylesbtn.signInButtonText}>Cancel</Text>
-                            </Button>
+                            <View style={stylesbtn.ModalInnerView}>
+                                <Button
+                                    transparent
+                                    full
+                                    style={stylesbtn.canselButton}
+                                    onPress={() => this.setState({ ModalState: false })}
+                                >
+                                    <Text style={[stylesbtn.signInButtonText, { color: "#ff9800" }]}>Cancel</Text>
+                                </Button>
+                                <Button
+                                    transparent
+                                    full
+                                    style={[stylesbtn.signInButton, { width: "49%", height: 36, }]}
+                                    onPress={() => this.props.navigation.navigate('My Profile', {
+                                        id: this.state.product_id
+                                    })}>
+                                    <Text style={stylesbtn.signInButtonText}>Login</Text>
+                                </Button>
+                            </View>
                         </View>
                     </View>
                 </Modal>

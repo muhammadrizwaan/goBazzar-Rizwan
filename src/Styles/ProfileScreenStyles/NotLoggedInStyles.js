@@ -35,6 +35,17 @@ export default StyleSheet.create({
         borderRadius: 20,
         marginTop: 25
     },
+    canselButton: {
+        alignSelf: "center",
+        height: 36,
+        borderRadius: 20,
+        marginTop: 25,
+        backgroundColor: "#E8E8E8",
+        width: "49%",
+        height: 36,
+        borderWidth: 1,
+        borderColor: "#ff9800"
+    },
     signInButtonText: {
         fontSize: 12,
         // fontFamily: "Poppins-Bold",
@@ -68,6 +79,7 @@ export default StyleSheet.create({
         color: '#515C6F',
         marginRight: 10
     },
+   
     signUpText: {
         // fontFamily: "Poppins-Bold",
         fontFamily: "LexendDeca-Regular",
@@ -82,15 +94,32 @@ export default StyleSheet.create({
         marginBottom: 5
     },
     ModalOuterView: {
-        height: 200,
-        backgroundColor: "#E8E8E8",
-        marginHorizontal: 20,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 7,
+
+        height: 170,
+        backgroundColor: "#F5F5F5",
+        // backgroundColor: "#E8E8E8",
         marginTop: 150,
-        borderRadius: 15
+        borderRadius: 15,
+        marginHorizontal: 20,
     },
+    ModalInnerView:{ 
+        flexDirection: 'row', 
+        justifyContent: 'space-between', 
+        marginHorizontal: 10, 
+        marginTop: 30 },
     ModalText: {
-        fontSize: 15,
-        // fontSize: 12,
+        alignSelf: 'center',
+        marginTop: 25,
+        // fontSize: 15,
+        fontSize: 12,
         color: "#515C6F",
         fontWeight: "bold",
         fontFamily: "LexendDeca-Regular",

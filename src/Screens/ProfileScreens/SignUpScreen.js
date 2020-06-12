@@ -10,11 +10,12 @@ import styles from "../../Styles/ProfileScreenStyles/NotLoggedInStyles"
 export default ({ navigation }) => (
     <Container >
         <SafeAreaView />
-        <SignUpHeader
+        {/* <SignUpHeader
             navigation={navigation}
             heading={"Sign Up"}
         />
-        <Content contentContainerStyle={{paddingHorizontal: 25, paddingVertical: 5}}>
+        <Content contentContainerStyle={{paddingHorizontal: 25}}> */}
+        <Content>
             <SignUpForm 
                 navigation={navigation}
             />
