@@ -28,18 +28,19 @@ class SignInForm extends React.Component {
             // ProductDetailID:this.props.navigation.state.params.id
         }
     }
-    componentDidMount(){
+    // componentDidMount(){
         // const { route, userId } = this.props
         // const ProductDetailID = route.params.id
-    }
+    // }
     onChangeText = (key, val) => {
         if (this.state.isErrorOccured) {
             const user = {
                 email: this.state.email.trim(),
-                firstName: this.state.firstName.trim(),
-                lastName: this.state.lastName.trim()
+                password: this.state.password.trim(),
+                // lastName: this.state.lastName.trim()
             }
-            const { isValid, errors } = signInValidation(this.state.email.trim(), this.state.password)
+            // const { isValid, errors } = signInValidation(this.state.email.trim(), this.state.password)
+            const { isValid, errors } = signInValidation(this.state.email, this.state.password)
             if (isValid) {
                 this.setState({
                     // ...state,
@@ -63,12 +64,18 @@ class SignInForm extends React.Component {
     }
 
     handleSignIn = () => {
-        const { isValid, errors } = signInValidation(this.state.email.trim(), this.state.password)
+        const user = {
+            email: this.state.email.trim(),
+            password: this.state.password.trim(),
+            // lastName: this.state.lastName.trim()
+        }
+        const { isValid, errors } = signInValidation(this.state.email, this.state.password)
         if (isValid) {
             this.setState({
                 // ...state,
                 errors: {},
-                loading: true
+                loading: true,
+                isErrorOccured: true
             })
 
             axios
@@ -77,7 +84,6 @@ class SignInForm extends React.Component {
                     Password: this.state.password
                 })
                 .then((res) => {
-                    console.warn(res)
                     if (!res.data.code && res.data) {
                         const user = {
                             userId: res.data.UserId.toString(),
@@ -91,6 +97,7 @@ class SignInForm extends React.Component {
                             review: [],
                             scans: []
                         }
+                        // console.log('user',user)
                         this.props.onRegisterUser(user)
                     }
 
@@ -137,6 +144,20 @@ class SignInForm extends React.Component {
             }
         })
     }
+    navigateForgetScreen(){
+        this.setState({
+            email: "",
+            password: "",
+        })
+        this.props.navigation.navigate('ForgetScreen')
+    }
+    navigateSignUpScreen(){
+        this.setState({
+            email: "",
+            password: "",
+        })
+        this.props.navigation.navigate('SignUpScreen')
+    }
 
     render() {
         const { errors } = this.state
@@ -152,8 +173,9 @@ class SignInForm extends React.Component {
                     placeholderTextColor="#515C6F"
                     style={styles.inputBox}
                     value={this.state.email}
-                    // autoFocus={false}
+                    // autoFocus={false} 
                     autoCapitalize={"none"}
+                    // onChangeText={val => this.onChangeText("email", val)}
                     onChangeText={val => this.onChangeText("email", val)}
                 // onFocus={() => handleRemoveValidation("password")}
                 />
@@ -190,6 +212,22 @@ class SignInForm extends React.Component {
                 >
                     <Text style={styles.signInButtonText}>Sign In</Text>
                 </Button>
+
+                <Text style={styles.noAccountText}
+                        onPress={() => this.navigateForgetScreen()}>
+                            {/* onPress={() => this.props.navigation.navigate('ForgetScreen')}> */}
+                        Forget Passwword?
+                    </Text>
+
+                    <Text style={styles.noAccountText}>
+                        Don't have an account?{" "}
+                        <Text
+                            style={styles.signUpText}
+                            onPress={() => this.navigateSignUpScreen()}
+                        >
+                            SIGN UP
+                    </Text>
+                    </Text>
             </View>
         )
     }

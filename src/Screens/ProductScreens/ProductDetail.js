@@ -64,7 +64,7 @@ class ProductDetail extends React.PureComponent {
         const { route, userId } = this.props
         const product_id = route.params.id
         this.setState({ loading: true });
-
+        console.log('product id',product_id)
         const related_products = [];
         if (product_id) {
             axios
@@ -76,6 +76,7 @@ class ProductDetail extends React.PureComponent {
                 })
                 .then(res => {
                     if (res.data) {
+                        console.log('all data',res.data)
                         const product = {
                             id: product_id,
                             name: res.data.Product.ProductName,
@@ -129,6 +130,8 @@ class ProductDetail extends React.PureComponent {
                             })
                         })
 
+                        console.log('related products',related_products)
+                        console.log('product detail',product)
                         this.setState({
                             product_detail: product,
                             related_products: related_products,
@@ -167,7 +170,8 @@ class ProductDetail extends React.PureComponent {
                                 createdBy: review.CreatedBy
                             })
                         })
-
+                        console.log('review before api',reviews);
+                        
                         this.setState({
                             reviews: reviews
                         })

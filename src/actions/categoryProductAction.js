@@ -31,6 +31,7 @@ export const removeAProductFromWishlist = (productId) => ({
 
 
 
+
 export const applyFilters = () => {
     return (dispatch, getState) => {
         const filters = getState().productFilters
@@ -50,8 +51,8 @@ export const applyFilters = () => {
                     StoreId: "",
                     FiltersortingId: filters.filtersortingId,
                     Search: filters.Search,
-                    // pagenumber:filters.PageNumber,
-                    pagenumber:"",
+                    pagenumber:filters.PageNumber,
+                    // pagenumber:"",
                 }
             }) 
             .then(res => {
@@ -63,7 +64,9 @@ export const applyFilters = () => {
                             categoryId: filters.CategoryId,
                             categoryName: filters.CategoryName,
                             post_title: item.ProductName,
-                            price: item.RegularPrice ? item.RegularPrice.toFixed(2) : 0
+                            price: item.RegularPrice ? item.RegularPrice.toFixed(2) : 0,
+                            offerPrice: item.OfferPrice ? item.OfferPrice.toFixed(2) : 0,
+                            storeImg:item.ImagePath? item.ImagePath:"https://www.apexrfc.com/web/sites/default/files/2020-03/product_image_not_available.png",
                         })
                     })
                     

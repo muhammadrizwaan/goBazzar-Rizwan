@@ -24,7 +24,7 @@ export default ({ navigation, review }) => (
             >
                 {review.name}
             </Text>
-
+            {/* Set Review Data in product detail screen */}
             <Text
                 style={{ ...styles.productTitle, marginVertical: 0, marginBottom: 5, color: "#515C6F", fontSize: 14 }}
                 numberOfLines={2}

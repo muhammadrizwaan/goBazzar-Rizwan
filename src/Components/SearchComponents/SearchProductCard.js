@@ -14,6 +14,7 @@ export default ({
     handleWishlistState,
     navigation
 }) => (
+
         <Item
             style={styles.searchProductContainer}
             onPress={() => navigation.navigate("ProductDetail", {
@@ -25,7 +26,7 @@ export default ({
                 source={{ uri: product.img }}
                 style={{ width: 70, height: 100, }}
             />
-            <View style={{ width: "70%", marginLeft: 20, alignItems: "flex-start" }}>
+            <View style={{ width: "70%", marginLeft: 20, }}>
                 <Text
                     style={{ ...styles.productTitle, marginVertical: 0, marginTop: 5, marginBottom: 2, color: "#515C6F", fontSize: 13 }}
                     numberOfLines={2}
@@ -46,17 +47,41 @@ export default ({
                 >
                     {product.description}
                 </Text> */}
-                <View style={styles.toolsContainer}>
-                    <Text
-                        style={{
-                            fontSize: 12,
-                            color: "#8EA625",
-                            fontWeight: "bold",
-                            marginTop: 5
-                        }}
-                    >
-                        {`AED ${product.price}`}
-                    </Text>
+                <View style={[styles.toolsContainer, { justifyContent: 'space-between', }]}>
+                    <View>
+                       {product.offerPrice === "0"?
+                       <View></View>:
+                       <Text
+                            style={{
+                                fontSize: 12,
+                                // color: "#8EA625",
+                                fontWeight: "bold",
+                                marginTop: 5,
+                                textDecorationLine: product.offerPrice ? 'line-through' : "none",
+                                color: product.offerPrice ? "#C9C9C9" : "#8EA625"
+                            }}
+                        >
+                            {`AED ${product.price}`}
+                        </Text>}
+                        <Text
+                            style={{
+                                fontSize: 12,
+                                color: "#8EA625",
+                                fontWeight: "bold",
+                                marginTop: 5,
+                                display: product.offerPrice ? "flex" : "none"
+                            }}
+                        >
+                            {product.offerPrice === "0"?`AED ${product.price}`:`AED ${product.offerPrice}`}
+                        </Text>
+                    </View>
+                    <Image
+                        resizeMode="contain"
+                        source={{ uri: product.storeImg }}
+                        style={{ width: 50, height: 50, }}
+                    />
+
+
                     {/* <StarRating
                         disabled={false}
                         maxStars={5}

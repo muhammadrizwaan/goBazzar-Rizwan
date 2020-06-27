@@ -13,6 +13,7 @@ export default ({ productRatings, averageRating }) => {
             style={{
                 ...styles.container,
                 padding:10,
+                // alignItems:'center',
 
             }}
         >
@@ -61,7 +62,7 @@ export default ({ productRatings, averageRating }) => {
                 <Body >
                    <Bar width={Dimensions.get("window").width - 80} color="#FF9800" progress={productRatings.AverageRating5/100} unfilledColor="#C4C4C4" borderWidth={0}/>
                 </Body>
-                <Right style={{ paddingLeft: 10,  paddingRight: 0}}>
+                <Right style={{ paddingLeft: 5,  paddingRight: 10}}>
                     <Text>{productRatings.Rating5}</Text>
                 </Right>
             </ListItem>
@@ -74,7 +75,7 @@ export default ({ productRatings, averageRating }) => {
                 <Body >
                    <Bar width={Dimensions.get("window").width - 80} color="#FF9800" progress={productRatings.AverageRating4/100} unfilledColor="#C4C4C4" borderWidth={0}/>
                 </Body>
-                <Right style={{ paddingLeft: 10, paddingRight: 0}}>
+                <Right style={{ paddingLeft: 5,  paddingRight: 10}}>
                     <Text>{productRatings.Rating4}</Text>
                 </Right>
             </ListItem>
@@ -87,7 +88,7 @@ export default ({ productRatings, averageRating }) => {
                 <Body >
                    <Bar width={Dimensions.get("window").width - 80} color="#FF9800" progress={productRatings.AverageRating3/100} unfilledColor="#C4C4C4" borderWidth={0}/>
                 </Body>
-                <Right style={{ paddingLeft: 10, paddingRight: 0}}>
+                <Right style={{ paddingLeft: 5,  paddingRight: 10}}>
                     <Text>{productRatings.Rating3}</Text>
                 </Right>
             </ListItem>
@@ -100,7 +101,7 @@ export default ({ productRatings, averageRating }) => {
                 <Body >
                    <Bar width={Dimensions.get("window").width - 80} color="#FF9800" progress={productRatings.AverageRating2/100} unfilledColor="#C4C4C4" borderWidth={0}/>
                 </Body>
-                <Right style={{ paddingLeft: 10, paddingRight: 0}}>
+                <Right style={{paddingLeft: 5,  paddingRight: 10}}>
                     <Text>{productRatings.Rating2}</Text>
                 </Right>
             </ListItem>
@@ -112,7 +113,7 @@ export default ({ productRatings, averageRating }) => {
                 <Body >
                    <Bar width={Dimensions.get("window").width - 80} color="#FF9800" progress={productRatings.AverageRating1/100} unfilledColor="#C4C4C4" borderWidth={0}/>
                 </Body>
-                <Right style={{ paddingLeft: 10, paddingRight: 0}}>
+                <Right style={{ paddingLeft: 5,  paddingRight: 10}}>
                     <Text>{productRatings.Rating1}</Text>
                 </Right>
             </ListItem>

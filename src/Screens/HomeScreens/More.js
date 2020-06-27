@@ -3,7 +3,7 @@ import { View, Text, SafeAreaView, StatusBar, ImageBackground } from "react-nati
 import { Container, Content, ListItem as Item, Left, Body, Right } from "native-base"
 import { createStackNavigator } from "@react-navigation/stack"
 import styles from "../../Styles/ProfileScreenStyles/LoggedInStyles"
-
+import Rate, { AndroidMarket } from 'react-native-rate'
 import MenuButtonTemplate from '../ProfileScreens/MenuButtonTemplate';
 import StoreAndCompare from '../ProfileScreens/StoreAndCompare';
 
@@ -67,18 +67,36 @@ const More = ({ navigation }) => (
                         onPress={() => navigation.navigate("FAQsScreen")}
                     />
 
-                    <MenuButtonTemplate
+                    {/* <MenuButtonTemplate
                         text="Feedback"
                         indicatorNumber={""}
                         onPress={() => navigation.navigate("FeedbackScreen")}
-                    />
+                    /> */}
 
                     <View style={styles.lineBreak} />
 
                     <MenuButtonTemplate
                         text="Rate our App"
                         indicatorNumber={""}
-                        onPress={() => { }}
+                        onPress={() => {
+                            const options = {
+                                AppleAppID:"2193813192",
+                                GooglePackageName:"com.mywebsite.myapp",
+                                AmazonPackageName:"com.mywebsite.myapp",
+                                OtherAndroidURL:"http://www.randomappstore.com/app/47172391",
+                                preferredAndroidMarket: AndroidMarket.Google,
+                                preferInApp:false,
+                                openAppStoreIfInAppFails:true,
+                                fallbackPlatformURL:"http://www.mywebsite.com/myapp.html",
+                              }
+                              Rate.rate(options, success=>{
+                                if (success) {
+                                  // this technically only tells us if the user successfully went to the Review Page. Whether they actually did anything, we do not know.
+                                //   this.setState({rated:true})
+                                console.log('Rate Success')
+                                }
+                              })
+                         }}
                     />
                 </Content>
             </ImageBackground>

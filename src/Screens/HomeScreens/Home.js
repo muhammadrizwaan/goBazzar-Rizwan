@@ -124,7 +124,8 @@ class Home extends PureComponent {
                         />
                         :
                         <ProductScroll
-                            products={props.laptops.slice(0, 4)}
+                            products={props.laptops}
+                        // products={props.laptops.slice(0, 4)}
                         />
                     }
 
@@ -134,7 +135,7 @@ class Home extends PureComponent {
                     <ProductHeadingSeparator
                         title="Mobiles"
                         buttonTitle="more"
-                        buttonAction={() => {  }}
+                        buttonAction={() => { }}
                         buttonAction={() => { props.navigation.navigate("MobileScreens") }}
                     />
                     {props.mobiles_loading ?
@@ -143,7 +144,8 @@ class Home extends PureComponent {
                         />
                         :
                         <ProductScroll
-                            products={props.mobiles.slice(0, 4)}
+                            products={props.mobiles}
+                        // products={props.mobiles.slice(0, 4)}
                         />
                     }
 
@@ -162,7 +164,8 @@ class Home extends PureComponent {
                         />
                         :
                         <ProductScroll
-                            products={props.watches.slice(0, 4)}
+                            products={props.watches}
+                        // products={props.watches.slice(0, 4)}
                         />
                     }
 
@@ -180,7 +183,7 @@ class Home extends PureComponent {
                             />
                             :
                             <ProductScroll
-                            // products={props.top_deals_products}
+                                // products={props.top_deals_products}
                                 products={props.recommended_products}
                             />}
                     </View>}
@@ -210,8 +213,8 @@ const mapStateToProps = state => ({
     laptops: state.homeProducts.laptops,
     watches: state.homeProducts.watches,
     //new lines
-    mobiles:state.homeProducts.mobiles,
-    mobiles_loading:state.loader.mobiles_loading,
+    mobiles: state.homeProducts.mobiles,
+    mobiles_loading: state.loader.mobiles_loading,
 
     laptops_loading: state.loader.laptops_loading,
     watches_loading: state.loader.watches_loading,

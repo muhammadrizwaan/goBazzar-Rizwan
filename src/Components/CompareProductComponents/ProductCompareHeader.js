@@ -38,11 +38,11 @@ export default ({ item }) => (
         <View style={{ flexDirection: 'row' }}>
             <Image
                 resizeMode="contain"
-                source={{ uri: item.MainImage }}
-                // source={{ uri: item.ImagePath }}
+                // source={{ uri: item.MainImage }}
+                source={{ uri: item.ImagePath }}
                 style={{ width: 50, height: 50, }}
             />
-            <View>
+            <View style={{marginTop:5}}>
                 {item.OfferPrice===0 ?<View></View>:<Text
                     style={{
                         // ...styles.product_price,

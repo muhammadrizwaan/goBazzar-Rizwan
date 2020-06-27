@@ -4,6 +4,9 @@ export default StyleSheet.create({
     container: {
         padding: 25
     },
+    container1: {
+        paddingHorizontal: 25
+    },
     nameText: {
          // fontSize: 18,
          fontSize: 20,

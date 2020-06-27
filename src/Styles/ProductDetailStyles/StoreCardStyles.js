@@ -23,11 +23,14 @@ export default StyleSheet.create({
         // alignItems: "center"
     },
     storeNameText: {
-        fontSize: 15,
-        // fontSize: 12,
-        color: "#515C6F",
-        fontWeight: "bold",
+        fontSize: 20,
+        color: "#8ea725",
+        fontWeight: 'bold',
         fontFamily: "LexendDeca-Regular",
+        // fontSize: 15,
+        // color: "#515C6F",
+        // fontWeight: "bold",
+        // fontFamily: "LexendDeca-Regular",
     },
     product_name: {
         marginBottom:5,

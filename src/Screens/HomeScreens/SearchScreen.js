@@ -1,6 +1,6 @@
 
 import React from "react"
-import { View, Text, StatusBar, SafeAreaView, Keyboard, FlatList, Image, Modal } from "react-native"
+import { View, Text, StatusBar, SafeAreaView, Keyboard, FlatList, Image, Modal, Alert } from "react-native"
 import { Container, Content } from "native-base"
 import SearchProductsBar from "../../Components/HomeComponents/SearchProductsBar"
 import SearchProducts from "../../Components/HomeComponents/SearchProducts";
@@ -24,8 +24,8 @@ import {
 } from "../../actions/categoryProductAction"
 import AsyncStorage from '@react-native-community/async-storage';
 import { removeProductFromUserWishlist, addProductToUserWishlist } from "../../actions/getWishlist"
-
 import { filterChangeCatalogId, startSetCatalogCategories, clearProductFilters, setPageNumber, resetPageNumber } from "../../actions/filterActions"
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 
 class SearchScreen extends React.Component {
@@ -42,94 +42,82 @@ class SearchScreen extends React.Component {
         PageNumber: 0,
         ModalState: true,
         date: '',
+        HistoryScreenData: "",
         HistoryData: [],
-        HideHistory: false
+        HideHistory: true
     }
     async componentDidMount() {
-        // try {
-        //     const myArray = await AsyncStorage.removeItem("Products");
-        //     if (myArray !== null) {
-        //         console.log('remove chache', myArray)
-        //         // this.setState({ CartProducts: JSON.parse(myArray) })
-        //     }
-        // }
-        // catch (e) {
-        //     console.log("Error in Async Storage to get cart products")
-        // }
-        // try {
-        const myArray = await AsyncStorage.getItem("Products");
-        console.log(myArray)
-        if (myArray != null) {
-            let arr = JSON.parse(myArray)
-            console.log('from assync', arr)
-            this.setState({ HistoryData: arr })
-            console.log('with if')
+
+        try {
+            const myArray = await AsyncStorage.getItem("Products");
+            if (myArray !== null) {
+                let arr = JSON.parse(myArray)
+                this.setState({ HistoryData: arr })
+            }
         }
-        else {
-            this.setState({ HideHistory: true })
+        catch (e) {
+            console.log("Error in Async Storage to get cart products")
         }
-        // }
-        // catch (e) {
-        //     console.log("Error in Async Storage to get History")
-        // }
+
     }
 
+    async NavigateForword() {
+        this.setState({
+            HistoryData: [],
+            search: ''
+        })
+        this.props.navigation.navigate("HistoryScreen")
+    }
     handleTextChange = (val) => {
         this.setState({
+            HideHistory: true,
+            products: [],
+            isSearched: false,
             search: val,
-        })
-
+        }, () => this.props.clearCategoryProducts()
+        )
+    }
+    async handleHistoryPress(val) {
+        await this.handleTextChange(val)
+        this.handleOnSearch()
     }
     getDateMethod = () => {
-        var date = new Date().getDate(); //Current Date
-        var month = new Date().getMonth() + 1; //Current Month
-        var year = new Date().getFullYear(); //Current Year
-        var hours = new Date().getHours(); //Current Hours
-        var min = new Date().getMinutes(); //Current Minutes
-        var sec = new Date().getSeconds(); //Current Seconds
+        var date = new Date().getDate();
+        var month = new Date().getMonth() + 1;
+        var year = new Date().getFullYear();
+        var hours = new Date().getHours();
+        var min = new Date().getMinutes();
+        var sec = new Date().getSeconds();
         return date + '/' + month + '/' + year + ' ' + hours + ':' + min + ':' + sec
-        // this.setState({ date: date + '/' + month + '/' + year + ' ' + hours + ':' + min + ':' + sec, })
     }
 
     handleOnSearch = async (val) => {
+
         let { search } = this.state;
-        console.log('search  value',this.state.search)
         this.props.clearCategoryProducts();
         this.props.resetPageNumber()
-        this.setState({
-            products: [],
-            PageNumber: 0,
-        })
+        this.setState({ HideHistory: false, loading: true })
         let SearchDate = this.getDateMethod()
-        let searchValue = this.state.search;
         let obj = {
-            Search: searchValue,
+            Search: search,
             date: SearchDate,
-
         }
-        this.setState({
-            HistoryData: [...this.state.HistoryData, obj]
-        })
-        // this.setState((prevState) => {
-        //     return {
-        //         HistoryData: [...prevState.HistoryData, obj]
-        //     }
-        // })
-        console.log('inner', this.state.HistoryData)
-        this.UpdateChache(this.state.HistoryData)
+        let array = this.state.HistoryData;
+        array.unshift(obj);
+        await this.UpdateChache(array)
 
-        this.props.filterSetSearchText(search)
-        this.props.applyFilters()
+        await this.props.filterSetSearchText(search)
+        await this.props.applyFilters()
         if (search.trim() < 0) {
             // Keyboard.dismiss()
         } else {
-            this.setState({ isSearched: true });
+            this.setState({ isSearched: true, loading: false });
         }
-        this.setState({ HideHistory: true })
+
     }
 
     UpdateChache = async (HistoryData) => {
-        await AsyncStorage.setItem("Products", JSON.stringify(this.state.HistoryData));
+        await AsyncStorage.setItem("Products", JSON.stringify(HistoryData));
     }
 
     handleSetSelectedCatalog = (id, text, img) => {
@@ -152,8 +140,73 @@ class SearchScreen extends React.Component {
     }
     fetchMore = async () => {
         this.props.setPageNumber();
-        // this.props.applyFilters()
-        // this.handleOnSearch()
+    }
+
+    HistoryBox() {
+
+
+        if (this.state.HideHistory) {
+            if (this.state.HistoryData.length > 0 && this.state.HistoryData.length < 2) {
+                return (
+                    <View style={[styles.HistoryOuterView, { height: 90 }]}>
+                        <Text style={styles.HistoryText}>History</Text>
+                        <View style={{ flexDirection: 'row', paddingHorizontal: 15, alignItems: 'center' }}>
+                            <Image
+                                source={require('../../Assets/HomeAssets/search.png')}
+                                style={styles.iconStyle}
+                            />
+                            <TouchableOpacity style={{ marginVertical: 10 }}
+                                onPress={() => this.handleHistoryPress(this.state.HistoryData[0].Search)}>
+                                <Text numberOfLines={1} style={[styles.HistoryInnerText, { fontSize: 15 }]}>{this.state.HistoryData[0].Search}</Text>
+                                <Text numberOfLines={1} style={styles.HistoryInnerText}>{this.state.HistoryData[0].date}</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                )
+            }
+            else if (this.state.HistoryData.length > 1) {
+                return (
+                    <View style={styles.HistoryOuterView}>
+                        <Text style={styles.HistoryText}>History</Text>
+                        <View style={{ flexDirection: 'row', paddingHorizontal: 15, alignItems: 'center' }}>
+                            <Image
+                                source={require('../../Assets/HomeAssets/search.png')}
+                                style={styles.iconStyle}
+                            />
+                            <TouchableOpacity style={{ marginVertical: 10 }}
+                                onPress={() => this.handleHistoryPress(this.state.HistoryData[0].Search)}>
+                                <Text numberOfLines={1} style={[styles.HistoryInnerText, { fontSize: 15 }]}>{this.state.HistoryData[0].Search}</Text>
+                                <Text numberOfLines={1} style={styles.HistoryInnerText}>{this.state.HistoryData[0].date}</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.HorizontalLine}></View>
+                        <View style={{ flexDirection: 'row', paddingHorizontal: 15, alignItems: 'center' }}>
+                            <Image
+                                source={require('../../Assets/HomeAssets/search.png')}
+                                style={styles.iconStyle}
+                            />
+                            <TouchableOpacity style={{ marginVertical: 10 }}
+                                onPress={() => this.handleHistoryPress(this.state.HistoryData[1].Search)}>
+                                <Text numberOfLines={1} style={[styles.HistoryInnerText, { fontSize: 15 }]}>{this.state.HistoryData[1].Search}</Text>
+                                <Text numberOfLines={1} style={styles.HistoryInnerText}>{this.state.HistoryData[1].date}</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.HorizontalLine}></View>
+                        <Text
+                            onPress={() => this.props.navigation.navigate("HistoryScreen")}
+                            style={[styles.HistoryInnerText, { fontSize: 15, marginHorizontal: 50, marginTop: 10, fontWeight: 'bold' }]}>
+                            More
+                </Text>
+                    </View>
+                )
+            }
+            else {
+                return (<View></View>)
+            }
+        }
+        else {
+            return (<View></View>)
+        }
     }
 
     componentWillUnmount() {
@@ -173,7 +226,6 @@ class SearchScreen extends React.Component {
                     <StatusBar backgroundColor="white" barStyle="dark-content" />
                     <SafeAreaView />
 
-
                     <SearchProductsBar
                         navigation={navigation}
                         search={search}
@@ -186,37 +238,7 @@ class SearchScreen extends React.Component {
                         handleSetSelectedCatalog={this.handleSetSelectedCatalog}
                     />
 
-
-                    {this.state.HideHistory ? <View></View> : <View style={styles.HistoryOuterView}>
-                        <Text style={styles.HistoryText}>History</Text>
-                        <View style={{ flexDirection: 'row', paddingHorizontal: 15, alignItems: 'center' }}>
-                            <Image
-                                source={require('../../Assets/HomeAssets/search.png')}
-                                style={styles.iconStyle}
-                            />
-                            <View style={{ marginVertical: 10 }}>
-                                <Text numberOfLines={1} style={[styles.HistoryInnerText, { fontSize: 15 }]}>History</Text>
-                                <Text numberOfLines={1} style={styles.HistoryInnerText}>History</Text>
-                            </View>
-                        </View>
-                        <View style={styles.HorizontalLine}></View>
-                        <View style={{ flexDirection: 'row', paddingHorizontal: 15, alignItems: 'center' }}>
-                            <Image
-                                source={require('../../Assets/HomeAssets/search.png')}
-                                style={styles.iconStyle}
-                            />
-                            <View style={{ marginVertical: 10 }}>
-                                <Text numberOfLines={1} style={[styles.HistoryInnerText, { fontSize: 15 }]}>History</Text>
-                                <Text numberOfLines={1} style={styles.HistoryInnerText}>History</Text>
-                            </View>
-                        </View>
-                        <View style={styles.HorizontalLine}></View>
-                        <Text
-                            // onPress={() => { this.props.navigation.navigate("HistoryScreen") }}
-                            style={[styles.HistoryInnerText, { fontSize: 15, marginHorizontal: 50, marginTop: 10, fontWeight: 'bold' }]}>
-                            More
-                            </Text>
-                    </View>}
+                    {this.HistoryBox()}
 
 
                     {this.state.isSearched ? <CategoryFilter
@@ -258,15 +280,48 @@ class SearchScreen extends React.Component {
                                                 source={{ uri: item.img }}
                                                 style={{ width: 70, height: 100, }}
                                             />
-                                            <View style={{ width: "70%", marginLeft: 20, alignItems: "flex-start" }}>
+                                            <View style={{ width: "70%", marginLeft: 20,  }}>
                                                 <Text
                                                     style={{ ...styles.productTitle, marginVertical: 0, marginTop: 5, marginBottom: 2, color: "#515C6F", fontSize: 13 }}
                                                     numberOfLines={2}
                                                 >
                                                     {item.post_title}
                                                 </Text>
-                                                <View style={styles.toolsContainer}>
-                                                    <Text
+                                                <View style={[styles.toolsContainer,{ justifyContent: 'space-between', }]}>
+                                                    <View>
+                                                        {item.offerPrice === "0" ?
+                                                            <View></View> :
+                                                            <Text
+                                                                style={{
+                                                                    fontSize: 12,
+                                                                    // color: "#8EA625",
+                                                                    fontWeight: "bold",
+                                                                    marginTop: 5,
+                                                                    textDecorationLine: item.offerPrice ? 'line-through' : "none",
+                                                                    color: item.offerPrice ? "#C9C9C9" : "#8EA625"
+                                                                }}
+                                                            >
+                                                                {`AED ${item.price}`}
+                                                            </Text>}
+                                                        <Text
+                                                            style={{
+                                                                fontSize: 12,
+                                                                color: "#8EA625",
+                                                                fontWeight: "bold",
+                                                                marginTop: 5,
+                                                                display: item.offerPrice ? "flex" : "none"
+                                                            }}
+                                                        >
+                                                            {item.offerPrice === "0" ? `AED ${item.price}` : `AED ${item.offerPrice}`}
+                                                        </Text>
+                                                    </View>
+                                                    <Image
+                                                        resizeMode="contain"
+                                                        source={{ uri: item.storeImg }}
+                                                        // source={{ uri: item.img }}
+                                                        style={{ width: 50, height: 50, }}
+                                                    />
+                                                    {/* <Text
                                                         style={{
                                                             fontSize: 12,
                                                             color: "#8EA625",
@@ -275,7 +330,7 @@ class SearchScreen extends React.Component {
                                                         }}
                                                     >
                                                         {`AED ${item.price}`}
-                                                    </Text>
+                                                    </Text> */}
                                                 </View>
                                             </View>
                                         </Item>

@@ -36,6 +36,7 @@ class CompareProductsScreen extends React.Component {
             })
             .then(res => {
                 if (res.data) {
+                    console.log('compare data',res.data)
                     this.setState({
                         loading: false,
                         compare_products: res.data

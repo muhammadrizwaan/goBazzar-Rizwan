@@ -32,7 +32,6 @@ class History extends React.Component {
             })
             .then(res => {
                 if(res) {
-                    // console.warn(res)
                     res.data.forEach(item => {
                         products.push({
                             ID: item.ProductCode,

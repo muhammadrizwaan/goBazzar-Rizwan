@@ -45,7 +45,7 @@ class StoreDetail extends React.Component {
         products: [],
         loading: false,
         products_loading: false,
-        PageNumber:0
+        PageNumber: 0
     }
     changeTab = (key) => {
         this.setState({
@@ -117,6 +117,8 @@ class StoreDetail extends React.Component {
                                 img: item.MainImage,
                                 post_title: item.ProductName,
                                 price: item.RegularPrice ? item.RegularPrice.toFixed(2) : 0,
+                                offerPrice: item.OfferPrice ? item.OfferPrice.toFixed(2) : 0,
+                                storeImg: item.ImagePath ? item.ImagePath : "https://www.apexrfc.com/web/sites/default/files/2020-03/product_image_not_available.png",
                                 // catalogId: item.CatalogueCode,
                                 ID: item.ProductCode,
                                 // description: item.ProductDesc
@@ -200,6 +202,8 @@ class StoreDetail extends React.Component {
                             img: item.MainImage,
                             post_title: item.ProductName,
                             price: item.RegularPrice ? item.RegularPrice.toFixed(2) : 0,
+                            offerPrice: item.OfferPrice ? item.OfferPrice.toFixed(2) : 0,
+                            storeImg:item.ImagePath? item.ImagePath:"https://www.apexrfc.com/web/sites/default/files/2020-03/product_image_not_available.png",
                             // catalogId: item.CatalogueCode,
                             ID: item.ProductCode,
                             // description: item.ProductDesc

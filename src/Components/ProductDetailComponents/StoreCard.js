@@ -36,8 +36,7 @@ export default ({
                 </Left>
                 <Body style={{ borderBottomWidth: 0 }}>
                     <View >
-                        {/* <Text numberOfLines={2} style={styles.product_name}>{store.post_title}</Text> */}
-                        {store.offerPrice===1?<View></View>:<Text
+                        {store.regularPrice === store.offerPrice? <View></View>:<Text
                             style={{
                                 ...styles.product_price,
                                 textDecorationLine: store.offerPrice ? 'line-through' : "none",
@@ -51,12 +50,11 @@ export default ({
                                 display: store.offerPrice ? "flex" : "none"
                             }}
                         >
-                            {store.offerPrice===1?`AED ${store.regularPrice}`:`AED ${store.offerPrice}`}
+                            {store.offerPrice?`AED ${store.offerPrice}`:`AED ${store.regularPrice}`}
                         </Text>
-                        {/* <Text style={styles.product_name}>Free Shipping</Text> */}
                     </View>
                 </Body>
-
+                            {/* Same regular and offer price */}
                 <Right style={{ borderBottomWidth: 0 }}>
                     <View style={{ width: 100, height: 40, }}>
                         <TouchableOpacity

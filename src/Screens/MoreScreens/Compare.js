@@ -74,7 +74,7 @@ class Compare extends React.Component {
                         source={require("../../Assets/BackgroundPicture/bg.png")}
                         style={{ flex: 1 }}
                     >
-                        <Content contentContainerStyle={styles.container}>
+                        <Content contentContainerStyle={styles.container1}>
                             {
                                 compare_items.length > 0
                                     ?

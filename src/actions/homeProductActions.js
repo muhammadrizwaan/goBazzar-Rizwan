@@ -105,7 +105,9 @@ export const fetchTopDeals = () => {
                             ID: deal.ProductId,
                             post_title: deal.ProductName,
                             img: deal.MainImage ? deal.MainImage : "https://www.apexrfc.com/web/sites/default/files/2020-03/product_image_not_available.png",
-                            price: deal.Price ? deal.Price : "0"
+                            offerPrice: deal.OfferPrice ? deal.OfferPrice.toFixed(2) : "0",
+                            price: deal.RegularPrice ? deal.RegularPrice.toFixed(2) :  "0",
+                            storeImg:deal.ImagePath? deal.ImagePath:"https://www.apexrfc.com/web/sites/default/files/2020-03/product_image_not_available.png",
                         })
                     })
                     dispatch(setTopDeals(top_deals))
@@ -188,8 +190,11 @@ export const fetchLaptopsAndWatches = () => {
                             ID: deal.ProductCode,
                             post_title: deal.ProductName,
                             img: deal.MainImage ? deal.MainImage : "https://www.apexrfc.com/web/sites/default/files/2020-03/product_image_not_available.png",
-                            price: deal.RegularPrice ? deal.RegularPrice.toFixed(2) : "0",
+                            // price: deal.RegularPrice ? deal.RegularPrice.toFixed(2) : "0",
+                            offerPrice: deal.OfferPrice ? deal.OfferPrice.toFixed(2) : "0",
+                            price: deal.RegularPrice ? deal.RegularPrice.toFixed(2) :  "0",
                             catalogId: deal.CatalogueCode,
+                            storeImg:deal.ImagePath? deal.ImagePath:"https://www.apexrfc.com/web/sites/default/files/2020-03/product_image_not_available.png",
                         })
                     })
 
@@ -200,8 +205,11 @@ export const fetchLaptopsAndWatches = () => {
                             ID: deal.ProductCode,
                             post_title: deal.ProductName,
                             img: deal.MainImage ? deal.MainImage : "https://www.apexrfc.com/web/sites/default/files/2020-03/product_image_not_available.png",
-                            price: deal.RegularPrice ? deal.RegularPrice.toFixed(2) : "0",
+                            // price: deal.RegularPrice ? deal.RegularPrice.toFixed(2) : "0",
+                            offerPrice: deal.OfferPrice ? deal.OfferPrice.toFixed(2) : "0",
+                            price: deal.RegularPrice ? deal.RegularPrice.toFixed(2) :  "0",
                             catalogId: deal.CatalogueCode,
+                            storeImg:deal.ImagePath? deal.ImagePath:"https://www.apexrfc.com/web/sites/default/files/2020-03/product_image_not_available.png",
                         })
                     })
 
@@ -212,8 +220,11 @@ export const fetchLaptopsAndWatches = () => {
                             ID: deal.ProductCode,
                             post_title: deal.ProductName,
                             img: deal.MainImage ? deal.MainImage : "https://www.apexrfc.com/web/sites/default/files/2020-03/product_image_not_available.png",
-                            price: deal.RegularPrice ? deal.RegularPrice.toFixed(2) : "0",
+                            // price: deal.RegularPrice ? deal.RegularPrice.toFixed(2) : "0",
+                            offerPrice: deal.OfferPrice ? deal.OfferPrice.toFixed(2) : "0",
+                            price: deal.RegularPrice ? deal.RegularPrice.toFixed(2) :  "0",
                             catalogId: deal.CatalogueCode,
+                            storeImg:deal.ImagePath? deal.ImagePath:"https://www.apexrfc.com/web/sites/default/files/2020-03/product_image_not_available.png",
                         })
                     })
 

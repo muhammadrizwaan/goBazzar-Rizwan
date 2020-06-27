@@ -1,7 +1,7 @@
 const initialState = {
     MinPrice: 0,
-    // MaxPrice: 4299,
-    MaxPrice: 1000000,
+    MaxPrice: 4299,
+    // MaxPrice: 1000000,
     CategoryId: "",
     CategoryName: "",
     CatalogId: "",

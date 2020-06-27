@@ -14,7 +14,9 @@ import styles from "../../Styles/ProductDetailStyles/ProductTabStyles"
 
 export default ({
     product = {},
+    // product,
     navigation,
+    data,
     handleAddProductToCompare,
     handleAddProductToWishlist,
     stores,
@@ -144,13 +146,15 @@ export default ({
                 <View>
                     <Text
                         style={{
-                            // fontSize: 13,
-                            fontSize: 15,
-                            color: "#000000",
+                            fontSize: 20,
+                            color: "#8ea725",
+                            fontWeight: 'bold',
                             fontFamily: "LexendDeca-Regular",
-                            // marginVertical: 10,
-                            // marginBottom:5,
-                            marginTop:20,
+
+                            // fontSize: 15,
+                            // color: "#000000",
+                            // fontFamily: "LexendDeca-Regular",
+                            marginTop: 20,
                             alignSelf: "center"
                         }}
                     >
@@ -161,10 +165,14 @@ export default ({
 
             {
                 stores.map(store => (
-                    <StoreCard
-                        key={store.id}
-                        store={store}
-                    />
+                    <View>
+                        {product.id === store.ID ?
+                            <View></View> :
+                            <StoreCard
+                                key={store.id}
+                                store={store}
+                            />}
+                    </View>
                 ))
             }
 

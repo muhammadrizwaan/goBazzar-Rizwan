@@ -37,7 +37,9 @@ class Reviews extends React.Component {
                             email: review.Email,
                             name: review.Name,
                             description: review.Description,
-                            createdBy: review.CreatedBy
+                            createdBy: review.CreatedBy,
+                            ProductName:review.ProductName,
+                            MainImage:review.MainImage
                         })
                     })
 

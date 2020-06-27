@@ -68,7 +68,7 @@ export default StyleSheet.create({
     toolsContainer: {
         display: "flex",
         flexDirection: "row",
-        alignItems:"center"
+        alignItems:"center",
     },
     ratingContainer: {
         height: 14,

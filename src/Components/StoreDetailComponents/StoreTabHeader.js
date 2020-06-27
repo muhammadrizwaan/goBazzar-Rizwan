@@ -1,7 +1,7 @@
 import React from "react"
-import { View, Text, Image, TouchableOpacity } from "react-native"
+import { View, Text, Image, TouchableOpacity, TextInput } from "react-native"
 // import StoreHeader from "../CategoryProductComponents/CategoryHeader"
-import { Item, Left, Right, Body,Input, Button } from "native-base"
+import { Item, Left, Right, Body, Input, Button } from "native-base"
 
 import StarRating from "react-native-star-rating"
 
@@ -15,10 +15,11 @@ import StoreSearch from "./StoreSearch"
 
 // import { Input, Button } from 'native-base'
 import Searchstyles from '../../Styles/HomeStyles/SearchBarStyles'
+// import { TextInput } from "react-native-gesture-handler"
 // import IoniIcons from "react-native-vector-icons/Ionicons"
 // import { Item, ListItem, Right, Left, Body } from "native-base"
 
-export default ({ navigation, activeTabKey, changeTab, store,search,handleTextChange,handleProductList  }) => (
+export default ({ navigation, activeTabKey, changeTab, store, search, handleTextChange, handleProductList }) => (
     <View style={styles.container}>
 
 
@@ -33,49 +34,66 @@ export default ({ navigation, activeTabKey, changeTab, store,search,handleTextCh
         <Text style={styles.storeName}>{store.storeName}</Text>
 
 
-    {/* add new lines */}
-    <Item
-        style={{
-            ...Searchstyles.container,
-            borderRadius: 20,
-            marginLeft: 20,
-            marginRight: 20,
-            height: 40,
-            marginTop: 20
-        }}
-    >
-        <Button transparent onPress={() => navigation.goBack()}>
-            <IoniIcons
-                name="ios-search"
-                size={20}
-                style={{
-                    marginTop: 4,
-                    color: "black",
-                    opacity: 0.4,
-                }}
-            />
-        </Button>
-
-        <Input
-            placeholder="Search Products"
-            placeholderTextColor="#000000"
+        {/* add new lines */}
+        <Item
             style={{
-                ...Searchstyles.inputStyle,
-                marginLeft: 5
+                ...Searchstyles.container,
+                borderRadius: 20,
+                marginLeft: 20,
+                marginRight: 20,
+                height: 40,
+                marginTop: 20
             }}
-            // autoFocus={true}
-            value={search}
+        >
+            <Button transparent onPress={() => navigation.goBack()}>
+                <IoniIcons
+                    name="ios-search"
+                    size={20}
+                    style={{
+                        marginTop: 4,
+                        color: "black",
+                        opacity: 0.4,
+                    }}
+                />
+            </Button>
+
+            {/* <Input
+                placeholder="Search Products"
+                placeholderTextColor="#000000"
+                style={{
+                    ...Searchstyles.inputStyle,
+                    marginLeft: 5
+                }}
+                autoCorrect={false}
+                underlineColorAndroid={'transparent'}
+                value={search}
                 onChangeText={(val) => {
                     handleTextChange(val)
                     handleProductList(val)
                 }}
-            returnKeyType="search"
-            // onSubmitEditing={handleOnSearch}
-            autoCapitalize={"none"}
-        // keyboardType="web-search"
-        />
+                returnKeyType="search"
+                autoCapitalize={"none"}
+            /> */}
+            <TextInput
+                placeholder="Search Products"
+                placeholderTextColor="#000000"
+                style={{ ...Searchstyles.inputStyle, marginLeft: 5 }}
+                autoCorrect={false}
+                spellCheck={false}
+                autoComplete={false}
+                underlineColorAndroid={'transparent'}
+                value={search}
+                onChangeText={(val) => {
+                    handleTextChange(val)
 
-    </Item>
+                }}
+                onSubmitEditing={(val) => {
+                    handleProductList(val)
+                }}
+                returnKeyType="search"
+                autoCapitalize={"none"}
+            />
+        </Item>
 
 
 
@@ -86,10 +104,10 @@ export default ({ navigation, activeTabKey, changeTab, store,search,handleTextCh
 
         {/* <View style={{ ...productStyles.toolsContainer, alignSelf: "center", marginVertical: 10 }}> */}
 
-            {/* <StoreSearch /> */}
+        {/* <StoreSearch /> */}
 
 
-            {/* <StarRating
+        {/* <StarRating
                 disabled={false}
                 maxStars={5}
                 rating={store.rating}
@@ -97,13 +115,13 @@ export default ({ navigation, activeTabKey, changeTab, store,search,handleTextCh
                 fullStarColor="#FFDB26"
                 halfStarColor="#FFDB26"
             /> */}
-            {/* <Text
+        {/* <Text
                 style={{ marginHorizontal: 5, opacity: 0.6 }}
             >
                 (25)
                     </Text> */}
 
-            {/* <View
+        {/* <View
                 style={productStyles.ratingContainer}
             >
                 <IoniIcons name="ios-star" style={{ color: "white" }} size={9} />

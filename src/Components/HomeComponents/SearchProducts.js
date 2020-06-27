@@ -30,6 +30,7 @@ export default ({
                             fontSize: 15,
                             // color: "#515C6F",
                             color: "#999999",
+                            alignSelf:'center',
                             fontFamily: "LexendDeca-Regular"
                         }}
                     >

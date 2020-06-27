@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Image, TouchableOpacity } from 'react-native'
+import { View, Text, Image, TouchableOpacity, TextInput } from 'react-native'
 import { Input, Button } from 'native-base'
 import styles from '../../Styles/HomeStyles/SearchBarStyles'
 
@@ -43,24 +43,43 @@ export default ({
                 />
             </Button>
 
-            <Input
+            {/* <Input
                 placeholder="What can we help you…"
                 placeholderTextColor="#000000"
                 style={styles.inputStyle}
                 autoFocus={true}
+                autoCorrect={false}
+                spellCheck={false}
+                autoComplete={false}
+                underlineColorAndroid={'transparent'}
                 value={search}
                 onChangeText={(val) => {
                     handleTextChange(val)
-                    // handleOnSearch(val)
                 }}
                 onSubmitEditing={(val) => {
-                    // handleTextChange(val)
                     handleOnSearch(val)
                 }}
                 returnKeyType="search"
-                // onSubmitEditing={handleOnSearch}
                 autoCapitalize={"none"}
-            // keyboardType="web-search"
+            /> */}
+            <TextInput
+                placeholder="What can we help you…"
+                placeholderTextColor="#000000"
+                style={[styles.inputStyle,{width:'85%'}]}
+                autoFocus={true}
+                autoCorrect={false}
+                spellCheck={false}
+                autoComplete={false}
+                underlineColorAndroid={'transparent'}
+                value={search}
+                onChangeText={(val) => {
+                    handleTextChange(val)
+                }}
+                onSubmitEditing={(val) => {
+                    handleOnSearch(val)
+                }}
+                returnKeyType="search"
+                autoCapitalize={"none"}
             />
             <TouchableOpacity
                 style={styles.barCodeIconStyle}
