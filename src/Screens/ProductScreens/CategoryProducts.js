@@ -53,7 +53,9 @@ class CategoryProducts extends React.Component {
                             categoryName: item.CategoryName,
                             post_title: item.ProductName,
                             price: item.Price ? `${item.Price.toFixed(2)}` : 0,
-                            isAddedToWishlist: item.IsWIshlList !== 0 ? true : false
+                            isAddedToWishlist: item.IsWIshlList !== 0 ? true : false,
+                            offerPrice: item.OfferPrice ? item.OfferPrice.toFixed(2) : 0,
+                            storeImg:item.ImagePath? item.ImagePath:"https://www.apexrfc.com/web/sites/default/files/2020-03/product_image_not_available.png",
                         }
 
                         products.push(newItem)

@@ -42,7 +42,7 @@ export default ({ item }) => (
                 source={{ uri: item.ImagePath }}
                 style={{ width: 50, height: 50, }}
             />
-            <View style={{marginTop:5}}>
+            <View style={{marginTop:5, marginLeft:10}}>
                 {item.OfferPrice===0 ?<View></View>:<Text
                     style={{
                         // ...styles.product_price,

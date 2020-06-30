@@ -46,8 +46,11 @@ export const startSetUserWishlist = () => {
                             productName: item.ProductName,
                             productId: item.ProductCode,
                             img: item.MainImage,
-                            price: item.RegularPrice,
-                            categoryId: item.CategoryCode
+                            // price: item.RegularPrice,
+                            price: item.RegularPrice ? item.RegularPrice.toFixed(2) :  "0",
+                            offerPrice: item.OfferPrice ? item.OfferPrice.toFixed(2) : "0",
+                            categoryId: item.CategoryCode,
+                            storeImg:item.ImagePath? item.ImagePath:"https://www.apexrfc.com/web/sites/default/files/2020-03/product_image_not_available.png",
                         })
                     })
 

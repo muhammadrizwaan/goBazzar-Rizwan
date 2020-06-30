@@ -52,9 +52,9 @@ class ProductTemplate extends React.Component {
                                 autoHide: true,
                                 hideOnPress: true,
                                 floating: true,
-                                duration:15000,
-                                titleStyle:{
-                                    fontSize:10
+                                duration: 15000,
+                                titleStyle: {
+                                    fontSize: 10
                                 },
                                 style: {
                                     justifyContent: 'center',
@@ -98,16 +98,48 @@ class ProductTemplate extends React.Component {
                     source={{ uri: wishlist.img }}
                     style={{ width: 77, height: 77, borderRadius: 20, }}
                 />
-                <View style={{ width: "60%", marginLeft: 20, alignItems: "flex-start" }}>
+                <View style={{ width: "60%", marginLeft: 20,  }}>
                     <Text
                         style={{ ...styles.productTitle, marginVertical: 5, color: "#515C6F" }}
                         numberOfLines={2}
                     >
                         {wishlist.productName}
                     </Text>
-                    <View style={{ ...styles.priceContainer }}>
-                        <Text style={{ ...styles.cPriceText, alignSelf: "flex-end", marginRight: 5 }}>AED</Text>
-                        <Text style={styles.product_price}>{wishlist.price}</Text>
+                    <View style={{ ...styles.priceContainer, justifyContent:'space-between' }}>
+                        {/* <Text style={{ ...styles.cPriceText, alignSelf: "flex-end", marginRight: 5 }}>AED</Text>
+                        <Text style={styles.product_price}>{wishlist.price}</Text> */}
+                        <View>
+                            {wishlist.offerPrice === "0" ?
+                                <View></View> :
+                                <Text
+                                    style={{
+                                        fontSize: 12,
+                                        // color: "#8EA625",
+                                        fontWeight: "bold",
+                                        marginTop: 5,
+                                        textDecorationLine: wishlist.offerPrice ? 'line-through' : "none",
+                                        color: wishlist.offerPrice ? "#C9C9C9" : "#8EA625"
+                                    }}
+                                >
+                                    {`AED ${wishlist.price}`}
+                                </Text>}
+                            <Text
+                                style={{
+                                    fontSize: 12,
+                                    color: "#8EA625",
+                                    fontWeight: "bold",
+                                    marginTop: 5,
+                                    display: wishlist.offerPrice ? "flex" : "none"
+                                }}
+                            >
+                                {wishlist.offerPrice === "0" ? `AED ${wishlist.price}` : `AED ${wishlist.offerPrice}`}
+                            </Text>
+                        </View>
+                        <Image
+                            resizeMode="contain"
+                            source={{ uri: wishlist.storeImg }}
+                            style={{ width: 50, height: 50, }}
+                        />
                     </View>
 
                     {/* <TouchableOpacity style={{marginTop: "auto", marginRight: 10 }}>
